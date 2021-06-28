@@ -1,0 +1,339 @@
+/* make changes carefully! */
+/* this stylesheet controls styling for all first-party FormIt plugins */
+
+/* contains stacked sections: header/content/footer */
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width:100%;
+    height:100%;
+    overflow: hidden;
+}
+
+/* the area between the header and the footer */
+.contentContainer
+{
+    font-family: Arial;
+    padding-left: 10px;
+    padding-right: 10px;
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+/* typical body text */
+.contentContainer p,
+.contentContainer ul,
+#pluginFooterContainer ul {
+    line-height: 20px;
+}
+
+.contentContainer .codeSnippet {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+/* unordered lists */
+.contentContainer ul,
+#pluginFooterContainer ul {
+    margin-bottom: 0;
+}
+
+.contentContainer li {
+    list-style-type: none;
+    position: relative;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    margin-left: -1.5em;
+}
+
+.contentContainer li:before {
+    content: ' ';
+    display: block;
+    width: 5px;
+    height: 5px;
+    background: grey;
+    position: absolute;
+    top: 6px;
+    left: -15px;
+}
+
+/* top-level header, for distinguishing between multiple sections in one plugin*/
+h1 {
+    margin-top: 20px;
+    font-size: 20px;
+    font-family: Arial;
+    color: grey;
+}
+
+h1:first-of-type {
+    margin-top: 10px;
+}
+
+/* sub-header, for describing the plugin or sub-plugin */
+
+#pluginSubheaderContainer {
+    margin-top: 1.75em;
+    margin-bottom: 0em;
+}
+
+#pluginSubheaderContainer p {
+    margin: 0px;
+    font-weight: bold;
+    color: dimgrey;
+}
+
+#pluginSubheaderDescription {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* forms + inputs */
+.contentContainer form {
+    font-family: Arial;
+    margin-left: 0px;
+}
+
+.contentContainer .inputLabel {
+    width: auto;
+    align-self: center;
+}
+
+.contentContainer input {
+    border: 1px solid #4676a9;
+    padding: 4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.contentContainer input:hover {
+    border: 2px solid #c3e8f4;
+    padding: 3px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    outline: none;
+}
+
+.contentContainer input[type=number] {
+    width: 30%;
+}
+
+/* checkbox */
+.contentContainer input[type=checkbox] {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 7px;
+}
+
+/* button */
+.contentContainer input[type=button], input[type=submit] {
+    display: block;
+    color: white;
+    background-color: #4676a9;
+    border: 1px solid #4676a9;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    padding: 7px;
+    outline: none;
+    width: auto;
+}
+
+.contentContainer input[type=button]:hover, input[type=submit]:hover {
+    color: white;
+    background-color: #4676a9;
+    border: 2px solid #c3e8f4;
+    padding: 6px;
+}
+
+.contentContainer input[type=button]:focus, input[type=submit]:focus {
+    color: white;
+    background-color: #4676a9;
+    border: 2px solid #c3e8f4;
+    padding: 6px;
+    outline: none;
+}
+
+.contentContainer input[type=button]:disabled {
+    color: white;
+    background-color: darkgrey;
+    border: 1px solid darkgrey;
+    outline: none;
+    width: auto;
+}
+
+/* typical button with info toggle */
+#buttonWithInfoToggleRow {
+    display: flex;
+    align-items: center;
+}
+
+#buttonWithInfoToggle {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* the info toggle */
+#infoToggle {
+    padding: 5px;
+    margin-left: 5px;
+    height: 20px;
+}
+
+#infoToggle:hover {
+    background-color: #c3e8f4;
+}
+
+.infoToggleActive {
+    background-color: #c3e8f4;
+}
+
+.infoToggleInactive {
+    background-color: transparent;
+}
+
+/* the info toggle */
+#infoToggleDescription {
+    padding: 5px;
+    border: 5px solid #c3e8f4;
+    background: white;
+}
+
+/* deselect module */
+#deselectButtonRow {
+    display: flex;
+    align-items: center;
+}
+
+/* deselect button */
+#deselectButtonRow #deselectButton {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+#deselectButtonRow #deselectButton:hover {
+    background-color: #c3e8f4;
+}
+
+/* contains an input and its label */
+.inputModuleContainer {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* used for the first input module after header/instructions */
+.inputModuleContainerTop {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* used when the input module is not part of a layout with other input modules */
+.inputModuleContainerStandalone {
+    margin-bottom: 0px;
+}
+
+/* contains multiple modules */
+.multiModuleContainer {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* hide and show UI based on logic */
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+/* typical horizontal spacer */
+.horizontalSpacer {
+    display: block;
+    height: 10px;
+}
+
+/* information containers - primarily used in Properties Plus */
+.infoContainer {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #ededed;
+    font-family: Arial;
+    padding: 10px;
+}
+
+.infoHeader {
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.infoList {
+    line-height: 25px;
+}
+
+.infoListIndented {
+    line-height: 25px;
+    padding-left: 20px;
+}
+
+/* unsupported version container */
+#unsupportedVersionContainer {
+    background-color: #f2f2f2;
+    padding: 10px 10px 30px 10px;
+    margin-top: 20px;
+}
+
+#unsupportedVersionContainer #unsupportedVersionIcon {
+    float: left;
+    margin: 20px 20px 10px 10px;
+}
+
+#unsupportedVersionContainer a {
+    color: #4676a9;
+    text-decoration: none;
+}
+
+/* the footer: information about plugins, maybe some day a link to this plugin's change log */
+#pluginFooterDiv {
+    background-color: #f2f2f2;
+    font-family: sans-serif;
+    padding: 15px;
+}
+
+#pluginFooterContainer {
+    flex-shrink: 0;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+#pluginFooterContainer a {
+    color: #4676a9;
+    text-decoration: none;
+}
+
+#pluginFooterContainer a:hover {
+    color: rgb(158, 189, 199);
+}
+
+#pluginFooterContainer a:visited {
+    color: #4676a9;
+}
+
+#pluginFooterContainer #pluginFooterIcon {
+    float: left;
+    margin: 15px 25px 35px 15px;
+}
+
+#pluginFooterContainer li {
+    list-style-type: none;
+    position: relative;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
