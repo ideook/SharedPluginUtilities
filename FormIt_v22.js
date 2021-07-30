@@ -1025,7 +1025,7 @@ nHistoryID: nHistoryID,
             return callAsyncAPI(args);
         };
 
-        window.WSM.APIRayFireSortedReadOnly = function(nHistoryID,line3dPickRay,dRayRadius,bVertices,bEdges,bFaces,dMaxParam,bSearchInGroups) {
+        window.WSM.APIRayFireSortedReadOnly = function(nHistoryID,line3dPickRay,dRayRadius,bVertices,bEdges,bFaces,dMaxParam,bSearchInGroups,aIgnoreObjects) {
             args = {
                 TestAPI: "WSM.APIRayFireSortedReadOnly",
 nHistoryID: nHistoryID,
@@ -1035,12 +1035,13 @@ nHistoryID: nHistoryID,
     bEdges: bEdges,
     bFaces: bFaces,
     dMaxParam: dMaxParam,
-    bSearchInGroups: bSearchInGroups
+    bSearchInGroups: bSearchInGroups,
+    aIgnoreObjects: aIgnoreObjects
             };
             return callAsyncAPI(args);
         };
 
-        window.WSM.APIIntersectsNegativeSideOfPlanesReadOnly = function(nHistoryID,aPlanes,dTol,bVertices,bEdges,bFaces,bStrict,line3dPickRay,bSearchInGroups,bPickInstances) {
+        window.WSM.APIIntersectsNegativeSideOfPlanesReadOnly = function(nHistoryID,aPlanes,dTol,bVertices,bEdges,bFaces,bStrict,line3dPickRay,bSearchInGroups,bPickInstances,aIgnoreObjects) {
             args = {
                 TestAPI: "WSM.APIIntersectsNegativeSideOfPlanesReadOnly",
 nHistoryID: nHistoryID,
@@ -1052,7 +1053,8 @@ nHistoryID: nHistoryID,
     bStrict: bStrict,
     line3dPickRay: line3dPickRay,
     bSearchInGroups: bSearchInGroups,
-    bPickInstances: bPickInstances
+    bPickInstances: bPickInstances,
+    aIgnoreObjects: aIgnoreObjects
             };
             return callAsyncAPI(args);
         };
@@ -3499,16 +3501,6 @@ objectIds: objectIds,
             return callAsyncAPI(args);
         };
 
-        window.WSM.Utils.RemoveHiddenObjects = function(nHistoryID,aObjectIDs,aObjectsInGroupsVec) {
-            args = {
-                TestAPI: "WSM.Utils.RemoveHiddenObjects",
-nHistoryID: nHistoryID,
-        aObjectIDs: aObjectIDs,
-        aObjectsInGroupsVec: aObjectsInGroupsVec
-            };
-            return callAsyncAPI(args);
-        };
-
         window.WSM.Utils.SelectionFromGroupInstancePathArray = function(aInput) {
             args = {
                 TestAPI: "WSM.Utils.SelectionFromGroupInstancePathArray",
@@ -3673,6 +3665,15 @@ nHistoryID: nHistoryID,
             };
             return callAsyncAPI(args);
         };
+
+        window.WSM.Utils.IsOwnerOf = function(parent,child) {
+            args = {
+                TestAPI: "WSM.Utils.IsOwnerOf",
+parent: parent,
+        child: child
+            };
+            return callAsyncAPI(args);
+        };
 window.WSM.AppHelper = window.WSM.AppHelper || {};
 
         window.WSM.AppHelper.Initialize = function() {
@@ -3718,14 +3719,13 @@ nFromHistoryID: nFromHistoryID,
             return callAsyncAPI(args);
         };
 
-        window.WSM.Atf.APILoadWithATF = function(nHistoryID,sFilePath,eFileType,nOptions,nUnits) {
+        window.WSM.Atf.APILoadWithATF = function(nHistoryID,sFilePath,eFileType,nOptions) {
             args = {
                 TestAPI: "WSM.Atf.APILoadWithATF",
 nHistoryID: nHistoryID,
         sFilePath: sFilePath,
         eFileType: eFileType,
-        nOptions: nOptions,
-        nUnits: nUnits
+        nOptions: nOptions
             };
             return callAsyncAPI(args);
         };
@@ -4169,12 +4169,13 @@ bTouchEnabled: bTouchEnabled
             return callAsyncAPI(args);
         };
 
-        window.FormIt.ImportFile = function(sFileName,bGroupImport,nHistoryID) {
+        window.FormIt.ImportFile = function(sFileName,bGroupImport,nHistoryID,bKeepLevelsWhenGrouping) {
             args = {
                 TestAPI: "FormIt.ImportFile",
 sFileName: sFileName,
     bGroupImport: bGroupImport,
-    nHistoryID: nHistoryID
+    nHistoryID: nHistoryID,
+    bKeepLevelsWhenGrouping: bKeepLevelsWhenGrouping
             };
             return callAsyncAPI(args);
         };
@@ -4190,14 +4191,6 @@ sFileName: sFileName
         window.FormIt.LoadPreviewImage = function(sFileName) {
             args = {
                 TestAPI: "FormIt.LoadPreviewImage",
-sFileName: sFileName
-            };
-            return callAsyncAPI(args);
-        };
-
-        window.FormIt.OpenFile = function(sFileName) {
-            args = {
-                TestAPI: "FormIt.OpenFile",
 sFileName: sFileName
             };
             return callAsyncAPI(args);
@@ -4241,53 +4234,6 @@ renderdata: renderdata
         window.FormIt.GetTimeNow = function() {
             args = {
                 TestAPI: "FormIt.GetTimeNow"
-            };
-            return callAsyncAPI(args);
-        };
-
-        window.FormIt.FitToModel = function(aIncludeImage,withTransition) {
-            args = {
-                TestAPI: "FormIt.FitToModel",
-aIncludeImage: aIncludeImage,
-    withTransition: withTransition
-            };
-            return callAsyncAPI(args);
-        };
-
-        window.FormIt.FitToSelection = function(withTransition) {
-            args = {
-                TestAPI: "FormIt.FitToSelection",
-withTransition: withTransition
-            };
-            return callAsyncAPI(args);
-        };
-
-        window.FormIt.HomeView3d = function(withTransition) {
-            args = {
-                TestAPI: "FormIt.HomeView3d",
-withTransition: withTransition
-            };
-            return callAsyncAPI(args);
-        };
-
-        window.FormIt.TopView = function() {
-            args = {
-                TestAPI: "FormIt.TopView"
-            };
-            return callAsyncAPI(args);
-        };
-
-        window.FormIt.SetViewDirection = function(type) {
-            args = {
-                TestAPI: "FormIt.SetViewDirection",
-type: type
-            };
-            return callAsyncAPI(args);
-        };
-
-        window.FormIt.GetViewDirection = function() {
-            args = {
-                TestAPI: "FormIt.GetViewDirection"
             };
             return callAsyncAPI(args);
         };
@@ -4462,6 +4408,15 @@ show: show
             return callAsyncAPI(args);
         };
 
+        window.FormIt.FindLatestVersion = function(versionJsonString,testVersion) {
+            args = {
+                TestAPI: "FormIt.FindLatestVersion",
+versionJsonString: versionJsonString,
+    testVersion: testVersion
+            };
+            return callAsyncAPI(args);
+        };
+
         window.FormIt.ImportToGroup = function(sFileType,sFilePath) {
             args = {
                 TestAPI: "FormIt.ImportToGroup",
@@ -4476,6 +4431,22 @@ sFileType: sFileType,
                 TestAPI: "FormIt.CallJS",
 funcName: funcName,
     paramsJSON: paramsJSON
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.SetLocaleForWeb = function(nameCode) {
+            args = {
+                TestAPI: "FormIt.SetLocaleForWeb",
+nameCode: nameCode
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.ConsoleLog = function(msg) {
+            args = {
+                TestAPI: "FormIt.ConsoleLog",
+msg: msg
             };
             return callAsyncAPI(args);
         };
@@ -5246,14 +5217,6 @@ historyId: historyId
             };
             return callAsyncAPI(args);
         };
-
-        window.FormIt.Dynamo.StringToLength = function(lengthStr) {
-            args = {
-                TestAPI: "FormIt.Dynamo.StringToLength",
-lengthStr: lengthStr
-            };
-            return callAsyncAPI(args);
-        };
 window.FormIt.Files = window.FormIt.Files || {};
 
         window.FormIt.Files.GetSupportedFilesList = function(action,type,dialogType) {
@@ -5660,6 +5623,15 @@ layerName: layerName
                 TestAPI: "FormIt.Layers.SetLayerPickable",
 layerID: layerID,
         pickable: pickable
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.Layers.SetLoadInRevit = function(layerID,load) {
+            args = {
+                TestAPI: "FormIt.Layers.SetLoadInRevit",
+layerID: layerID,
+        load: load
             };
             return callAsyncAPI(args);
         };
@@ -6246,6 +6218,14 @@ afterSceneName: afterSceneName
             return callAsyncAPI(args);
         };
 
+        window.FormIt.Scenes.AddNewSceneToAnimation = function(animationName) {
+            args = {
+                TestAPI: "FormIt.Scenes.AddNewSceneToAnimation",
+animationName: animationName
+            };
+            return callAsyncAPI(args);
+        };
+
         window.FormIt.Scenes.GetScene = function(sceneName) {
             args = {
                 TestAPI: "FormIt.Scenes.GetScene",
@@ -6398,6 +6378,14 @@ oldPos: oldPos,
             return callAsyncAPI(args);
         };
 
+        window.FormIt.Scenes.GetNumberOfScenesWithAnimation = function(animationName) {
+            args = {
+                TestAPI: "FormIt.Scenes.GetNumberOfScenesWithAnimation",
+animationName: animationName
+            };
+            return callAsyncAPI(args);
+        };
+
         window.FormIt.Scenes.GetPauseTime = function(sceneName) {
             args = {
                 TestAPI: "FormIt.Scenes.GetPauseTime",
@@ -6515,10 +6503,12 @@ sceneName: sceneName
             return callAsyncAPI(args);
         };
 
-        window.FormIt.Scenes.SetEditCameras = function(bEditCameras) {
+        window.FormIt.Scenes.SetEditCameras = function(bEditCameras,animationName,sceneName) {
             args = {
                 TestAPI: "FormIt.Scenes.SetEditCameras",
-bEditCameras: bEditCameras
+bEditCameras: bEditCameras,
+        animationName: animationName,
+        sceneName: sceneName
             };
             return callAsyncAPI(args);
         };
@@ -6529,33 +6519,132 @@ bEditCameras: bEditCameras
             };
             return callAsyncAPI(args);
         };
-window.FormIt.LumionLiveSync = window.FormIt.LumionLiveSync || {};
 
-        window.FormIt.LumionLiveSync.Start = function() {
+        window.FormIt.Scenes.AddSceneAnimation = function() {
             args = {
-                TestAPI: "FormIt.LumionLiveSync.Start"
+                TestAPI: "FormIt.Scenes.AddSceneAnimation"
             };
             return callAsyncAPI(args);
         };
 
-        window.FormIt.LumionLiveSync.End = function() {
+        window.FormIt.Scenes.RemoveAnimation = function(animationName) {
             args = {
-                TestAPI: "FormIt.LumionLiveSync.End"
+                TestAPI: "FormIt.Scenes.RemoveAnimation",
+animationName: animationName
             };
             return callAsyncAPI(args);
         };
 
-        window.FormIt.LumionLiveSync.SyncLumionCamera = function() {
+        window.FormIt.Scenes.GetSceneAnimations = function() {
             args = {
-                TestAPI: "FormIt.LumionLiveSync.SyncLumionCamera"
+                TestAPI: "FormIt.Scenes.GetSceneAnimations"
             };
             return callAsyncAPI(args);
         };
 
-        window.FormIt.LumionLiveSync.FollowLumionCamera = function(bFollowCamera) {
+        window.FormIt.Scenes.GetSceneAnimation = function(animationName) {
             args = {
-                TestAPI: "FormIt.LumionLiveSync.FollowLumionCamera",
-bFollowCamera: bFollowCamera
+                TestAPI: "FormIt.Scenes.GetSceneAnimation",
+animationName: animationName
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.Scenes.GetSceneNamesFromAnimation = function(animationName) {
+            args = {
+                TestAPI: "FormIt.Scenes.GetSceneNamesFromAnimation",
+animationName: animationName
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.Scenes.AddScenesToAnimation = function(animationName,sceneNames,sceneBeforeOrAfterName,insertAfter) {
+            args = {
+                TestAPI: "FormIt.Scenes.AddScenesToAnimation",
+animationName: animationName,
+        sceneNames: sceneNames,
+        sceneBeforeOrAfterName: sceneBeforeOrAfterName,
+        insertAfter: insertAfter
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.Scenes.RearrangeAnimations = function(animationNames,animationBeforeOrAfterName,insertAfter) {
+            args = {
+                TestAPI: "FormIt.Scenes.RearrangeAnimations",
+animationNames: animationNames,
+        animationBeforeOrAfterName: animationBeforeOrAfterName,
+        insertAfter: insertAfter
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.Scenes.IsValidAnimationName = function(oldName,newName) {
+            args = {
+                TestAPI: "FormIt.Scenes.IsValidAnimationName",
+oldName: oldName,
+        newName: newName
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.Scenes.SetAnimationName = function(oldName,newName) {
+            args = {
+                TestAPI: "FormIt.Scenes.SetAnimationName",
+oldName: oldName,
+        newName: newName
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.Scenes.GetAnimationLoop = function(animationName) {
+            args = {
+                TestAPI: "FormIt.Scenes.GetAnimationLoop",
+animationName: animationName
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.Scenes.SetAnimationLoop = function(animationName,loop) {
+            args = {
+                TestAPI: "FormIt.Scenes.SetAnimationLoop",
+animationName: animationName,
+        loop: loop
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.Scenes.GetAnimationCollapsed = function(animationName) {
+            args = {
+                TestAPI: "FormIt.Scenes.GetAnimationCollapsed",
+animationName: animationName
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.Scenes.SetAnimationCollapsed = function(animationName,collapsed) {
+            args = {
+                TestAPI: "FormIt.Scenes.SetAnimationCollapsed",
+animationName: animationName,
+        collapsed: collapsed
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.Scenes.StartStopAnimation = function(start,animationName,fromScene) {
+            args = {
+                TestAPI: "FormIt.Scenes.StartStopAnimation",
+start: start,
+        animationName: animationName,
+        fromScene: fromScene
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.Scenes.GetAnimationForScene = function(sceneName) {
+            args = {
+                TestAPI: "FormIt.Scenes.GetAnimationForScene",
+sceneName: sceneName
             };
             return callAsyncAPI(args);
         };
@@ -7010,6 +7099,16 @@ materialIds: materialIds
                 TestAPI: "FormIt.SketchMaterials.UpdateMaterialFromParameters",
 materialID: materialID,
         parameters: parameters
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.SketchMaterials.RearrangeMaterials = function(materialIds,materialBeforeOrAfterId,insertAfter) {
+            args = {
+                TestAPI: "FormIt.SketchMaterials.RearrangeMaterials",
+materialIds: materialIds,
+        materialBeforeOrAfterId: materialBeforeOrAfterId,
+        insertAfter: insertAfter
             };
             return callAsyncAPI(args);
         };
@@ -7558,6 +7657,54 @@ hexStr: hexStr
             };
             return callAsyncAPI(args);
         };
+window.FormIt.View = window.FormIt.View || {};
+
+        window.FormIt.View.FitToModel = function(aIncludeImage,withTransition) {
+            args = {
+                TestAPI: "FormIt.View.FitToModel",
+aIncludeImage: aIncludeImage,
+        withTransition: withTransition
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.View.FitToSelection = function(withTransition) {
+            args = {
+                TestAPI: "FormIt.View.FitToSelection",
+withTransition: withTransition
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.View.HomeView3d = function(withTransition) {
+            args = {
+                TestAPI: "FormIt.View.HomeView3d",
+withTransition: withTransition
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.View.TopView = function() {
+            args = {
+                TestAPI: "FormIt.View.TopView"
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.View.SetViewDirection = function(type) {
+            args = {
+                TestAPI: "FormIt.View.SetViewDirection",
+type: type
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.View.GetViewDirection = function() {
+            args = {
+                TestAPI: "FormIt.View.GetViewDirection"
+            };
+            return callAsyncAPI(args);
+        };
 window.FormIt.VisualStyles = window.FormIt.VisualStyles || {};
 
         window.FormIt.VisualStyles.GetShadowsVisible = function() {
@@ -7879,6 +8026,21 @@ color: color
         window.FormIt.VisualStyles.GetGroundPlaneColor = function() {
             args = {
                 TestAPI: "FormIt.VisualStyles.GetGroundPlaneColor"
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.VisualStyles.SetGroundPlaneTransparency = function(trans) {
+            args = {
+                TestAPI: "FormIt.VisualStyles.SetGroundPlaneTransparency",
+trans: trans
+            };
+            return callAsyncAPI(args);
+        };
+
+        window.FormIt.VisualStyles.GetGroundPlaneTransparency = function() {
+            args = {
+                TestAPI: "FormIt.VisualStyles.GetGroundPlaneTransparency"
             };
             return callAsyncAPI(args);
         };
@@ -8525,88 +8687,109 @@ WSM.nHistoryComparison.nLocalActiveDeltaLower = 8;
 WSM.nHistoryComparison.nLocalActiveDeltaHigher = 16;
 WSM.nHistoryComparison.nOutOfSync = 32;
 WSM.ApiProgress = WSM.ApiProgress || {};
-FormIt.ContextMenuAction = FormIt.ContextMenuAction || {};
-FormIt.ContextMenuAction.None = 0;
-FormIt.ContextMenuAction.Array = 1;
-FormIt.ContextMenuAction.BoolSubtract = 2;
-FormIt.ContextMenuAction.BoolUnion = 3;
-FormIt.ContextMenuAction.Copy = 4;
-FormIt.ContextMenuAction.Delete = 5;
-FormIt.ContextMenuAction.Lasso = 6;
-FormIt.ContextMenuAction.Merge = 7;
-FormIt.ContextMenuAction.Move = 8;
-FormIt.ContextMenuAction.OffsetFace = 9;
-FormIt.ContextMenuAction.FlattenFaces = 10;
-FormIt.ContextMenuAction.Paste = 11;
-FormIt.ContextMenuAction.ReverseFace = 12;
-FormIt.ContextMenuAction.Rotate = 13;
-FormIt.ContextMenuAction.SetAxes = 14;
-FormIt.ContextMenuAction.Scale = 15;
-FormIt.ContextMenuAction.Taper = 16;
-FormIt.ContextMenuAction.UnSmoothEdges = 17;
-FormIt.ContextMenuAction.GroupCreate = 18;
-FormIt.ContextMenuAction.GroupUngroup = 19;
-FormIt.ContextMenuAction.GroupUngroupAll = 20;
-FormIt.ContextMenuAction.GroupMakeUnique = 21;
-FormIt.ContextMenuAction.GroupEditInContext = 22;
-FormIt.ContextMenuAction.GroupEndEditInContext = 23;
-FormIt.ContextMenuAction.SmoothEdges = 24;
-FormIt.ContextMenuAction.ExtrudeEdges = 25;
-FormIt.ContextMenuAction.OffsetEdges = 26;
-FormIt.ContextMenuAction.ResetAxes = 27;
-FormIt.ContextMenuAction.Mirror = 28;
-FormIt.ContextMenuAction.LinearMeasure = 29;
-FormIt.ContextMenuAction.AngularMeasure = 30;
-FormIt.ContextMenuAction.GroupExitToParent = 31;
-FormIt.ContextMenuAction.ObjectsToMeshes = 32;
-FormIt.ContextMenuAction.MeshesToObjects = 33;
-FormIt.ContextMenuAction.NonUniformScale = 34;
-FormIt.ContextMenuAction.EditTextures = 35;
-FormIt.ContextMenuAction.AlignCameraWithFace = 36;
-FormIt.ContextMenuAction.EditCircle = 37;
-FormIt.ContextMenuAction.EditSpline = 38;
-FormIt.ContextMenuAction.NumContextMenuActions = 39;
-FormIt.MaxContextMenuItems = 16;
-FormIt.ContextMenuActionLocation = FormIt.ContextMenuActionLocation || {};
-FormIt.ContextMenuActionLocation.Delete = 0;
-FormIt.ContextMenuActionLocation.Rotate = 1;
-FormIt.ContextMenuActionLocation.Lasso = 1;
-FormIt.ContextMenuActionLocation.Scale = 2;
-FormIt.ContextMenuActionLocation.SetAxes = 2;
-FormIt.ContextMenuActionLocation.NonUniformScale = 3;
-FormIt.ContextMenuActionLocation.ResetAxes = 3;
-FormIt.ContextMenuActionLocation.Array = 4;
-FormIt.ContextMenuActionLocation.Paste = 5;
-FormIt.ContextMenuActionLocation.Copy = 6;
-FormIt.ContextMenuActionLocation.EditTextures = 7;
-FormIt.ContextMenuActionLocation.EditCircle = 7;
-FormIt.ContextMenuActionLocation.EditSpline = 7;
-FormIt.ContextMenuActionLocation.Mirror = 8;
-FormIt.ContextMenuActionLocation.ObjectsToMeshes = 9;
-FormIt.ContextMenuActionLocation.MeshesToObjects = 9;
-FormIt.ContextMenuActionLocation.ReverseFace = 10;
-FormIt.ContextMenuActionLocation.Merge = 10;
-FormIt.ContextMenuActionLocation.ExtrudeEdges = 10;
-FormIt.ContextMenuActionLocation.GroupUngroupAll = 10;
-FormIt.ContextMenuActionLocation.AngularMeasure = 10;
-FormIt.ContextMenuActionLocation.GroupUngroup = 11;
-FormIt.ContextMenuActionLocation.BoolUnion = 11;
-FormIt.ContextMenuActionLocation.OffsetFace = 11;
-FormIt.ContextMenuActionLocation.FlattenFaces = 11;
-FormIt.ContextMenuActionLocation.OffsetEdges = 11;
-FormIt.ContextMenuActionLocation.LinearMeasure = 11;
-FormIt.ContextMenuActionLocation.GroupMakeUnique = 12;
-FormIt.ContextMenuActionLocation.Taper = 12;
-FormIt.ContextMenuActionLocation.BoolSubtract = 12;
-FormIt.ContextMenuActionLocation.SmoothEdges = 12;
-FormIt.ContextMenuActionLocation.UnSmoothEdges = 12;
-FormIt.ContextMenuActionLocation.GroupEditInContext = 13;
-FormIt.ContextMenuActionLocation.GroupEndEditInContext = 13;
-FormIt.ContextMenuActionLocation.Move = 13;
-FormIt.ContextMenuActionLocation.GroupCreate = 14;
-FormIt.ContextMenuActionLocation.GroupExitToParent = 14;
-FormIt.ContextMenuActionLocation.AlignCameraWithFace = 15;
-FormIt.ContextMenuActionLocation.InvalidContextMenuLocation = 16;
+WSM.Utils = WSM.Utils || {};
+WSM.Utils.CurveType = WSM.Utils.CurveType || {};
+WSM.Utils.CurveType.Unknown = 0;
+WSM.Utils.CurveType.Line = 1;
+WSM.Utils.CurveType.Circle = 2;
+WSM.Utils.CurveType.Spline = 3;
+WSM.Utils.SurfaceType = WSM.Utils.SurfaceType || {};
+WSM.Utils.SurfaceType.Unknown = 0;
+WSM.Utils.SurfaceType.Plane = 1;
+WSM.Utils.SurfaceType.Cylinder = 2;
+WSM.Utils.SurfaceType.Sphere = 3;
+WSM.Utils.SurfaceType.Extrude = 4;
+WSM.Utils.SurfaceType.Blend = 5;
+WSM.Utils.SelectionLevel = WSM.Utils.SelectionLevel || {};
+WSM.Utils.SelectionLevel.BreakAtJunctionNonSmooth = 0;
+WSM.Utils.SelectionLevel.BreakAtJunction = 1;
+WSM.Utils.SelectionLevel.ConnectedFacesVariant = 2;
+WSM.Utils.SelectionLevel.ConnectedFacesComponents = 3;
+WSM.Utils.SelectionLevel.ConnectedFacesVariantComponents = 4;
+WSM.Utils.SelectionLevel.AllConnected = 5;
+WSM.Utils.TooltipType = WSM.Utils.TooltipType || {};
+WSM.Utils.TooltipType.TOOLTIP = 0;
+WSM.Utils.TooltipType.STATUS = 1;
+WSM.Utils.TooltipType.NONE = 2;
+WSM.Utils = WSM.Utils || {};
+WSM.Utils = WSM.Utils || {};
+WSM.Utils.CoordSystem = WSM.Utils.CoordSystem || {};
+WSM.Utils.CoordSystem.HCS = 0;
+WSM.Utils.CoordSystem.LCS = 1;
+WSM.Utils.CoordSystem.WHCS = 2;
+WSM.Utils.CoordSystem.WLCS = 3;
+WSM.Utils.PickRayPlaneIntersection = WSM.Utils.PickRayPlaneIntersection || {};
+WSM.Utils.PickRayPlaneIntersection.WorkPlane = 0;
+WSM.Utils.PickRayPlaneIntersection.GroundPlane = 1;
+WSM.Utils.PickRayPlaneIntersection.CameraPlane = 2;
+FormIt.LibraryType = FormIt.LibraryType || {};
+FormIt.LibraryType.SKETCH = 0;
+FormIt.LibraryType.APPLICATION = 1;
+FormIt.LibraryType.BUNDLE = 2;
+FormIt.LinearFormatType = FormIt.LinearFormatType || {};
+FormIt.LinearFormatType.kBestFit = 0;
+FormIt.LinearFormatType.kImperialFeetInches = 1;
+FormIt.LinearFormatType.kImperialFeetFractional = 2;
+FormIt.LinearFormatType.kMetricCentimeter = 3;
+FormIt.LinearFormatType.kMetricMeter = 4;
+FormIt.LinearFormatType.kMetricMillimeter = 5;
+FormIt.LinearFormatType.kImperialInches = 6;
+FormIt.NotificationType = FormIt.NotificationType || {};
+FormIt.NotificationType.Unspecified = 0;
+FormIt.NotificationType.Information = 1;
+FormIt.NotificationType.Warning = 2;
+FormIt.NotificationType.Error = 3;
+FormIt.NotificationType.Success = 4;
+FormIt.NotificationType.Debug = 5;
+FormIt.SolidRendererFlags = FormIt.SolidRendererFlags || {};
+FormIt.SolidRendererFlags.NONE = 0;
+FormIt.SolidRendererFlags.OVERSHOOT_SILHOUETTE_AND_DRAFTING = 1;
+FormIt.SolidRendererFlags.DRAFTING_ALWAYS_VISIBLE = 2;
+FormIt.SolidRendererFlags.SKETCHY_EDGES = 4;
+FormIt.SolidRendererFlags.AMBIENT_SHADOWS = 8;
+FormIt.SolidRendererFlags.HIDE_EDGES = 16;
+FormIt.SolidRendererFlags.FACE_SIDES = 32;
+FormIt.SolidRendererFlags.THIN_EDGES = 64;
+FormIt.SolidRendererFlags.NON_MANIFOLD_EDGES = 128;
+FormIt.SolidRendererFlags.HIDE_SILHOUETTE = 256;
+FormIt.SolidRendererFlags.USE_FACE_BACK_MATERIALS = 512;
+FormIt.SolidRendererFlags.USE_EDGE_MATERIALS = 1024;
+FormIt.SolidRendererFlags.MONOTONE = 2048;
+FormIt.SolidRendererFlags.HIDE_GROUND_PLANE = 4096;
+FormIt.SolidRendererFlags.SECTIONPLANECOLOR = 8192;
+FormIt.SolidRendererFlags.SHOW_GROUP_BBOX = 16384;
+FormIt.SolidRendererFlags.HIDE_SKY_COLOR = 32768;
+FormIt.SolidRendererFlags.HIDE_FOG = 65536;
+FormIt.SolidRendererFlags.HIDE_WORK_PLANE = 131072;
+FormIt.SortOrder = FormIt.SortOrder || {};
+FormIt.SortOrder.Ascending = 0;
+FormIt.SortOrder.Descending = 1;
+FormIt.SortOrder.Unsorted = 2;
+FormIt.UnitType = FormIt.UnitType || {};
+FormIt.UnitType.kImperialFeetInches = 0;
+FormIt.UnitType.kMetricMeter = 1;
+FormIt.UnitType.kImperialInches = 2;
+FormIt.UnitType.kMetricCentimeter = 3;
+FormIt.UnitType.kMetricMillimeter = 4;
+FormIt.UnitType.kUnitTypeInvalid = 5;
+FormIt.KeyboardModifier = FormIt.KeyboardModifier || {};
+FormIt.KeyboardModifier.NoModifier = 0;
+FormIt.KeyboardModifier.ShiftModifier = 1;
+FormIt.KeyboardModifier.ControlModifier = 2;
+FormIt.KeyboardModifier.AltModifier = 4;
+FormIt.KeyboardModifier.ControlShiftModifier = 3;
+FormIt.KeyboardModifier.ControlAltModifier = 6;
+FormIt.KeyboardModifier.AltShiftModifier = 5;
+FormIt.KeyboardModifier.ControlAltShiftModifier = 7;
+FormIt.MouseButton = FormIt.MouseButton || {};
+FormIt.MouseButton.NONE = 0;
+FormIt.MouseButton.LEFT = 1;
+FormIt.MouseButton.RIGHT = 2;
+FormIt.MouseButton.MIDDLE = 4;
+FormIt.MouseButton.LEFTMIDDLE = 5;
+FormIt.MouseButton.LEFTRIGHT = 3;
+FormIt.MouseButton.MIDDLERIGHT = 6;
+FormIt.MouseButton.LEFTMIDDLERIGHT = 7;
 FormIt.ToolType = FormIt.ToolType || {};
 FormIt.ToolType.NONE = 0;
 FormIt.ToolType.CAMERA_ORBIT = 1;
@@ -8699,112 +8882,6 @@ FormIt.ToolType.POLYGON = 87;
 FormIt.ToolType.OFFSET_LINE = 88;
 FormIt.ToolType.CONFIRM_ACTION = 89;
 FormIt.ToolType.NUM_TOOLS = 90;
-WSM.Utils = WSM.Utils || {};
-WSM.Utils.CurveType = WSM.Utils.CurveType || {};
-WSM.Utils.CurveType.Unknown = 0;
-WSM.Utils.CurveType.Line = 1;
-WSM.Utils.CurveType.Circle = 2;
-WSM.Utils.CurveType.Spline = 3;
-WSM.Utils.SurfaceType = WSM.Utils.SurfaceType || {};
-WSM.Utils.SurfaceType.Unknown = 0;
-WSM.Utils.SurfaceType.Plane = 1;
-WSM.Utils.SurfaceType.Cylinder = 2;
-WSM.Utils.SurfaceType.Sphere = 3;
-WSM.Utils.SurfaceType.Extrude = 4;
-WSM.Utils.SurfaceType.Blend = 5;
-WSM.Utils.SelectionLevel = WSM.Utils.SelectionLevel || {};
-WSM.Utils.SelectionLevel.BreakAtJunctionNonSmooth = 0;
-WSM.Utils.SelectionLevel.BreakAtJunction = 1;
-WSM.Utils.SelectionLevel.ConnectedFacesVariant = 2;
-WSM.Utils.SelectionLevel.ConnectedFacesComponents = 3;
-WSM.Utils.SelectionLevel.ConnectedFacesVariantComponents = 4;
-WSM.Utils.SelectionLevel.AllConnected = 5;
-WSM.Utils.TooltipType = WSM.Utils.TooltipType || {};
-WSM.Utils.TooltipType.TOOLTIP = 0;
-WSM.Utils.TooltipType.STATUS = 1;
-WSM.Utils.TooltipType.NONE = 2;
-WSM.nSubObjectType = WSM.nSubObjectType || {};
-WSM.nSubObjectType.EdgeMidPoint = 0;
-WSM.nSubObjectType.FaceCentroid = 1;
-WSM.nSubObjectType.NONE = 2;
-WSM.nSubObjectType.OnLevel = 3;
-WSM.nSubObjectType.MeshMidPoint = 4;
-WSM.nSubObjectType.MeshVertex = 5;
-WSM.nSubObjectType.CircleCenter = 6;
-WSM.Utils = WSM.Utils || {};
-WSM.Utils = WSM.Utils || {};
-WSM.Utils.CoordSystem = WSM.Utils.CoordSystem || {};
-WSM.Utils.CoordSystem.HCS = 0;
-WSM.Utils.CoordSystem.LCS = 1;
-WSM.Utils.CoordSystem.WHCS = 2;
-WSM.Utils.CoordSystem.WLCS = 3;
-FormIt.LibraryType = FormIt.LibraryType || {};
-FormIt.LibraryType.SKETCH = 0;
-FormIt.LibraryType.APPLICATION = 1;
-FormIt.LibraryType.BUNDLE = 2;
-FormIt.LinearFormatType = FormIt.LinearFormatType || {};
-FormIt.LinearFormatType.kBestFit = 0;
-FormIt.LinearFormatType.kImperialFeetInches = 1;
-FormIt.LinearFormatType.kImperialFeetFractional = 2;
-FormIt.LinearFormatType.kMetricCentimeter = 3;
-FormIt.LinearFormatType.kMetricMeter = 4;
-FormIt.LinearFormatType.kMetricMillimeter = 5;
-FormIt.LinearFormatType.kImperialInches = 6;
-FormIt.NotificationType = FormIt.NotificationType || {};
-FormIt.NotificationType.Unspecified = 0;
-FormIt.NotificationType.Information = 1;
-FormIt.NotificationType.Warning = 2;
-FormIt.NotificationType.Error = 3;
-FormIt.NotificationType.Success = 4;
-FormIt.SolidRendererFlags = FormIt.SolidRendererFlags || {};
-FormIt.SolidRendererFlags.NONE = 0;
-FormIt.SolidRendererFlags.OVERSHOOT_SILHOUETTE_AND_DRAFTING = 1;
-FormIt.SolidRendererFlags.DRAFTING_ALWAYS_VISIBLE = 2;
-FormIt.SolidRendererFlags.SKETCHY_EDGES = 4;
-FormIt.SolidRendererFlags.AMBIENT_SHADOWS = 8;
-FormIt.SolidRendererFlags.HIDE_EDGES = 16;
-FormIt.SolidRendererFlags.FACE_SIDES = 32;
-FormIt.SolidRendererFlags.THIN_EDGES = 64;
-FormIt.SolidRendererFlags.NON_MANIFOLD_EDGES = 128;
-FormIt.SolidRendererFlags.HIDE_SILHOUETTE = 256;
-FormIt.SolidRendererFlags.USE_FACE_BACK_MATERIALS = 512;
-FormIt.SolidRendererFlags.USE_EDGE_MATERIALS = 1024;
-FormIt.SolidRendererFlags.MONOTONE = 2048;
-FormIt.SolidRendererFlags.HIDE_GROUND_PLANE = 4096;
-FormIt.SolidRendererFlags.SECTIONPLANECOLOR = 8192;
-FormIt.SolidRendererFlags.SHOW_GROUP_BBOX = 16384;
-FormIt.SolidRendererFlags.HIDE_SKY_COLOR = 32768;
-FormIt.SolidRendererFlags.HIDE_FOG = 65536;
-FormIt.SolidRendererFlags.HIDE_WORK_PLANE = 131072;
-FormIt.SortOrder = FormIt.SortOrder || {};
-FormIt.SortOrder.Ascending = 0;
-FormIt.SortOrder.Descending = 1;
-FormIt.SortOrder.Unsorted = 2;
-FormIt.UnitType = FormIt.UnitType || {};
-FormIt.UnitType.kImperialFeetInches = 0;
-FormIt.UnitType.kMetricMeter = 1;
-FormIt.UnitType.kImperialInches = 2;
-FormIt.UnitType.kMetricCentimeter = 3;
-FormIt.UnitType.kMetricMillimeter = 4;
-FormIt.UnitType.kUnitTypeInvalid = 5;
-FormIt.KeyboardModifier = FormIt.KeyboardModifier || {};
-FormIt.KeyboardModifier.NoModifier = 0;
-FormIt.KeyboardModifier.ShiftModifier = 1;
-FormIt.KeyboardModifier.ControlModifier = 2;
-FormIt.KeyboardModifier.AltModifier = 4;
-FormIt.KeyboardModifier.ControlShiftModifier = 3;
-FormIt.KeyboardModifier.ControlAltModifier = 6;
-FormIt.KeyboardModifier.AltShiftModifier = 5;
-FormIt.KeyboardModifier.ControlAltShiftModifier = 7;
-FormIt.MouseButton = FormIt.MouseButton || {};
-FormIt.MouseButton.NONE = 0;
-FormIt.MouseButton.LEFT = 1;
-FormIt.MouseButton.RIGHT = 2;
-FormIt.MouseButton.MIDDLE = 4;
-FormIt.MouseButton.LEFTMIDDLE = 5;
-FormIt.MouseButton.LEFTRIGHT = 3;
-FormIt.MouseButton.MIDDLERIGHT = 6;
-FormIt.MouseButton.LEFTMIDDLERIGHT = 7;
 FormIt.Collaboration = FormIt.Collaboration || {};
 FormIt.Dynamo = FormIt.Dynamo || {};
 FormIt.SunLocationDataChange = FormIt.SunLocationDataChange || {};
@@ -9045,6 +9122,8 @@ FormIt.Statistics.UITrackingTypes.REVIT_CONNECTION_CLOSE = 110;
 FormIt.Statistics.UITrackingTypes.REVIT_CONNECTION_FAIL = 111;
 FormIt.Statistics.UITrackingTypes.REVIT_CONNECTION_NO_DYN_PORT = 112;
 FormIt.Statistics.UITrackingTypes.REVIT_CONNECTION_NO_STATIC_PORT = 113;
+FormIt.Statistics.UITrackingTypes.EXPORT_MOVIE = 114;
+FormIt.Statistics.UITrackingTypes.LOAD_ADDIN = 115;
 FormIt.Files = FormIt.Files || {};
 FormIt.Files.Action = FormIt.Files.Action || {};
 FormIt.Files.Action.Open = 0;
@@ -9054,6 +9133,7 @@ FormIt.Files.Action.Import = 3;
 FormIt.Files.ContentType = FormIt.Files.ContentType || {};
 FormIt.Files.ContentType.Type_Image = 0;
 FormIt.Files.ContentType.Type_3DModel = 1;
+FormIt.Files.ContentType.Type_Movie = 2;
 FormIt.Files.Types = FormIt.Files.Types || {};
 FormIt.Files.Types.AXM = 0;
 FormIt.Files.Types.AXMF = 1;
@@ -9075,6 +9155,8 @@ FormIt.Files.Types.SPD = 16;
 FormIt.Files.Types.JS = 17;
 FormIt.Files.Types.JSON = 18;
 FormIt.Files.Types.ATFX = 19;
+FormIt.Files.Types.WMV = 20;
+FormIt.Files.Types.MP4 = 21;
 FormIt.UI = FormIt.UI || {};
 FormIt.UI.FormItDialogBox = FormIt.UI.FormItDialogBox || {};
 FormIt.UI.FormItDialogBox.Local = 0;
@@ -9135,7 +9217,6 @@ FormIt.Web.RequestMethod = FormIt.Web.RequestMethod || {};
 FormIt.Web.RequestMethod.GET = 0;
 FormIt.Web.RequestMethod.PUT = 1;
 FormIt.Web.RequestMethod.POST = 2;
-FormIt.Graphics = FormIt.Graphics || {};
 FormIt.Utils = FormIt.Utils || {};
 WSM.nFileType = WSM.nFileType || {};
 WSM.nFileType.nFileTypeBinaryWSM = 0;
@@ -9152,6 +9233,49 @@ WSM.nFileType.nFileTypeDXF = 10;
 WSM.nFileType.nFileTypeJSON = 11;
 WSM.nFileType.nFileTypeATFX = 12;
 FormIt.Files = FormIt.Files || {};
+FormIt.StringConversion = FormIt.StringConversion || {};
+FormIt.Model = FormIt.Model || {};
+FormIt.GroupEdit = FormIt.GroupEdit || {};
+FormIt.ImageManager = FormIt.ImageManager || {};
+FormIt.Levels = FormIt.Levels || {};
+FormIt.Commands = FormIt.Commands || {};
+FormIt.SectionPlanes = FormIt.SectionPlanes || {};
+FormIt.Shortcuts = FormIt.Shortcuts || {};
+FormIt.Tools = FormIt.Tools || {};
+FormIt.Cameras = FormIt.Cameras || {};
+FormIt.View = FormIt.View || {};
+FormIt.Graphics = FormIt.Graphics || {};
+FormIt.VisualStyles = FormIt.VisualStyles || {};
+FormIt.Selection = FormIt.Selection || {};
+FormIt.Clipboard = FormIt.Clipboard || {};
+FormIt.Analysis = FormIt.Analysis || {};
+FormIt.Analysis.Solar = FormIt.Analysis.Solar || {};
+FormIt.Analysis.Solar.WeatherDataStatus = FormIt.Analysis.Solar.WeatherDataStatus || {};
+FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataNotLoaded = 0;
+FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataLoaded = 1;
+FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataNotAvailableForLocation = 2;
+FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataFormatError = 3;
+FormIt.Scenes = FormIt.Scenes || {};
+FormIt.Layers = FormIt.Layers || {};
+FormIt.MaterialProvider = FormIt.MaterialProvider || {};
+FormIt.SketchMaterials = FormIt.SketchMaterials || {};
+FormIt.SampleMaterials = FormIt.SampleMaterials || {};
+FormIt.UI = FormIt.UI || {};
+FormIt.UndoManagement = FormIt.UndoManagement || {};
+FormIt.Files = FormIt.Files || {};
+FormIt.Forge = FormIt.Forge || {};
+FormIt.Forge.UI = FormIt.Forge.UI || {};
+FormIt.Dynamo = FormIt.Dynamo || {};
+FormIt.SunAndLocation = FormIt.SunAndLocation || {};
+FormIt.Utils = FormIt.Utils || {};
+WSM.nSubObjectType = WSM.nSubObjectType || {};
+WSM.nSubObjectType.EdgeMidPoint = 0;
+WSM.nSubObjectType.FaceCentroid = 1;
+WSM.nSubObjectType.NONE = 2;
+WSM.nSubObjectType.OnLevel = 3;
+WSM.nSubObjectType.MeshMidPoint = 4;
+WSM.nSubObjectType.MeshVertex = 5;
+WSM.nSubObjectType.CircleCenter = 6;
 WSM.LineInferenceType = WSM.LineInferenceType || {};
 WSM.LineInferenceType.Xaxis = 0;
 WSM.LineInferenceType.XaxisFromPt = 1;
@@ -9256,6 +9380,7 @@ FormIt.Edit = FormIt.Edit || {};
 FormIt.Entitlement = FormIt.Entitlement || {};
 FormIt.Events = FormIt.Events || {};
 FormIt.FileSystem = FormIt.FileSystem || {};
+FormIt.Memory = FormIt.Memory || {};
 FormIt.Graphics = FormIt.Graphics || {};
 FormIt.MaterialsLegacy = FormIt.MaterialsLegacy || {};
 FormIt.Scripting = FormIt.Scripting || {};
@@ -9277,40 +9402,6 @@ FormIt.Web = FormIt.Web || {};
 FormIt.FRS = FormIt.FRS || {};
 FormIt.DebugMode = FormIt.DebugMode || {};
 FormIt.Revit = FormIt.Revit || {};
-FormIt.StringConversion = FormIt.StringConversion || {};
-FormIt.Model = FormIt.Model || {};
-FormIt.GroupEdit = FormIt.GroupEdit || {};
-FormIt.ImageManager = FormIt.ImageManager || {};
-FormIt.Levels = FormIt.Levels || {};
-FormIt.Commands = FormIt.Commands || {};
-FormIt.SectionPlanes = FormIt.SectionPlanes || {};
-FormIt.Shortcuts = FormIt.Shortcuts || {};
-FormIt.Tools = FormIt.Tools || {};
-FormIt.Cameras = FormIt.Cameras || {};
-FormIt.Graphics = FormIt.Graphics || {};
-FormIt.VisualStyles = FormIt.VisualStyles || {};
-FormIt.Selection = FormIt.Selection || {};
-FormIt.Clipboard = FormIt.Clipboard || {};
-FormIt.Analysis = FormIt.Analysis || {};
-FormIt.Analysis.Solar = FormIt.Analysis.Solar || {};
-FormIt.Analysis.Solar.WeatherDataStatus = FormIt.Analysis.Solar.WeatherDataStatus || {};
-FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataNotLoaded = 0;
-FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataLoaded = 1;
-FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataNotAvailableForLocation = 2;
-FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataFormatError = 3;
-FormIt.Scenes = FormIt.Scenes || {};
-FormIt.Layers = FormIt.Layers || {};
-FormIt.MaterialProvider = FormIt.MaterialProvider || {};
-FormIt.SketchMaterials = FormIt.SketchMaterials || {};
-FormIt.SampleMaterials = FormIt.SampleMaterials || {};
-FormIt.UI = FormIt.UI || {};
-FormIt.UndoManagement = FormIt.UndoManagement || {};
-FormIt.Files = FormIt.Files || {};
-FormIt.Forge = FormIt.Forge || {};
-FormIt.Forge.UI = FormIt.Forge.UI || {};
-FormIt.Dynamo = FormIt.Dynamo || {};
-FormIt.SunAndLocation = FormIt.SunAndLocation || {};
-FormIt.Utils = FormIt.Utils || {};
 
     // Invalid ID
     WSM.INVALID_ID = 0xFFFFFFFF;
@@ -9421,88 +9512,109 @@ WSM.nHistoryComparison.nLocalActiveDeltaLower = 8;
 WSM.nHistoryComparison.nLocalActiveDeltaHigher = 16;
 WSM.nHistoryComparison.nOutOfSync = 32;
 WSM.ApiProgress = WSM.ApiProgress || {};
-FormIt.ContextMenuAction = FormIt.ContextMenuAction || {};
-FormIt.ContextMenuAction.None = 0;
-FormIt.ContextMenuAction.Array = 1;
-FormIt.ContextMenuAction.BoolSubtract = 2;
-FormIt.ContextMenuAction.BoolUnion = 3;
-FormIt.ContextMenuAction.Copy = 4;
-FormIt.ContextMenuAction.Delete = 5;
-FormIt.ContextMenuAction.Lasso = 6;
-FormIt.ContextMenuAction.Merge = 7;
-FormIt.ContextMenuAction.Move = 8;
-FormIt.ContextMenuAction.OffsetFace = 9;
-FormIt.ContextMenuAction.FlattenFaces = 10;
-FormIt.ContextMenuAction.Paste = 11;
-FormIt.ContextMenuAction.ReverseFace = 12;
-FormIt.ContextMenuAction.Rotate = 13;
-FormIt.ContextMenuAction.SetAxes = 14;
-FormIt.ContextMenuAction.Scale = 15;
-FormIt.ContextMenuAction.Taper = 16;
-FormIt.ContextMenuAction.UnSmoothEdges = 17;
-FormIt.ContextMenuAction.GroupCreate = 18;
-FormIt.ContextMenuAction.GroupUngroup = 19;
-FormIt.ContextMenuAction.GroupUngroupAll = 20;
-FormIt.ContextMenuAction.GroupMakeUnique = 21;
-FormIt.ContextMenuAction.GroupEditInContext = 22;
-FormIt.ContextMenuAction.GroupEndEditInContext = 23;
-FormIt.ContextMenuAction.SmoothEdges = 24;
-FormIt.ContextMenuAction.ExtrudeEdges = 25;
-FormIt.ContextMenuAction.OffsetEdges = 26;
-FormIt.ContextMenuAction.ResetAxes = 27;
-FormIt.ContextMenuAction.Mirror = 28;
-FormIt.ContextMenuAction.LinearMeasure = 29;
-FormIt.ContextMenuAction.AngularMeasure = 30;
-FormIt.ContextMenuAction.GroupExitToParent = 31;
-FormIt.ContextMenuAction.ObjectsToMeshes = 32;
-FormIt.ContextMenuAction.MeshesToObjects = 33;
-FormIt.ContextMenuAction.NonUniformScale = 34;
-FormIt.ContextMenuAction.EditTextures = 35;
-FormIt.ContextMenuAction.AlignCameraWithFace = 36;
-FormIt.ContextMenuAction.EditCircle = 37;
-FormIt.ContextMenuAction.EditSpline = 38;
-FormIt.ContextMenuAction.NumContextMenuActions = 39;
-FormIt.MaxContextMenuItems = 16;
-FormIt.ContextMenuActionLocation = FormIt.ContextMenuActionLocation || {};
-FormIt.ContextMenuActionLocation.Delete = 0;
-FormIt.ContextMenuActionLocation.Rotate = 1;
-FormIt.ContextMenuActionLocation.Lasso = 1;
-FormIt.ContextMenuActionLocation.Scale = 2;
-FormIt.ContextMenuActionLocation.SetAxes = 2;
-FormIt.ContextMenuActionLocation.NonUniformScale = 3;
-FormIt.ContextMenuActionLocation.ResetAxes = 3;
-FormIt.ContextMenuActionLocation.Array = 4;
-FormIt.ContextMenuActionLocation.Paste = 5;
-FormIt.ContextMenuActionLocation.Copy = 6;
-FormIt.ContextMenuActionLocation.EditTextures = 7;
-FormIt.ContextMenuActionLocation.EditCircle = 7;
-FormIt.ContextMenuActionLocation.EditSpline = 7;
-FormIt.ContextMenuActionLocation.Mirror = 8;
-FormIt.ContextMenuActionLocation.ObjectsToMeshes = 9;
-FormIt.ContextMenuActionLocation.MeshesToObjects = 9;
-FormIt.ContextMenuActionLocation.ReverseFace = 10;
-FormIt.ContextMenuActionLocation.Merge = 10;
-FormIt.ContextMenuActionLocation.ExtrudeEdges = 10;
-FormIt.ContextMenuActionLocation.GroupUngroupAll = 10;
-FormIt.ContextMenuActionLocation.AngularMeasure = 10;
-FormIt.ContextMenuActionLocation.GroupUngroup = 11;
-FormIt.ContextMenuActionLocation.BoolUnion = 11;
-FormIt.ContextMenuActionLocation.OffsetFace = 11;
-FormIt.ContextMenuActionLocation.FlattenFaces = 11;
-FormIt.ContextMenuActionLocation.OffsetEdges = 11;
-FormIt.ContextMenuActionLocation.LinearMeasure = 11;
-FormIt.ContextMenuActionLocation.GroupMakeUnique = 12;
-FormIt.ContextMenuActionLocation.Taper = 12;
-FormIt.ContextMenuActionLocation.BoolSubtract = 12;
-FormIt.ContextMenuActionLocation.SmoothEdges = 12;
-FormIt.ContextMenuActionLocation.UnSmoothEdges = 12;
-FormIt.ContextMenuActionLocation.GroupEditInContext = 13;
-FormIt.ContextMenuActionLocation.GroupEndEditInContext = 13;
-FormIt.ContextMenuActionLocation.Move = 13;
-FormIt.ContextMenuActionLocation.GroupCreate = 14;
-FormIt.ContextMenuActionLocation.GroupExitToParent = 14;
-FormIt.ContextMenuActionLocation.AlignCameraWithFace = 15;
-FormIt.ContextMenuActionLocation.InvalidContextMenuLocation = 16;
+WSM.Utils = WSM.Utils || {};
+WSM.Utils.CurveType = WSM.Utils.CurveType || {};
+WSM.Utils.CurveType.Unknown = 0;
+WSM.Utils.CurveType.Line = 1;
+WSM.Utils.CurveType.Circle = 2;
+WSM.Utils.CurveType.Spline = 3;
+WSM.Utils.SurfaceType = WSM.Utils.SurfaceType || {};
+WSM.Utils.SurfaceType.Unknown = 0;
+WSM.Utils.SurfaceType.Plane = 1;
+WSM.Utils.SurfaceType.Cylinder = 2;
+WSM.Utils.SurfaceType.Sphere = 3;
+WSM.Utils.SurfaceType.Extrude = 4;
+WSM.Utils.SurfaceType.Blend = 5;
+WSM.Utils.SelectionLevel = WSM.Utils.SelectionLevel || {};
+WSM.Utils.SelectionLevel.BreakAtJunctionNonSmooth = 0;
+WSM.Utils.SelectionLevel.BreakAtJunction = 1;
+WSM.Utils.SelectionLevel.ConnectedFacesVariant = 2;
+WSM.Utils.SelectionLevel.ConnectedFacesComponents = 3;
+WSM.Utils.SelectionLevel.ConnectedFacesVariantComponents = 4;
+WSM.Utils.SelectionLevel.AllConnected = 5;
+WSM.Utils.TooltipType = WSM.Utils.TooltipType || {};
+WSM.Utils.TooltipType.TOOLTIP = 0;
+WSM.Utils.TooltipType.STATUS = 1;
+WSM.Utils.TooltipType.NONE = 2;
+WSM.Utils = WSM.Utils || {};
+WSM.Utils = WSM.Utils || {};
+WSM.Utils.CoordSystem = WSM.Utils.CoordSystem || {};
+WSM.Utils.CoordSystem.HCS = 0;
+WSM.Utils.CoordSystem.LCS = 1;
+WSM.Utils.CoordSystem.WHCS = 2;
+WSM.Utils.CoordSystem.WLCS = 3;
+WSM.Utils.PickRayPlaneIntersection = WSM.Utils.PickRayPlaneIntersection || {};
+WSM.Utils.PickRayPlaneIntersection.WorkPlane = 0;
+WSM.Utils.PickRayPlaneIntersection.GroundPlane = 1;
+WSM.Utils.PickRayPlaneIntersection.CameraPlane = 2;
+FormIt.LibraryType = FormIt.LibraryType || {};
+FormIt.LibraryType.SKETCH = 0;
+FormIt.LibraryType.APPLICATION = 1;
+FormIt.LibraryType.BUNDLE = 2;
+FormIt.LinearFormatType = FormIt.LinearFormatType || {};
+FormIt.LinearFormatType.kBestFit = 0;
+FormIt.LinearFormatType.kImperialFeetInches = 1;
+FormIt.LinearFormatType.kImperialFeetFractional = 2;
+FormIt.LinearFormatType.kMetricCentimeter = 3;
+FormIt.LinearFormatType.kMetricMeter = 4;
+FormIt.LinearFormatType.kMetricMillimeter = 5;
+FormIt.LinearFormatType.kImperialInches = 6;
+FormIt.NotificationType = FormIt.NotificationType || {};
+FormIt.NotificationType.Unspecified = 0;
+FormIt.NotificationType.Information = 1;
+FormIt.NotificationType.Warning = 2;
+FormIt.NotificationType.Error = 3;
+FormIt.NotificationType.Success = 4;
+FormIt.NotificationType.Debug = 5;
+FormIt.SolidRendererFlags = FormIt.SolidRendererFlags || {};
+FormIt.SolidRendererFlags.NONE = 0;
+FormIt.SolidRendererFlags.OVERSHOOT_SILHOUETTE_AND_DRAFTING = 1;
+FormIt.SolidRendererFlags.DRAFTING_ALWAYS_VISIBLE = 2;
+FormIt.SolidRendererFlags.SKETCHY_EDGES = 4;
+FormIt.SolidRendererFlags.AMBIENT_SHADOWS = 8;
+FormIt.SolidRendererFlags.HIDE_EDGES = 16;
+FormIt.SolidRendererFlags.FACE_SIDES = 32;
+FormIt.SolidRendererFlags.THIN_EDGES = 64;
+FormIt.SolidRendererFlags.NON_MANIFOLD_EDGES = 128;
+FormIt.SolidRendererFlags.HIDE_SILHOUETTE = 256;
+FormIt.SolidRendererFlags.USE_FACE_BACK_MATERIALS = 512;
+FormIt.SolidRendererFlags.USE_EDGE_MATERIALS = 1024;
+FormIt.SolidRendererFlags.MONOTONE = 2048;
+FormIt.SolidRendererFlags.HIDE_GROUND_PLANE = 4096;
+FormIt.SolidRendererFlags.SECTIONPLANECOLOR = 8192;
+FormIt.SolidRendererFlags.SHOW_GROUP_BBOX = 16384;
+FormIt.SolidRendererFlags.HIDE_SKY_COLOR = 32768;
+FormIt.SolidRendererFlags.HIDE_FOG = 65536;
+FormIt.SolidRendererFlags.HIDE_WORK_PLANE = 131072;
+FormIt.SortOrder = FormIt.SortOrder || {};
+FormIt.SortOrder.Ascending = 0;
+FormIt.SortOrder.Descending = 1;
+FormIt.SortOrder.Unsorted = 2;
+FormIt.UnitType = FormIt.UnitType || {};
+FormIt.UnitType.kImperialFeetInches = 0;
+FormIt.UnitType.kMetricMeter = 1;
+FormIt.UnitType.kImperialInches = 2;
+FormIt.UnitType.kMetricCentimeter = 3;
+FormIt.UnitType.kMetricMillimeter = 4;
+FormIt.UnitType.kUnitTypeInvalid = 5;
+FormIt.KeyboardModifier = FormIt.KeyboardModifier || {};
+FormIt.KeyboardModifier.NoModifier = 0;
+FormIt.KeyboardModifier.ShiftModifier = 1;
+FormIt.KeyboardModifier.ControlModifier = 2;
+FormIt.KeyboardModifier.AltModifier = 4;
+FormIt.KeyboardModifier.ControlShiftModifier = 3;
+FormIt.KeyboardModifier.ControlAltModifier = 6;
+FormIt.KeyboardModifier.AltShiftModifier = 5;
+FormIt.KeyboardModifier.ControlAltShiftModifier = 7;
+FormIt.MouseButton = FormIt.MouseButton || {};
+FormIt.MouseButton.NONE = 0;
+FormIt.MouseButton.LEFT = 1;
+FormIt.MouseButton.RIGHT = 2;
+FormIt.MouseButton.MIDDLE = 4;
+FormIt.MouseButton.LEFTMIDDLE = 5;
+FormIt.MouseButton.LEFTRIGHT = 3;
+FormIt.MouseButton.MIDDLERIGHT = 6;
+FormIt.MouseButton.LEFTMIDDLERIGHT = 7;
 FormIt.ToolType = FormIt.ToolType || {};
 FormIt.ToolType.NONE = 0;
 FormIt.ToolType.CAMERA_ORBIT = 1;
@@ -9595,112 +9707,6 @@ FormIt.ToolType.POLYGON = 87;
 FormIt.ToolType.OFFSET_LINE = 88;
 FormIt.ToolType.CONFIRM_ACTION = 89;
 FormIt.ToolType.NUM_TOOLS = 90;
-WSM.Utils = WSM.Utils || {};
-WSM.Utils.CurveType = WSM.Utils.CurveType || {};
-WSM.Utils.CurveType.Unknown = 0;
-WSM.Utils.CurveType.Line = 1;
-WSM.Utils.CurveType.Circle = 2;
-WSM.Utils.CurveType.Spline = 3;
-WSM.Utils.SurfaceType = WSM.Utils.SurfaceType || {};
-WSM.Utils.SurfaceType.Unknown = 0;
-WSM.Utils.SurfaceType.Plane = 1;
-WSM.Utils.SurfaceType.Cylinder = 2;
-WSM.Utils.SurfaceType.Sphere = 3;
-WSM.Utils.SurfaceType.Extrude = 4;
-WSM.Utils.SurfaceType.Blend = 5;
-WSM.Utils.SelectionLevel = WSM.Utils.SelectionLevel || {};
-WSM.Utils.SelectionLevel.BreakAtJunctionNonSmooth = 0;
-WSM.Utils.SelectionLevel.BreakAtJunction = 1;
-WSM.Utils.SelectionLevel.ConnectedFacesVariant = 2;
-WSM.Utils.SelectionLevel.ConnectedFacesComponents = 3;
-WSM.Utils.SelectionLevel.ConnectedFacesVariantComponents = 4;
-WSM.Utils.SelectionLevel.AllConnected = 5;
-WSM.Utils.TooltipType = WSM.Utils.TooltipType || {};
-WSM.Utils.TooltipType.TOOLTIP = 0;
-WSM.Utils.TooltipType.STATUS = 1;
-WSM.Utils.TooltipType.NONE = 2;
-WSM.nSubObjectType = WSM.nSubObjectType || {};
-WSM.nSubObjectType.EdgeMidPoint = 0;
-WSM.nSubObjectType.FaceCentroid = 1;
-WSM.nSubObjectType.NONE = 2;
-WSM.nSubObjectType.OnLevel = 3;
-WSM.nSubObjectType.MeshMidPoint = 4;
-WSM.nSubObjectType.MeshVertex = 5;
-WSM.nSubObjectType.CircleCenter = 6;
-WSM.Utils = WSM.Utils || {};
-WSM.Utils = WSM.Utils || {};
-WSM.Utils.CoordSystem = WSM.Utils.CoordSystem || {};
-WSM.Utils.CoordSystem.HCS = 0;
-WSM.Utils.CoordSystem.LCS = 1;
-WSM.Utils.CoordSystem.WHCS = 2;
-WSM.Utils.CoordSystem.WLCS = 3;
-FormIt.LibraryType = FormIt.LibraryType || {};
-FormIt.LibraryType.SKETCH = 0;
-FormIt.LibraryType.APPLICATION = 1;
-FormIt.LibraryType.BUNDLE = 2;
-FormIt.LinearFormatType = FormIt.LinearFormatType || {};
-FormIt.LinearFormatType.kBestFit = 0;
-FormIt.LinearFormatType.kImperialFeetInches = 1;
-FormIt.LinearFormatType.kImperialFeetFractional = 2;
-FormIt.LinearFormatType.kMetricCentimeter = 3;
-FormIt.LinearFormatType.kMetricMeter = 4;
-FormIt.LinearFormatType.kMetricMillimeter = 5;
-FormIt.LinearFormatType.kImperialInches = 6;
-FormIt.NotificationType = FormIt.NotificationType || {};
-FormIt.NotificationType.Unspecified = 0;
-FormIt.NotificationType.Information = 1;
-FormIt.NotificationType.Warning = 2;
-FormIt.NotificationType.Error = 3;
-FormIt.NotificationType.Success = 4;
-FormIt.SolidRendererFlags = FormIt.SolidRendererFlags || {};
-FormIt.SolidRendererFlags.NONE = 0;
-FormIt.SolidRendererFlags.OVERSHOOT_SILHOUETTE_AND_DRAFTING = 1;
-FormIt.SolidRendererFlags.DRAFTING_ALWAYS_VISIBLE = 2;
-FormIt.SolidRendererFlags.SKETCHY_EDGES = 4;
-FormIt.SolidRendererFlags.AMBIENT_SHADOWS = 8;
-FormIt.SolidRendererFlags.HIDE_EDGES = 16;
-FormIt.SolidRendererFlags.FACE_SIDES = 32;
-FormIt.SolidRendererFlags.THIN_EDGES = 64;
-FormIt.SolidRendererFlags.NON_MANIFOLD_EDGES = 128;
-FormIt.SolidRendererFlags.HIDE_SILHOUETTE = 256;
-FormIt.SolidRendererFlags.USE_FACE_BACK_MATERIALS = 512;
-FormIt.SolidRendererFlags.USE_EDGE_MATERIALS = 1024;
-FormIt.SolidRendererFlags.MONOTONE = 2048;
-FormIt.SolidRendererFlags.HIDE_GROUND_PLANE = 4096;
-FormIt.SolidRendererFlags.SECTIONPLANECOLOR = 8192;
-FormIt.SolidRendererFlags.SHOW_GROUP_BBOX = 16384;
-FormIt.SolidRendererFlags.HIDE_SKY_COLOR = 32768;
-FormIt.SolidRendererFlags.HIDE_FOG = 65536;
-FormIt.SolidRendererFlags.HIDE_WORK_PLANE = 131072;
-FormIt.SortOrder = FormIt.SortOrder || {};
-FormIt.SortOrder.Ascending = 0;
-FormIt.SortOrder.Descending = 1;
-FormIt.SortOrder.Unsorted = 2;
-FormIt.UnitType = FormIt.UnitType || {};
-FormIt.UnitType.kImperialFeetInches = 0;
-FormIt.UnitType.kMetricMeter = 1;
-FormIt.UnitType.kImperialInches = 2;
-FormIt.UnitType.kMetricCentimeter = 3;
-FormIt.UnitType.kMetricMillimeter = 4;
-FormIt.UnitType.kUnitTypeInvalid = 5;
-FormIt.KeyboardModifier = FormIt.KeyboardModifier || {};
-FormIt.KeyboardModifier.NoModifier = 0;
-FormIt.KeyboardModifier.ShiftModifier = 1;
-FormIt.KeyboardModifier.ControlModifier = 2;
-FormIt.KeyboardModifier.AltModifier = 4;
-FormIt.KeyboardModifier.ControlShiftModifier = 3;
-FormIt.KeyboardModifier.ControlAltModifier = 6;
-FormIt.KeyboardModifier.AltShiftModifier = 5;
-FormIt.KeyboardModifier.ControlAltShiftModifier = 7;
-FormIt.MouseButton = FormIt.MouseButton || {};
-FormIt.MouseButton.NONE = 0;
-FormIt.MouseButton.LEFT = 1;
-FormIt.MouseButton.RIGHT = 2;
-FormIt.MouseButton.MIDDLE = 4;
-FormIt.MouseButton.LEFTMIDDLE = 5;
-FormIt.MouseButton.LEFTRIGHT = 3;
-FormIt.MouseButton.MIDDLERIGHT = 6;
-FormIt.MouseButton.LEFTMIDDLERIGHT = 7;
 FormIt.Collaboration = FormIt.Collaboration || {};
 FormIt.Dynamo = FormIt.Dynamo || {};
 FormIt.SunLocationDataChange = FormIt.SunLocationDataChange || {};
@@ -9941,6 +9947,8 @@ FormIt.Statistics.UITrackingTypes.REVIT_CONNECTION_CLOSE = 110;
 FormIt.Statistics.UITrackingTypes.REVIT_CONNECTION_FAIL = 111;
 FormIt.Statistics.UITrackingTypes.REVIT_CONNECTION_NO_DYN_PORT = 112;
 FormIt.Statistics.UITrackingTypes.REVIT_CONNECTION_NO_STATIC_PORT = 113;
+FormIt.Statistics.UITrackingTypes.EXPORT_MOVIE = 114;
+FormIt.Statistics.UITrackingTypes.LOAD_ADDIN = 115;
 FormIt.Files = FormIt.Files || {};
 FormIt.Files.Action = FormIt.Files.Action || {};
 FormIt.Files.Action.Open = 0;
@@ -9950,6 +9958,7 @@ FormIt.Files.Action.Import = 3;
 FormIt.Files.ContentType = FormIt.Files.ContentType || {};
 FormIt.Files.ContentType.Type_Image = 0;
 FormIt.Files.ContentType.Type_3DModel = 1;
+FormIt.Files.ContentType.Type_Movie = 2;
 FormIt.Files.Types = FormIt.Files.Types || {};
 FormIt.Files.Types.AXM = 0;
 FormIt.Files.Types.AXMF = 1;
@@ -9971,6 +9980,8 @@ FormIt.Files.Types.SPD = 16;
 FormIt.Files.Types.JS = 17;
 FormIt.Files.Types.JSON = 18;
 FormIt.Files.Types.ATFX = 19;
+FormIt.Files.Types.WMV = 20;
+FormIt.Files.Types.MP4 = 21;
 FormIt.UI = FormIt.UI || {};
 FormIt.UI.FormItDialogBox = FormIt.UI.FormItDialogBox || {};
 FormIt.UI.FormItDialogBox.Local = 0;
@@ -10031,7 +10042,6 @@ FormIt.Web.RequestMethod = FormIt.Web.RequestMethod || {};
 FormIt.Web.RequestMethod.GET = 0;
 FormIt.Web.RequestMethod.PUT = 1;
 FormIt.Web.RequestMethod.POST = 2;
-FormIt.Graphics = FormIt.Graphics || {};
 FormIt.Utils = FormIt.Utils || {};
 WSM.nFileType = WSM.nFileType || {};
 WSM.nFileType.nFileTypeBinaryWSM = 0;
@@ -10048,6 +10058,49 @@ WSM.nFileType.nFileTypeDXF = 10;
 WSM.nFileType.nFileTypeJSON = 11;
 WSM.nFileType.nFileTypeATFX = 12;
 FormIt.Files = FormIt.Files || {};
+FormIt.StringConversion = FormIt.StringConversion || {};
+FormIt.Model = FormIt.Model || {};
+FormIt.GroupEdit = FormIt.GroupEdit || {};
+FormIt.ImageManager = FormIt.ImageManager || {};
+FormIt.Levels = FormIt.Levels || {};
+FormIt.Commands = FormIt.Commands || {};
+FormIt.SectionPlanes = FormIt.SectionPlanes || {};
+FormIt.Shortcuts = FormIt.Shortcuts || {};
+FormIt.Tools = FormIt.Tools || {};
+FormIt.Cameras = FormIt.Cameras || {};
+FormIt.View = FormIt.View || {};
+FormIt.Graphics = FormIt.Graphics || {};
+FormIt.VisualStyles = FormIt.VisualStyles || {};
+FormIt.Selection = FormIt.Selection || {};
+FormIt.Clipboard = FormIt.Clipboard || {};
+FormIt.Analysis = FormIt.Analysis || {};
+FormIt.Analysis.Solar = FormIt.Analysis.Solar || {};
+FormIt.Analysis.Solar.WeatherDataStatus = FormIt.Analysis.Solar.WeatherDataStatus || {};
+FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataNotLoaded = 0;
+FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataLoaded = 1;
+FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataNotAvailableForLocation = 2;
+FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataFormatError = 3;
+FormIt.Scenes = FormIt.Scenes || {};
+FormIt.Layers = FormIt.Layers || {};
+FormIt.MaterialProvider = FormIt.MaterialProvider || {};
+FormIt.SketchMaterials = FormIt.SketchMaterials || {};
+FormIt.SampleMaterials = FormIt.SampleMaterials || {};
+FormIt.UI = FormIt.UI || {};
+FormIt.UndoManagement = FormIt.UndoManagement || {};
+FormIt.Files = FormIt.Files || {};
+FormIt.Forge = FormIt.Forge || {};
+FormIt.Forge.UI = FormIt.Forge.UI || {};
+FormIt.Dynamo = FormIt.Dynamo || {};
+FormIt.SunAndLocation = FormIt.SunAndLocation || {};
+FormIt.Utils = FormIt.Utils || {};
+WSM.nSubObjectType = WSM.nSubObjectType || {};
+WSM.nSubObjectType.EdgeMidPoint = 0;
+WSM.nSubObjectType.FaceCentroid = 1;
+WSM.nSubObjectType.NONE = 2;
+WSM.nSubObjectType.OnLevel = 3;
+WSM.nSubObjectType.MeshMidPoint = 4;
+WSM.nSubObjectType.MeshVertex = 5;
+WSM.nSubObjectType.CircleCenter = 6;
 WSM.LineInferenceType = WSM.LineInferenceType || {};
 WSM.LineInferenceType.Xaxis = 0;
 WSM.LineInferenceType.XaxisFromPt = 1;
@@ -10152,6 +10205,7 @@ FormIt.Edit = FormIt.Edit || {};
 FormIt.Entitlement = FormIt.Entitlement || {};
 FormIt.Events = FormIt.Events || {};
 FormIt.FileSystem = FormIt.FileSystem || {};
+FormIt.Memory = FormIt.Memory || {};
 FormIt.Graphics = FormIt.Graphics || {};
 FormIt.MaterialsLegacy = FormIt.MaterialsLegacy || {};
 FormIt.Scripting = FormIt.Scripting || {};
@@ -10173,40 +10227,6 @@ FormIt.Web = FormIt.Web || {};
 FormIt.FRS = FormIt.FRS || {};
 FormIt.DebugMode = FormIt.DebugMode || {};
 FormIt.Revit = FormIt.Revit || {};
-FormIt.StringConversion = FormIt.StringConversion || {};
-FormIt.Model = FormIt.Model || {};
-FormIt.GroupEdit = FormIt.GroupEdit || {};
-FormIt.ImageManager = FormIt.ImageManager || {};
-FormIt.Levels = FormIt.Levels || {};
-FormIt.Commands = FormIt.Commands || {};
-FormIt.SectionPlanes = FormIt.SectionPlanes || {};
-FormIt.Shortcuts = FormIt.Shortcuts || {};
-FormIt.Tools = FormIt.Tools || {};
-FormIt.Cameras = FormIt.Cameras || {};
-FormIt.Graphics = FormIt.Graphics || {};
-FormIt.VisualStyles = FormIt.VisualStyles || {};
-FormIt.Selection = FormIt.Selection || {};
-FormIt.Clipboard = FormIt.Clipboard || {};
-FormIt.Analysis = FormIt.Analysis || {};
-FormIt.Analysis.Solar = FormIt.Analysis.Solar || {};
-FormIt.Analysis.Solar.WeatherDataStatus = FormIt.Analysis.Solar.WeatherDataStatus || {};
-FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataNotLoaded = 0;
-FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataLoaded = 1;
-FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataNotAvailableForLocation = 2;
-FormIt.Analysis.Solar.WeatherDataStatus.kWeatherDataFormatError = 3;
-FormIt.Scenes = FormIt.Scenes || {};
-FormIt.Layers = FormIt.Layers || {};
-FormIt.MaterialProvider = FormIt.MaterialProvider || {};
-FormIt.SketchMaterials = FormIt.SketchMaterials || {};
-FormIt.SampleMaterials = FormIt.SampleMaterials || {};
-FormIt.UI = FormIt.UI || {};
-FormIt.UndoManagement = FormIt.UndoManagement || {};
-FormIt.Files = FormIt.Files || {};
-FormIt.Forge = FormIt.Forge || {};
-FormIt.Forge.UI = FormIt.Forge.UI || {};
-FormIt.Dynamo = FormIt.Dynamo || {};
-FormIt.SunAndLocation = FormIt.SunAndLocation || {};
-FormIt.Utils = FormIt.Utils || {};
 
     // Invalid ID
     WSM.INVALID_ID = 0xFFFFFFFF;
