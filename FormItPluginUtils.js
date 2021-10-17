@@ -1,3 +1,5 @@
+FormIt.PluginUtils = FormIt.PluginUtils || {};
+
 //
 // math utils
 //
