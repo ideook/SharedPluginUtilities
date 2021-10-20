@@ -193,7 +193,7 @@ FormIt.PluginUtils.Array.flatten = function(array)
 {
     return array.reduce(function (flat, toFlatten) 
     {
-        return flat.concat(Array.isArray(toFlatten) ? flattenArray(toFlatten) : toFlatten);
+        return flat.concat(Array.isArray(toFlatten) ? FormIt.PluginUtils.Array.flatten(toFlatten) : toFlatten);
     }, []);
 }
 
