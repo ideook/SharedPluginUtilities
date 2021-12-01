@@ -1,4 +1,11 @@
-FormIt.PluginUtils = FormIt.PluginUtils || {};
+if (typeof FormIt.PluginUtils == 'undefined')
+{
+    FormIt.PluginUtils = {};
+}
+
+// this script is designed to be used both in the web and FormIt application context
+// but because the FormIt context doesn't support ES6 syntax,
+// this script must use var and no async/await
 
 //
 // math utils
@@ -221,10 +228,10 @@ FormIt.PluginUtils.Array.testSiblingEquality = function(array)
 //
 FormIt.PluginUtils.Application = FormIt.PluginUtils.Application || {};
 
-FormIt.PluginUtils.Application.getScreenPointInWorldSpace = async function(x, y, planeDistance)
+FormIt.PluginUtils.Application.getScreenPointInWorldSpace = function(x, y, planeDistance)
 {
     // get a pickray at the provided screen point (normalized 0-1)
-    let pickray = await WSM.Utils.PickRayFromNormalizedScreenPoint(x, y);
+    var pickray = WSM.Utils.PickRayFromNormalizedScreenPoint(x, y);
     //console.log(JSON.stringify(pickray));
 
     pickrayPoint = pickray.pickrayLine.point;
@@ -235,33 +242,33 @@ FormIt.PluginUtils.Application.getScreenPointInWorldSpace = async function(x, y,
     newPickrayPointZ = pickrayPoint.z + pickrayVector.z * planeDistance;
     //console.log(newPickrayPointX + ',' + newPickrayPointY + ',' + newPickrayPointZ);
 
-    let pickrayPoint3d = await WSM.Geom.Point3d(newPickrayPointX, newPickrayPointY, newPickrayPointZ);
+    var pickrayPoint3d = WSM.Geom.Point3d(newPickrayPointX, newPickrayPointY, newPickrayPointZ);
 
     return pickrayPoint3d;
 }
 
-FormIt.PluginUtils.Application.getViewportAspectRatio = async function()
+FormIt.PluginUtils.Application.getViewportAspectRatio = function()
 {
-    let viewportSize = await FormIt.Cameras.GetViewportSize();
+    var viewportSize = FormIt.Cameras.GetViewportSize();
 
     return viewportSize.width / viewportSize.height;
 }
 
 // get Group instances in this history with a particular string attribute key
-FormIt.PluginUtils.Application.getGroupInstancesByStringAttributeKey = async function(nHistoryID, stringAttributeKey)
+FormIt.PluginUtils.Application.getGroupInstancesByStringAttributeKey = function(nHistoryID, stringAttributeKey)
 {
     // get all the instances in this history
-    let potentialObjectsArray = await WSM.APIGetAllObjectsByTypeReadOnly(nHistoryID, WSM.nObjectType.nInstanceType);
+    var potentialObjectsArray = WSM.APIGetAllObjectsByTypeReadOnly(nHistoryID, WSM.nObjectType.nInstanceType);
 
-    let aFinalObjects = [];
+    var aFinalObjects = [];
 
     // for each of the objects in this history, look for ones with a particular string attribute key
-    for (let i = 0; i < potentialObjectsArray.length; i++)
+    for (var i = 0; i < potentialObjectsArray.length; i++)
     {
-        let objectID = potentialObjectsArray[i];
+        var objectID = potentialObjectsArray[i];
         //console.log("Object ID: " + objectID);
 
-        let objectHasStringAttributeResult = await WSM.Utils.GetStringAttributeForObject(nHistoryID, objectID, stringAttributeKey);
+        var objectHasStringAttributeResult = WSM.Utils.GetStringAttributeForObject(nHistoryID, objectID, stringAttributeKey);
 
         if (objectHasStringAttributeResult.success == true)
         {
@@ -273,12 +280,12 @@ FormIt.PluginUtils.Application.getGroupInstancesByStringAttributeKey = async fun
 }
 
 // create a layer by name, if it doesn't exist already, and return its ID
-FormIt.PluginUtils.Application.getOrCreateLayerByName = async function(nHistoryID, layerName)
+FormIt.PluginUtils.Application.getOrCreateLayerByName = function(nHistoryID, layerName)
 {
     // if the named layer doesn't exist, create it
-    if (!await FormIt.Layers.LayerExists(layerName))
+    if (!FormIt.Layers.LayerExists(layerName))
     {
-        await FormIt.Layers.AddLayer(nHistoryID, layerName, true);
+        FormIt.Layers.AddLayer(nHistoryID, layerName, true);
         //console.log("Created a new Layer: " + "'" + layerName + "'");
     }
     else 
@@ -288,12 +295,12 @@ FormIt.PluginUtils.Application.getOrCreateLayerByName = async function(nHistoryI
 
     // need to figure out what ID is
     // start by getting all Layers
-    let allLayers = await FormIt.Layers.GetLayerList();
+    var allLayers = FormIt.Layers.GetLayerList();
 
-    let layerID = undefined;
+    var layerID = undefined;
 
     // look for the Cameras layer by name, and get the ID
-    for (let i = 0; i < allLayers.length; i++)
+    for (var i = 0; i < allLayers.length; i++)
     {
         if (allLayers[i].Name == layerName)
         {
