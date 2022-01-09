@@ -265,18 +265,42 @@ FormIt.PluginUtils.Application.getGroupInstancesByStringAttributeKey = function(
     // for each of the objects in this history, look for ones with a particular string attribute key
     for (var i = 0; i < potentialObjectsArray.length; i++)
     {
-        var objectID = potentialObjectsArray[i];
+        var instanceID = potentialObjectsArray[i];
         //console.log("Object ID: " + objectID);
 
-        var objectHasStringAttributeResult = WSM.Utils.GetStringAttributeForObject(nHistoryID, objectID, stringAttributeKey);
+        var objectHasStringAttributeResult = WSM.Utils.GetStringAttributeForObject(nHistoryID, instanceID, stringAttributeKey);
 
         if (objectHasStringAttributeResult.success == true)
         {
-            aFinalObjects.push(objectID);
+            aFinalObjects.push(instanceID);
         }
     }
 
     return aFinalObjects;
+}
+
+// delete Group instances in the given history with this string attribute key,
+// then replace them with a new one, returning the group ID
+FormIt.PluginUtils.Application.createOrReplaceGroupInstanceByStringAttributeKey = function(nHistoryID, stringAttributeKey, stringAttributeValue)
+{
+    // get and delete any existing camera container objects
+    var aInstanceIDs = FormIt.PluginUtils.Application.getGroupInstancesByStringAttributeKey(nHistoryID, stringAttributeKey);
+
+    for (var i = 0; i < aInstanceIDs.length; i++)
+    {
+        WSM.APIDeleteObject(nHistoryID, objectID);
+    }
+
+    // now that any existing instances have been deleted, make a new one
+    var newGroupID = WSM.APICreateGroup(nHistoryID, [])
+    // get the instance ID of the Group
+    var newGroupInstanceID = JSON.parse(WSM.APIGetObjectsByTypeReadOnly(nHistoryID, newGroupID, WSM.nObjectType.nInstanceType));
+
+    // add the attribute to the instance
+    WSM.Utils.SetOrCreateStringAttributeForObject(nHistoryID,
+        newGroupInstanceID, ManageCameras.cameraStringAttributeKey, stringAttributeValue);
+
+    return newGroupID;
 }
 
 // create a layer by name, if it doesn't exist already, and return its ID
