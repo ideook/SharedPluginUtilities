@@ -35,6 +35,20 @@ body {
     font-weight: bold;
 }
 
+/* scrollable list container */
+.scrollableListContainer {
+    display: flex;
+    justify-content: center;
+    height: 150px;
+    background-color: #f2f2f2;
+}
+
+.scrollableListContainerZeroStateLabel {
+    color: rgb(59, 59, 59);
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 /* unordered lists */
 .contentContainer ul,
 #pluginFooterContainer ul {

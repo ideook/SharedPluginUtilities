@@ -91,6 +91,52 @@ FormIt.PluginUI.SubheaderModule = class SubheaderModule {
     }
 }
 
+// list container - scrollable and with automatic zero-state
+FormIt.PluginUI.ScrollableListContainer = class ScrollableListContainer {
+    constructor(zeroStateMessageText) {
+
+        // initialize the arguments
+        this.zeroStateMessageText = zeroStateMessageText;
+
+        // build and attach events
+        this.element = this.build();
+    }
+
+    // construct and append the UI elements
+    build() {
+        
+        // create the list container element
+        var listContainerDiv = document.createElement('div');
+        this.listContainerDiv = listContainerDiv;
+        listContainerDiv.className = 'scrollableListContainer';
+
+        // the zero-state message will always be the first child
+        var zeroStateMessageLabel = document.createElement('p');
+        this.zeroStateMessageLabel = zeroStateMessageLabel;
+        zeroStateMessageLabel.className = 'scrollableListContainerZeroStateLabel';
+        zeroStateMessageLabel.innerHTML =  this.zeroStateMessageText;
+        listContainerDiv.appendChild(zeroStateMessageLabel);
+        
+        return this.listContainerDiv;
+    }
+
+    // toggle the zero-state message depending on whether the container has children
+    toggleZeroStateMessage()
+    {
+        // if the child count is greater than 1 (the zero-state message itself is child 0)
+        // show the message
+        if (this.listContainerDiv.childElementCount > 1)
+        {
+            this.zeroStateMessageLabel.innerHTML = this.zeroStateMessageText;
+        }
+        // otherwise, hide it
+        else 
+        {
+            this.zeroStateMessageLabel.innerHTML = "";
+        }
+    }
+}
+
 // typical button
 FormIt.PluginUI.Button = class Button {
     constructor(buttonText, onClickFunction) {
