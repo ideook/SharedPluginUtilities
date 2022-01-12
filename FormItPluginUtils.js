@@ -262,7 +262,35 @@ FormIt.PluginUtils.Application.getGroupInstancesByStringAttributeKey = function(
 
     var aFinalObjects = [];
 
-    // for each of the objects in this history, look for ones with a particular string attribute key
+    if (potentialObjectsArray)
+    {
+        // for each of the objects in this history, look for ones with a particular string attribute key
+        for (var i = 0; i < potentialObjectsArray.length; i++)
+        {
+            var instanceID = potentialObjectsArray[i];
+            //console.log("Object ID: " + objectID);
+
+            var objectHasStringAttributeResult = WSM.Utils.GetStringAttributeForObject(nHistoryID, instanceID, stringAttributeKey);
+
+            if (objectHasStringAttributeResult.success == true)
+            {
+                aFinalObjects.push(instanceID);
+            }
+        }
+    }
+
+    return aFinalObjects;
+}
+
+// get Group instances in this history with a particular string attribute key and value pair
+FormIt.PluginUtils.Application.getGroupInstancesByStringAttributeKeyAndValue = function(nHistoryID, stringAttributeKey, stringAttributeValue)
+{
+    // get all the instances in this history with the string attribute key
+    var potentialObjectsArray = FormIt.PluginUtils.Application.getGroupInstancesByStringAttributeKey(nHistoryID, stringAttributeKey);
+
+    var aFinalObjects = [];
+
+    // for each of the objects found by key, look for ones with a matching string attribute value
     for (var i = 0; i < potentialObjectsArray.length; i++)
     {
         var instanceID = potentialObjectsArray[i];
@@ -270,7 +298,7 @@ FormIt.PluginUtils.Application.getGroupInstancesByStringAttributeKey = function(
 
         var objectHasStringAttributeResult = WSM.Utils.GetStringAttributeForObject(nHistoryID, instanceID, stringAttributeKey);
 
-        if (objectHasStringAttributeResult.success == true)
+        if (objectHasStringAttributeResult.value == stringAttributeValue)
         {
             aFinalObjects.push(instanceID);
         }
