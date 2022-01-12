@@ -124,15 +124,16 @@ FormIt.PluginUI.ScrollableListContainer = class ScrollableListContainer {
     toggleZeroStateMessage()
     {
         // if the child count is greater than 1 (the zero-state message itself is child 0)
-        // show the message
+        // hide the message
         if (this.listContainerDiv.childElementCount > 1)
         {
-            this.zeroStateMessageLabel.innerHTML = this.zeroStateMessageText;
+            this.zeroStateMessageLabel.className = "hide";
+            
         }
-        // otherwise, hide it
+        // otherwise, show it
         else 
         {
-            this.zeroStateMessageLabel.innerHTML = "";
+            this.zeroStateMessageLabel.className = "show";;
         }
     }
 }
