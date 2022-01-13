@@ -20,7 +20,7 @@ body {
     padding-left: 10px;
     padding-right: 10px;
     flex-grow: 1;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 /* typical body text */
@@ -38,15 +38,51 @@ body {
 /* scrollable list container */
 .scrollableListContainer {
     display: flex;
-    justify-content: center;
-    height: 150px;
+    overflow-y: auto;
+    flex-direction: column;
+    height: 150px; /* default, but can be overridden in the ListContainer element */
     background-color: #f2f2f2;
+    padding: 10px;
 }
 
 .scrollableListContainerZeroStateLabel {
     color: rgb(59, 59, 59);
     margin-left: 10px;
     margin-right: 10px;
+    text-align: center;
+}
+
+/* scrollable list elements */
+.listItemContainer {
+    background-color: #cfcfcf;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.contentContainer .expandableItemContainer input[type=button] {
+    width: 100%;
+    text-align: left;
+    background-color: #cfcfcf;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    border: none;
+}
+
+.contentContainer .expandableItemContainer input[type=button]:hover,
+.contentContainer .expandableItemContainer input[type=button]:focus,
+.contentContainer .expandableItemContainer input[type=button]:active,
+.contentContainer .expandableItemContainer input[type=button].expandableItemButtonExpanded {
+    background-color: #afafaf;
+    padding: 5px;
+    border: none;
+}
+
+.expandableContentContainer {
+    display: block;
+    height: 100px;
+    background-color: #cfcfcf;
 }
 
 /* unordered lists */

@@ -92,7 +92,7 @@ FormIt.PluginUI.SubheaderModule = class SubheaderModule {
 }
 
 // list container - scrollable and with automatic zero-state
-FormIt.PluginUI.ScrollableListContainer = class ScrollableListContainer {
+FormIt.PluginUI.ListContainer = class ListContainer {
     constructor(zeroStateMessageText) {
 
         // initialize the arguments
@@ -106,16 +106,14 @@ FormIt.PluginUI.ScrollableListContainer = class ScrollableListContainer {
     build() {
         
         // create the list container element
-        var listContainerDiv = document.createElement('div');
-        this.listContainerDiv = listContainerDiv;
-        listContainerDiv.className = 'scrollableListContainer';
+        this.listContainerDiv = document.createElement('div');
+        this.listContainerDiv.className = 'scrollableListContainer';
 
         // the zero-state message will always be the first child
-        var zeroStateMessageLabel = document.createElement('p');
-        this.zeroStateMessageLabel = zeroStateMessageLabel;
-        zeroStateMessageLabel.className = 'scrollableListContainerZeroStateLabel';
-        zeroStateMessageLabel.innerHTML =  this.zeroStateMessageText;
-        listContainerDiv.appendChild(zeroStateMessageLabel);
+        this.zeroStateMessageLabel = document.createElement('p');
+        this.zeroStateMessageLabel.className = 'scrollableListContainerZeroStateLabel';
+        this.zeroStateMessageLabel.innerHTML =  this.zeroStateMessageText;
+        this.listContainerDiv.appendChild(this.zeroStateMessageLabel);
         
         return this.listContainerDiv;
     }
@@ -128,7 +126,6 @@ FormIt.PluginUI.ScrollableListContainer = class ScrollableListContainer {
         if (this.listContainerDiv.childElementCount > 1)
         {
             this.zeroStateMessageLabel.className = "hide";
-            
         }
         // otherwise, show it
         else 
@@ -136,6 +133,65 @@ FormIt.PluginUI.ScrollableListContainer = class ScrollableListContainer {
             this.zeroStateMessageLabel.className = "show";;
         }
     }
+
+    // override the list height
+    setListHeight(nHeight)
+    {
+        this.listContainerDiv.style.height = nHeight;
+    }
+}
+
+// expandable list item
+FormIt.PluginUI.ExpandableListItem = class ExpandableListItem {
+    constructor(buttonText) {
+
+        // initialize the arguments
+        this.buttonText = buttonText;
+
+        // build and attach events
+        this.element = this.build();
+        this.attachEvents();
+    }
+
+    // construct and append the UI elements
+    build() {
+
+        // overall container
+        this.overallContainer = document.createElement('div');
+        this.overallContainer.className = 'expandableItemContainer';
+        
+        // button
+        this.button = document.createElement("input");
+        this.button.setAttribute("type", "button");
+        this.button.value = this.buttonText;
+        this.button.className = 'expandableItemButtonCollapsed';
+        this.overallContainer.appendChild(this.button);
+
+        // expandable content
+        this.expandableContentContainer = document.createElement('div');
+        this.expandableContentContainer.className = 'hide';
+        this.overallContainer.appendChild(this.expandableContentContainer);
+
+        return this.overallContainer;
+    }
+
+    attachEvents() {
+        this.button.addEventListener('click', () => {
+            
+            if (this.expandableContentContainer.className == 'hide')
+            {
+                this.expandableContentContainer.className = 'expandableContentContainer';
+                this.button.className = 'expandableItemButtonExpanded';
+            }
+            else 
+            {
+                this.expandableContentContainer.className = 'hide';
+                this.button.className = 'expandableItemButtonCollapsed';
+            }
+
+        });
+    }
+
 }
 
 // typical button
@@ -154,7 +210,6 @@ FormIt.PluginUI.Button = class Button {
     // construct and append the UI elements
     build() {
         
-        // create a container for the header
         this.button = document.createElement("input");
         this.button.setAttribute("type", "button");
         this.button.value = this.buttonText;
@@ -223,19 +278,17 @@ FormIt.PluginUI.ButtonWithInfoToggleModule = class ButtonWithInfoToggleModule {
     attachEvents() {
         this.button.addEventListener('click', this.onClickFunction);
 
-        let descriptionDiv = this.descriptionDiv;
-        let infoButton = this.infoButton;
-        this.infoButton.addEventListener('click', function() {
+        this.infoButton.addEventListener('click', () => {
 
-                if (descriptionDiv.className == "hide")
+                if (this.descriptionDiv.className == "hide")
                 {
-                    descriptionDiv.className = "show";
-                    infoButton.className = 'infoToggleActive';
+                    this.descriptionDiv.className = "show";
+                    this.infoButton.className = 'infoToggleActive';
                 }
                 else
                 {
-                    descriptionDiv.className = "hide";
-                    infoButton.className = 'infoToggleInactive';
+                    this.descriptionDiv.className = "hide";
+                    this.infoButton.className = 'infoToggleInactive';
                 }
 
         });
