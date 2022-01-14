@@ -46,16 +46,16 @@ FormIt.PluginUI.HeaderModule = class HeaderModule {
     build() {
         
         // create a container for the header
-        var headerContainer = document.createElement('div');
+        let headerContainer = document.createElement('div');
         headerContainer.id = 'pluginHeaderContainer';
         headerContainer.className = this.moduleClassName;
 
         // create the header elements
-        var titleDiv = document.createElement('h1');
+        let titleDiv = document.createElement('h1');
         titleDiv.innerHTML = this.headerTitle;
         headerContainer.appendChild(titleDiv);
 
-        var subtitleDiv = document.createElement('p');
+        let subtitleDiv = document.createElement('p');
         subtitleDiv.innerHTML =  this.headerSubtitle;
         headerContainer.appendChild(subtitleDiv);
 
@@ -79,11 +79,11 @@ FormIt.PluginUI.SubheaderModule = class SubheaderModule {
     build() {
         
         // create a container for the header
-        var subheaderContainer = document.createElement('div');
+        let subheaderContainer = document.createElement('div');
         subheaderContainer.id = 'pluginSubheaderContainer';
         subheaderContainer.className = this.moduleClassName;
 
-        var subtitleDiv = document.createElement('p');
+        let subtitleDiv = document.createElement('p');
         subtitleDiv.innerHTML =  this.subheaderTitle;
         subheaderContainer.appendChild(subtitleDiv);
 
@@ -165,6 +165,7 @@ FormIt.PluginUI.ExpandableListItem = class ExpandableListItem {
         this.button.setAttribute("type", "button");
         this.button.value = this.buttonText;
         this.button.className = 'expandableItemButtonCollapsed';
+        this.button.id = 'expandableItemButton';
         this.overallContainer.appendChild(this.button);
 
         // expandable content
@@ -192,6 +193,11 @@ FormIt.PluginUI.ExpandableListItem = class ExpandableListItem {
         });
     }
 
+    // override the list height
+    setContentContainerHeight(nHeight)
+    {
+        this.expandableContentContainer.style.height = nHeight;
+    }
 }
 
 // typical button
@@ -435,12 +441,12 @@ FormIt.PluginUI.TextInputModule = class TextInputModule extends FormIt.PluginUI.
     build() {
         
         // create the container
-        var container = document.createElement('form');
+        let container = document.createElement('form');
         container.id = this.moduleID;
         container.className = this.moduleClassName;
 
         // create the label
-        var textInputLabel = document.createElement('div');
+        let textInputLabel = document.createElement('div');
         textInputLabel.className = 'inputLabel';
         textInputLabel.innerHTML = this.moduleLabelText;
         container.appendChild(textInputLabel);
@@ -478,12 +484,12 @@ FormIt.PluginUI.NumberInputModule = class NumberInputModule extends FormIt.Plugi
     build() {
         
         // create the container
-        var container = document.createElement('form');
+        let container = document.createElement('form');
         container.id = this.moduleID;
         container.className = this.moduleClassName;
 
         // create the label
-        var textInputLabel = document.createElement('div');
+        let textInputLabel = document.createElement('div');
         textInputLabel.className = 'inputLabel';
         textInputLabel.innerHTML = this.moduleLabelText;
         container.appendChild(textInputLabel);
@@ -516,7 +522,7 @@ FormIt.PluginUI.CheckboxModule = class CheckboxModule {
     build() {
 
         // build the container
-        var container = document.createElement('form');
+        let container = document.createElement('form');
         container.id = this.moduleID;
         container.className = this.moduleClassName;
 
@@ -527,7 +533,7 @@ FormIt.PluginUI.CheckboxModule = class CheckboxModule {
         container.appendChild(this.input);
 
         // create the label
-        var checkboxLabel = document.createElement('div');
+        let checkboxLabel = document.createElement('div');
         checkboxLabel.className = 'inputLabel';
         checkboxLabel.innerHTML = this.labelText;
         container.appendChild(checkboxLabel);
@@ -546,27 +552,27 @@ FormIt.PluginUI.FooterModule = class FooterModule {
 
     // construct and append the UI elements
     build() {
-        var footerContainer = document.createElement('div');
+        let footerContainer = document.createElement('div');
         footerContainer.id = 'pluginFooterContainer';
     
-        var footerDiv = document.createElement('div');
+        let footerDiv = document.createElement('div');
         footerDiv.id = 'pluginFooterDiv';
         footerContainer.appendChild(footerDiv);
 
-        var footerIcon = document.createElement('img');
+        let footerIcon = document.createElement('img');
         footerIcon.src = 'https://formit3d.github.io/FormItExamplePlugins/SharedPluginFiles/img/plugin_manager_grey.png';
         footerIcon.id = 'pluginFooterIcon';
         footerDiv.appendChild(footerIcon);
     
-        var footerDescriptionText = document.createTextNode("Powered by FormIt JavaScript plugins");
+        let footerDescriptionText = document.createTextNode("Powered by FormIt JavaScript plugins");
         footerDiv.appendChild(footerDescriptionText);
     
-        var footerDivUL = document.createElement('ul');
+        let footerDivUL = document.createElement('ul');
         footerDiv.appendChild(footerDivUL);
     
-        var footerLearnAboutPluginsLI = document.createElement('li');
-        var footerLearnAboutPluginsLink = document.createElement('a');
-        var footerLearnAboutPluginsText = document.createTextNode("Learn about plugins");
+        let footerLearnAboutPluginsLI = document.createElement('li');
+        let footerLearnAboutPluginsLink = document.createElement('a');
+        let footerLearnAboutPluginsText = document.createTextNode("Learn about plugins");
         footerLearnAboutPluginsLink.appendChild(footerLearnAboutPluginsText);
         footerLearnAboutPluginsLink.setAttribute("href", "javascript:void(0);");
         footerDivUL.appendChild(footerLearnAboutPluginsLI);
@@ -576,9 +582,9 @@ FormIt.PluginUI.FooterModule = class FooterModule {
             FormItInterface.CallMethod("FormIt.OpenURL", 'https://formit3d.github.io/FormItExamplePlugins/index.html');
         }
     
-        var footerLearnToBuildLI = document.createElement('li');
-        var footerLearnToBuildLink = document.createElement('a');
-        var footerLearnToBuildText = document.createTextNode("Build your own");
+        let footerLearnToBuildLI = document.createElement('li');
+        let footerLearnToBuildLink = document.createElement('a');
+        let footerLearnToBuildText = document.createTextNode("Build your own");
         footerLearnToBuildLink.appendChild(footerLearnToBuildText);
         footerLearnToBuildLink.setAttribute("href", "javascript:void(0);");
         footerDivUL.appendChild(footerLearnToBuildLI);
@@ -608,18 +614,18 @@ FormIt.PluginUI.UnsupportedVersionModule = class UnsupportedVersionModule {
     build() {
         
         // create a container
-        var unsupportedVersionContainer = document.createElement('div');
+        let unsupportedVersionContainer = document.createElement('div');
         unsupportedVersionContainer.id = 'unsupportedVersionContainer';
 
         // create the icon
-        var unsupportedVersionIcon = document.createElement('img');
+        let unsupportedVersionIcon = document.createElement('img');
         // https://formit3d.github.io
         unsupportedVersionIcon.src = 'https://formit3d.github.io/FormItExamplePlugins/SharedPluginFiles/img/info_grey.png';
         unsupportedVersionIcon.id = 'unsupportedVersionIcon';
         unsupportedVersionContainer.appendChild(unsupportedVersionIcon);
 
         // create the message
-        var unsupportedVersionMessage = document.createElement('p');
+        let unsupportedVersionMessage = document.createElement('p');
         unsupportedVersionContainer.appendChild(unsupportedVersionMessage);
 
         // if the version is specified, use it
@@ -633,7 +639,7 @@ FormIt.PluginUI.UnsupportedVersionModule = class UnsupportedVersionModule {
             unsupportedVersionMessage.innerHTML =  'A newer version of FormIt is required to run this plugin.';
         }
 
-        var downloadLink = document.createElement('a');
+        let downloadLink = document.createElement('a');
         downloadLink.innerHTML =  'Download the latest version of FormIt.';
         unsupportedVersionContainer.appendChild(downloadLink);
 
@@ -649,12 +655,17 @@ FormIt.PluginUI.UnsupportedVersionModule = class UnsupportedVersionModule {
 
 
 // create a container to host multiple child elements, organizing them horizontally
-FormIt.PluginUI.createHorizontalModuleContainer = function(parent)
-{
-    var multiModuleContainer = document.createElement('div');
-    multiModuleContainer.className = 'multiModuleContainer';
+FormIt.PluginUI.MultiModuleContainer = class MultiModuleContainer {
+    constructor() {
+        // build
+        this.element = this.build();
+    }
 
-    parent.appendChild(multiModuleContainer);
+    build() {
+        let multiModuleContainer = document.createElement('div');
+        multiModuleContainer.id = 'multiModuleContainer';
+        multiModuleContainer.className = 'multiModuleContainer';
 
-    return multiModuleContainer;
+        return multiModuleContainer;
+    }
 }

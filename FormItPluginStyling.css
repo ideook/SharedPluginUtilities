@@ -53,36 +53,43 @@ body {
 }
 
 /* scrollable list elements */
-.listItemContainer {
+.simpleListItemContainer {
     background-color: #cfcfcf;
     padding: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-.contentContainer .expandableItemContainer input[type=button] {
+.contentContainer input[type=button]#expandableItemButton {
     width: 100%;
     text-align: left;
-    background-color: #cfcfcf;
+    color: white;
+    background-color: #6a7e94;
+    border: 2px solid transparent;
     padding: 5px;
     margin-top: 10px;
     margin-bottom: 0px;
-    border: none;
 }
 
-.contentContainer .expandableItemContainer input[type=button]:hover,
-.contentContainer .expandableItemContainer input[type=button]:focus,
-.contentContainer .expandableItemContainer input[type=button]:active,
-.contentContainer .expandableItemContainer input[type=button].expandableItemButtonExpanded {
-    background-color: #afafaf;
+.contentContainer input[type=button]#expandableItemButton:hover,
+.contentContainer input[type=button]#expandableItemButton:focus,
+.contentContainer input[type=button]#expandableItemButton:active,
+.contentContainer input[type=button]#expandableItemButton.expandableItemButtonExpanded {
+    color: white;
+    background-color: #6a7e94;
+    border: 2px solid #c3e8f4;
     padding: 5px;
-    border: none;
 }
 
 .expandableContentContainer {
     display: block;
+    padding: 10px;
     height: 100px;
-    background-color: #cfcfcf;
+    background-color: #e0e0e0;
+    border-top: none;
+    border-bottom: 2px solid #c3e8f4;
+    border-left: 2px solid #c3e8f4;
+    border-right: 2px solid #c3e8f4;
 }
 
 /* unordered lists */
