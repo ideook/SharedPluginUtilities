@@ -459,6 +459,11 @@ FormIt.PluginUI.TextInputModule = class TextInputModule extends FormIt.PluginUI.
 
         return container;
     }
+
+    // get the input for get/set value operations
+    getInput() {
+        return this.input;
+    }
 }
 
 // typical numeric input and a label
