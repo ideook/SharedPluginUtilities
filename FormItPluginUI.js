@@ -229,6 +229,37 @@ FormIt.PluginUI.Button = class Button {
 
 }
 
+// button with tooltip
+FormIt.PluginUI.ButtonWithTooltip = class ButtonWithTooltip {
+    constructor(buttonText, buttonTooltip, onClickFunction) {
+
+        // initialize the arguments
+        this.buttonText = buttonText;
+        this.buttonTooltip = buttonTooltip;
+        this.onClickFunction = onClickFunction;
+
+        // build and attach events
+        this.element = this.build();
+        this.attachEvents();
+    }
+
+    // construct and append the UI elements
+    build() {
+        
+        this.button = document.createElement("input");
+        this.button.setAttribute("type", "button");
+        this.button.setAttribute("title", this.buttonTooltip)
+        this.button.value = this.buttonText;
+        
+        return this.button;
+    }
+
+    attachEvents() {
+        this.button.addEventListener('click', this.onClickFunction);
+    }
+
+}
+
 // button with description
 FormIt.PluginUI.ButtonWithInfoToggleModule = class ButtonWithInfoToggleModule {
     constructor(buttonText, buttonDescription, onClickFunction) {
