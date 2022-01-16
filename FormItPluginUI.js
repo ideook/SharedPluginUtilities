@@ -576,6 +576,10 @@ FormIt.PluginUI.CheckboxModule = class CheckboxModule {
 
         return container;
     }
+
+    getInput() {
+        return this.input;
+    }
 }
 
 // typical footer
