@@ -540,8 +540,8 @@ FormIt.PluginUI.NumberInputModule = class NumberInputModule extends FormIt.Plugi
     }
 }
 
-// select list / drop-down
-FormIt.PluginUI.SelectListModule = class SelectListModule {
+// select input / drop-down
+FormIt.PluginUI.SelectInputModule = class SelectInputModule {
     constructor(labelText, defaultOption) {
        
         // initialize the arguments
@@ -559,11 +559,11 @@ FormIt.PluginUI.SelectListModule = class SelectListModule {
         let container = document.createElement('div');
 
         // create the label
-        let selectListLabel = document.createElement('div');
-        selectListLabel.className = 'inputLabel';
-        selectListLabel.innerHTML = this.labelText;
-        selectListLabel.setAttribute('for', 'selectList');
-        container.appendChild(selectListLabel);
+        let selectInputLabel = document.createElement('div');
+        selectInputLabel.className = 'inputLabel';
+        selectInputLabel.innerHTML = this.labelText;
+        selectInputLabel.setAttribute('for', 'selectList');
+        container.appendChild(selectInputLabel);
 
         // create the text input
         this.input = document.createElement('select');
@@ -573,11 +573,19 @@ FormIt.PluginUI.SelectListModule = class SelectListModule {
         return container;
     }
 
-    getSelectListInput() {
+    getInput() {
         return this.input;
     }
 
+    clearSelectList() {
+
+        this.input.length = 0;
+
+    }
+
     populateSelectList(array) {
+
+        this.clearSelectList();
 
         // first, populate the list with the default option
         let defaultOption = document.createElement('option');
