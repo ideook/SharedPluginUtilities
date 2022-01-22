@@ -134,11 +134,96 @@ FormIt.PluginUI.ListContainer = class ListContainer {
         }
     }
 
+    clearList()
+    {
+        // the first child is the zero-state label, which shouldn't be deleted
+        // so save it for restoring later
+        let zeroStateChild = this.listContainerDiv.firstChild;
+
+        // remove all children
+        while (this.listContainerDiv.firstChild) {
+            this.listContainerDiv.removeChild(this.listContainerDiv.lastChild);
+        }
+
+        // add the zero-state label back
+        this.listContainerDiv.appendChild(zeroStateChild);
+    }
+
     // override the list height
     setListHeight(nHeight)
     {
         this.listContainerDiv.style.height = nHeight;
     }
+}
+
+// generic list item - static
+FormIt.PluginUI.SimpleListItemStatic = class SimpleListItemStatic {
+    constructor(listItemText) {
+
+        // initialize the arguments
+        this.listItemText = listItemText;
+
+        // build and attach events
+        this.element = this.build();
+    }
+
+    // construct and append the UI elements
+    build() {
+
+        // overall container
+        this.itemContainer = document.createElement('div');
+        this.itemContainer.textContent = this.listItemText;
+        this.itemContainer.className = 'simpleListItemContainer';
+
+        return this.itemContainer;
+    }
+
+    // override the list height
+    setContentContainerHeight(nHeight)
+    {
+        this.expandableContentContainer.style.height = nHeight;
+    }
+}
+
+// generic list item - interactive
+FormIt.PluginUI.SimpleListItemInteractive = class SimpleListItemInteractive {
+    constructor() {
+
+        // initialize the arguments
+
+        // build and attach events
+        this.element = this.build();
+    }
+
+    // construct and append the UI elements
+    build() {
+
+        // overall container
+        this.itemContainer = document.createElement('div');
+        this.itemContainer.className = 'simpleListItemContainer';
+        
+        // button
+        this.button = document.createElement("input");
+        this.button.setAttribute("type", "button");
+        this.button.value = this.listItemText;
+        this.button.className = 'expandableItemButtonCollapsed';
+        this.button.id = 'expandableItemButton';
+        this.itemContainer.appendChild(this.button);
+
+        // expandable content
+        this.expandableContentContainer = document.createElement('div');
+        this.expandableContentContainer.className = 'hide';
+        this.itemContainer.appendChild(this.expandableContentContainer);
+
+        return this.itemContainer;
+    }
+
+    // override the list height
+    setContentContainerHeight(nHeight)
+    {
+        this.expandableContentContainer.style.height = nHeight;
+    }
+
 }
 
 // expandable list item

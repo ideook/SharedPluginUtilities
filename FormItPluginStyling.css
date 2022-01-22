@@ -54,10 +54,12 @@ body {
 
 /* scrollable list elements */
 .simpleListItemContainer {
-    background-color: #cfcfcf;
+    color: rgb(0, 0, 0);
+    background-color: #dddddd;
     padding: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
+    word-wrap: break-word;
 }
 
 .contentContainer input[type=button]#expandableItemButton {
