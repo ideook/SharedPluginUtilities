@@ -540,6 +540,61 @@ FormIt.PluginUI.NumberInputModule = class NumberInputModule extends FormIt.Plugi
     }
 }
 
+// select list / drop-down
+FormIt.PluginUI.SelectListModule = class SelectListModule {
+    constructor(labelText, defaultOption) {
+       
+        // initialize the arguments
+        this.labelText = labelText;
+        this.defaultOption = defaultOption;
+
+        // build
+        this.element = this.build();
+    }
+
+    // construct and append the UI elements
+    build() {
+
+        // build the container
+        let container = document.createElement('div');
+
+        // create the label
+        let selectListLabel = document.createElement('div');
+        selectListLabel.className = 'inputLabel';
+        selectListLabel.innerHTML = this.labelText;
+        selectListLabel.setAttribute('for', 'selectList');
+        container.appendChild(selectListLabel);
+
+        // create the text input
+        this.input = document.createElement('select');
+        this.input.setAttribute('name', 'selectList');
+        container.appendChild(this.input);
+
+        return container;
+    }
+
+    getSelectListInput() {
+        return this.input;
+    }
+
+    populateSelectList(array) {
+
+        // first, populate the list with the default option
+        let defaultOption = document.createElement('option');
+        defaultOption.textContent = this.defaultOption;
+        this.input.appendChild(defaultOption);
+
+        // then append the options from the array
+        for(let i = 0; i < array.length; i++)
+        {
+            let option = document.createElement('option');
+            option.textContent = array[i];
+            this.input.appendChild(option);
+        }
+    }
+
+}
+
 // typical checkbox input
 FormIt.PluginUI.CheckboxModule = class CheckboxModule {
     constructor(labelText, moduleID, moduleClassName, inputID) {

@@ -159,6 +159,7 @@ h1:first-of-type {
 }
 
 .contentContainer input {
+    color: #4676a9;
     border: 1px solid #4676a9;
     padding: 4px;
     margin-top: 5px;
@@ -166,7 +167,7 @@ h1:first-of-type {
     width: 100%;
 }
 
-.contentContainer input:hover {
+.contentContainer input:hover, .contentContainer input:focus {
     border: 2px solid #c3e8f4;
     padding: 3px;
     margin-top: 5px;
@@ -175,6 +176,7 @@ h1:first-of-type {
 }
 
 .contentContainer input:disabled {
+    color: #cfcfcf;
     border: 2px solid #cfcfcf;
     background-color: #f2f2f2;
     padding: 3px;
@@ -202,6 +204,29 @@ h1:first-of-type {
     width: 20px;
     height: 20px;
     margin-right: 7px;
+}
+
+/* select list / drop-down */
+select {
+    width: 100%;
+    color: #4676a9;
+    border: 1px solid #4676a9;
+    padding: 4px 4px 4px 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    outline: none;
+}
+
+select:hover, select:focus {
+    border: 1px solid #c3e8f4;
+}
+
+option {
+    color: #4676a9;
+}
+
+option:hover {
+    background-color: #c3e8f4;
 }
 
 /* button */
