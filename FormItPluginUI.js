@@ -161,11 +161,10 @@ FormIt.PluginUI.InfoCardExpandable = class InfoCardExpandable {
         if (this.bStartExpanded)
         {
             this.infoCardHeaderExpandCollapseIcon.className = 'infoHeaderExpandedIcon';
-
         }
         else 
         {
-            this.infoCardExpandableContent.style = 'hide';
+            this.infoCardExpandableContent.className = 'hide';
             this.infoCardHeaderExpandCollapseIcon.className = 'infoHeaderCollapsedIcon';
         }
 
