@@ -123,13 +123,15 @@ FormIt.PluginUI.InfoCardStatic = class InfoCardStatic {
 
 // info card - static - used in Properties Plus
 FormIt.PluginUI.InfoCardExpandable = class InfoCardExpandable {
-    constructor(infoCardTitle) {
+    constructor(infoCardTitle, bStartExpanded) {
 
         // initialize the arguments
         this.infoCardTitle = infoCardTitle;
+        this.bStartExpanded = bStartExpanded;
 
         // build and attach events
         this.element = this.build();
+        this.attachEvents();
     }
 
     // construct and append the UI elements
@@ -150,8 +152,31 @@ FormIt.PluginUI.InfoCardExpandable = class InfoCardExpandable {
         // expand icon
 
         // expandable content
+        this.infoCardExpandableContent = document.createElement('div');
+        this.infoCardContainer.appendChild(this.infoCardExpandableContent);
+       
+        // hide the expandable content container if specified
+        if (!this.bStartExpanded)
+        {
+            this.infoCardExpandableContent.style = 'hidden';
+        }
 
         return this.infoCardContainer;
+    }
+  
+    attachEvents() {
+        this.infoCardHeader.addEventListener('click', () => {
+            
+            if (this.infoCardExpandableContent.className == 'hide')
+            {
+                this.infoCardExpandableContent.className = 'expandableContentContainer';
+            }
+            else 
+            {
+                this.infoCardExpandableContent.className = 'hide';
+            }
+
+        });
     }
 }
 
