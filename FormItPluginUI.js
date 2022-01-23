@@ -91,6 +91,70 @@ FormIt.PluginUI.SubheaderModule = class SubheaderModule {
     }
 }
 
+// info card - static - used in Properties Plus
+FormIt.PluginUI.InfoCardStatic = class InfoCardStatic {
+    constructor(infoCardTitle) {
+
+        // initialize the arguments
+        this.infoCardTitle = infoCardTitle;
+
+        // build and attach events
+        this.element = this.build();
+    }
+
+    // construct and append the UI elements
+    build() {
+
+        // info card container
+        this.infoCardContainer = document.createElement('div');
+        this.infoCardContainer.id = 'infoCardStatic';
+        this.infoCardContainer.className = 'infoContainer';
+
+        // info card header
+        this.infoCardHeader = document.createElement('div');
+        this.infoCardHeader.id = 'infoCardStaticHeader';
+        this.infoCardHeader.className = 'infoHeader';
+        this.infoCardHeader.innerHTML = this.infoCardTitle;
+        this.infoCardContainer.appendChild(this.infoCardHeader);
+
+        return this.infoCardContainer;
+    }
+}
+
+// info card - static - used in Properties Plus
+FormIt.PluginUI.InfoCardExpandable = class InfoCardExpandable {
+    constructor(infoCardTitle) {
+
+        // initialize the arguments
+        this.infoCardTitle = infoCardTitle;
+
+        // build and attach events
+        this.element = this.build();
+    }
+
+    // construct and append the UI elements
+    build() {
+
+        // info card container
+        this.infoCardContainer = document.createElement('div');
+        this.infoCardContainer.id = 'infoCardStatic';
+        this.infoCardContainer.className = 'infoContainer';
+
+        // info card header
+        this.infoCardHeader = document.createElement('div');
+        this.infoCardHeader.id = 'infoCardStaticHeader';
+        this.infoCardHeader.className = 'infoHeader';
+        this.infoCardHeader.innerHTML = this.infoCardTitle;
+        this.infoCardContainer.appendChild(this.infoCardHeader);
+
+        // expand icon
+
+        // expandable content
+
+        return this.infoCardContainer;
+    }
+}
+
 // list container - scrollable and with automatic zero-state
 FormIt.PluginUI.ListContainer = class ListContainer {
     constructor(zeroStateMessageText) {
@@ -177,12 +241,6 @@ FormIt.PluginUI.SimpleListItemStatic = class SimpleListItemStatic {
 
         return this.itemContainer;
     }
-
-    // override the list height
-    setContentContainerHeight(nHeight)
-    {
-        this.expandableContentContainer.style.height = nHeight;
-    }
 }
 
 // generic list item - interactive
@@ -217,13 +275,6 @@ FormIt.PluginUI.SimpleListItemInteractive = class SimpleListItemInteractive {
 
         return this.itemContainer;
     }
-
-    // override the list height
-    setContentContainerHeight(nHeight)
-    {
-        this.expandableContentContainer.style.height = nHeight;
-    }
-
 }
 
 // expandable list item
