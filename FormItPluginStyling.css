@@ -370,10 +370,63 @@ option:hover {
     padding: 10px;
 }
 
+/* the header for info containers */
 .infoHeader {
     font-weight: bold;
     padding-bottom: 10px;
 }
+
+/* the header for info containers */
+.infoHeaderExpandable {
+    color: #4676a9;
+    font-weight: bold;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.infoHeaderExpandable:hover {
+    color: #6ebbd4;
+}
+
+.infoHeaderExpandableCollapsed {
+    color: #4676a9;
+    font-weight: bold;
+    padding-bottom: 0px;
+    cursor: pointer;
+}
+
+.infoHeaderExpandableCollapsed:hover {
+    color: #6ebbd4;
+}
+
+.infoHeaderCollapsedIcon {
+    content: url('https://formit3d.github.io/SharedPluginUtilities/img/arrow-collapsed.png');
+    width: 15px;
+    height: 15px;
+    float: right;
+}
+
+.infoHeaderCollapsedIcon:hover {
+    content: url('https://formit3d.github.io/SharedPluginUtilities/img/arrow-collapsed_hover.png');
+    width: 15px;
+    height: 15px;
+    float: right;
+}
+
+.infoHeaderExpandedIcon {
+    content: url('https://formit3d.github.io/SharedPluginUtilities/img/arrow-expanded.png');
+    width: 15px;
+    height: 15px;
+    float: right;
+}
+
+.infoHeaderExpandedIcon:hover {
+    content: url('https://formit3d.github.io/SharedPluginUtilities/img/arrow-expanded_hover.png');
+    width: 15px;
+    height: 15px;
+    float: right;
+}
+
 
 .infoList {
     line-height: 25px;

@@ -145,20 +145,28 @@ FormIt.PluginUI.InfoCardExpandable = class InfoCardExpandable {
         // info card header
         this.infoCardHeader = document.createElement('div');
         this.infoCardHeader.id = 'infoCardStaticHeader';
-        this.infoCardHeader.className = 'infoHeader';
+        this.infoCardHeader.className = 'infoHeaderExpandable';
         this.infoCardHeader.innerHTML = this.infoCardTitle;
         this.infoCardContainer.appendChild(this.infoCardHeader);
 
         // expand icon
+        this.infoCardHeaderExpandCollapseIcon = document.createElement('img');
+        this.infoCardHeader.appendChild(this.infoCardHeaderExpandCollapseIcon);
 
         // expandable content
         this.infoCardExpandableContent = document.createElement('div');
         this.infoCardContainer.appendChild(this.infoCardExpandableContent);
        
         // hide the expandable content container if specified
-        if (!this.bStartExpanded)
+        if (this.bStartExpanded)
         {
-            this.infoCardExpandableContent.style = 'hidden';
+            this.infoCardHeaderExpandCollapseIcon.className = 'infoHeaderExpandedIcon';
+
+        }
+        else 
+        {
+            this.infoCardExpandableContent.style = 'hide';
+            this.infoCardHeaderExpandCollapseIcon.className = 'infoHeaderCollapsedIcon';
         }
 
         return this.infoCardContainer;
@@ -169,13 +177,16 @@ FormIt.PluginUI.InfoCardExpandable = class InfoCardExpandable {
             
             if (this.infoCardExpandableContent.className == 'hide')
             {
+                this.infoCardHeaderExpandCollapseIcon.className = 'infoHeaderExpandedIcon';
+                this.infoCardHeader.className = 'infoHeaderExpandable';
                 this.infoCardExpandableContent.className = 'show';
             }
             else 
             {
+                this.infoCardHeaderExpandCollapseIcon.className = 'infoHeaderCollapsedIcon';
+                this.infoCardHeader.className = 'infoHeaderExpandableCollapsed';
                 this.infoCardExpandableContent.className = 'hide';
             }
-
         });
     }
 }
