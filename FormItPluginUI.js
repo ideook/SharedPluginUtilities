@@ -169,7 +169,7 @@ FormIt.PluginUI.InfoCardExpandable = class InfoCardExpandable {
             
             if (this.infoCardExpandableContent.className == 'hide')
             {
-                this.infoCardExpandableContent.className = 'expandableContentContainer';
+                this.infoCardExpandableContent.className = 'show';
             }
             else 
             {
