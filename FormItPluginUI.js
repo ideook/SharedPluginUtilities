@@ -816,59 +816,50 @@ FormIt.PluginUI.CheckboxModule = class CheckboxModule {
     }
 }
 
-// typical footer
-FormIt.PluginUI.FooterModule = class FooterModule {
+// context-aware and selection-aware info cards
+// need to be built and updated as selection and context changes
+// shared between Properties Plus and Manage Attributes
+FormIt.PluginUI.EditingContextInfoCard = class EditingContextInfoCard {
     constructor() {
        
+        // initialize the arguments
+
         // build
         this.element = this.build();
     }
 
-    // construct and append the UI elements
-    build() {
-        let footerContainer = document.createElement('div');
-        footerContainer.id = 'pluginFooterContainer';
-    
-        let footerDiv = document.createElement('div');
-        footerDiv.id = 'pluginFooterDiv';
-        footerContainer.appendChild(footerDiv);
+    build()
+    {
+        let contextPropertiesInfoCard = new FormIt.PluginUI.InfoCardStatic('Currently Editing');
 
-        let footerIcon = document.createElement('img');
-        footerIcon.src = 'https://formit3d.github.io/FormItExamplePlugins/SharedPluginFiles/img/plugin_manager_grey.png';
-        footerIcon.id = 'pluginFooterIcon';
-        footerDiv.appendChild(footerIcon);
+        this.editingHistoryNameDiv = document.createElement('div');
+        this.editingHistoryNameDiv.className = 'infoList';
+        this.editingHistoryNameDiv.innerHTML = "";
     
-        let footerDescriptionText = document.createTextNode("Powered by FormIt JavaScript plugins");
-        footerDiv.appendChild(footerDescriptionText);
+        this.editingHistoryInstancesDiv = document.createElement('div');
+        this.editingHistoryInstancesDiv.className = 'infoList';
+        this.editingHistoryInstancesDiv.innerHTML = "";
     
-        let footerDivUL = document.createElement('ul');
-        footerDiv.appendChild(footerDivUL);
+        contextPropertiesInfoCard.element.appendChild(this.editingHistoryNameDiv);
+        contextPropertiesInfoCard.element.appendChild(this.editingHistoryInstancesDiv);
     
-        let footerLearnAboutPluginsLI = document.createElement('li');
-        let footerLearnAboutPluginsLink = document.createElement('a');
-        let footerLearnAboutPluginsText = document.createTextNode("Learn about plugins");
-        footerLearnAboutPluginsLink.appendChild(footerLearnAboutPluginsText);
-        footerLearnAboutPluginsLink.setAttribute("href", "javascript:void(0);");
-        footerDivUL.appendChild(footerLearnAboutPluginsLI);
-        footerLearnAboutPluginsLI.appendChild(footerLearnAboutPluginsLink);
-    
-        footerLearnAboutPluginsLink.onclick = function() {
-            FormItInterface.CallMethod("FormIt.OpenURL", 'https://formit3d.github.io/FormItExamplePlugins/index.html');
-        }
-    
-        let footerLearnToBuildLI = document.createElement('li');
-        let footerLearnToBuildLink = document.createElement('a');
-        let footerLearnToBuildText = document.createTextNode("Build your own");
-        footerLearnToBuildLink.appendChild(footerLearnToBuildText);
-        footerLearnToBuildLink.setAttribute("href", "javascript:void(0);");
-        footerDivUL.appendChild(footerLearnToBuildLI);
-        footerLearnToBuildLI.appendChild(footerLearnToBuildLink);
-    
-        footerLearnToBuildLink.onclick = function() {
-            FormItInterface.CallMethod("FormIt.OpenURL", 'https://formit3d.github.io/FormItExamplePlugins/docs/HowToBuild.html');
-        }
+        return contextPropertiesInfoCard.element;
+    }
 
-        return footerContainer;
+    update(currentSelectionInfo)
+    {
+        // update the current editing history name
+        this.editingHistoryNameDiv.innerHTML = currentSelectionInfo.sEditingHistoryName;
+
+        // update the number of instances the current history affects
+        if (currentSelectionInfo.sEditingHistoryName == "Main Sketch")
+        {
+            this.editingHistoryInstancesDiv.innerHTML = "";
+        } 
+        else 
+        {
+            this.editingHistoryInstancesDiv.innerHTML = "(" + currentSelectionInfo.nEditingHistoryInstances + " in model)";
+        }
     }
 }
 
@@ -927,7 +918,6 @@ FormIt.PluginUI.UnsupportedVersionModule = class UnsupportedVersionModule {
     }
 }
 
-
 // create a container to host multiple child elements, organizing them horizontally
 FormIt.PluginUI.MultiModuleContainer = class MultiModuleContainer {
     constructor() {
@@ -941,5 +931,61 @@ FormIt.PluginUI.MultiModuleContainer = class MultiModuleContainer {
         multiModuleContainer.className = 'multiModuleContainer';
 
         return multiModuleContainer;
+    }
+}
+
+// typical footer
+FormIt.PluginUI.FooterModule = class FooterModule {
+    constructor() {
+       
+        // build
+        this.element = this.build();
+    }
+
+    // construct and append the UI elements
+    build() {
+        let footerContainer = document.createElement('div');
+        footerContainer.id = 'pluginFooterContainer';
+    
+        let footerDiv = document.createElement('div');
+        footerDiv.id = 'pluginFooterDiv';
+        footerContainer.appendChild(footerDiv);
+
+        let footerIcon = document.createElement('img');
+        footerIcon.src = 'https://formit3d.github.io/FormItExamplePlugins/SharedPluginFiles/img/plugin_manager_grey.png';
+        footerIcon.id = 'pluginFooterIcon';
+        footerDiv.appendChild(footerIcon);
+    
+        let footerDescriptionText = document.createTextNode("Powered by FormIt JavaScript plugins");
+        footerDiv.appendChild(footerDescriptionText);
+    
+        let footerDivUL = document.createElement('ul');
+        footerDiv.appendChild(footerDivUL);
+    
+        let footerLearnAboutPluginsLI = document.createElement('li');
+        let footerLearnAboutPluginsLink = document.createElement('a');
+        let footerLearnAboutPluginsText = document.createTextNode("Learn about plugins");
+        footerLearnAboutPluginsLink.appendChild(footerLearnAboutPluginsText);
+        footerLearnAboutPluginsLink.setAttribute("href", "javascript:void(0);");
+        footerDivUL.appendChild(footerLearnAboutPluginsLI);
+        footerLearnAboutPluginsLI.appendChild(footerLearnAboutPluginsLink);
+    
+        footerLearnAboutPluginsLink.onclick = function() {
+            FormItInterface.CallMethod("FormIt.OpenURL", 'https://formit3d.github.io/FormItExamplePlugins/index.html');
+        }
+    
+        let footerLearnToBuildLI = document.createElement('li');
+        let footerLearnToBuildLink = document.createElement('a');
+        let footerLearnToBuildText = document.createTextNode("Build your own");
+        footerLearnToBuildLink.appendChild(footerLearnToBuildText);
+        footerLearnToBuildLink.setAttribute("href", "javascript:void(0);");
+        footerDivUL.appendChild(footerLearnToBuildLI);
+        footerLearnToBuildLI.appendChild(footerLearnToBuildLink);
+    
+        footerLearnToBuildLink.onclick = function() {
+            FormItInterface.CallMethod("FormIt.OpenURL", 'https://formit3d.github.io/FormItExamplePlugins/docs/HowToBuild.html');
+        }
+
+        return footerContainer;
     }
 }
