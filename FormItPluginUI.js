@@ -865,9 +865,10 @@ FormIt.PluginUI.EditingContextInfoCard = class EditingContextInfoCard {
 }
 
 FormIt.PluginUI.SelectionCountInfoCard = class SelectionCountInfoCard {
-    constructor() {
+    constructor(nMaxObjectCount) {
        
         // initialize the arguments
+        this.nMaxObjectCount = nMaxObjectCount;
 
         // build
         this.element = this.build();
@@ -936,8 +937,9 @@ FormIt.PluginUI.SelectionCountInfoCard = class SelectionCountInfoCard {
         // update the general object count div
         this.objectCountDiv.innerHTML = this.objectCountLabel + currentSelectionInfo.nSelectedTotalCount;
 
-        // show the horizontal rule if 1 or more objects are selected
-        currentSelectionInfo.nSelectedTotalCount > 0 ? this.objectCountHorizontalRule.className = 'show' : this.objectCountHorizontalRule.className = 'hide';
+        // show the horizontal rule if 
+        // more than 1 and less than the given max objects are selected
+        currentSelectionInfo.nSelectedTotalCount > 0 && currentSelectionInfo.nSelectedTotalCount < this.nMaxObjectCount ? this.objectCountHorizontalRule.className = 'show' : this.objectCountHorizontalRule.className = 'hide';
 
         // for each of the individual object counts, show and update if necessary
         currentSelectionInfo.nSelectedVertexCount != 0 ? this.showAndUpdateObjectCountModule(this.vertexCountModule, this.vertexCountLabelPrefix, currentSelectionInfo.nSelectedVertexCount, currentSelectionInfo) : this.hideObjectCountModule(this.vertexCountModule);
