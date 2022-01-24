@@ -902,41 +902,49 @@ FormIt.PluginUI.SelectionCountInfoCard = class SelectionCountInfoCard {
         // vertices
         this.vertexCountLabelPrefix = "Vertices: ";
         this.vertexCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nVertexType, this.vertexCountLabelPrefix, 'vertexCountModule', 'vertexCountLabel');
+        this.vertexCountModule.element.className = 'hide';
         this.selectionCountInfoCard.element.appendChild(this.vertexCountModule.element);
 
         // edges
         this.edgeCountLabelPrefix = "Edges: ";
         this.edgeCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nEdgeType, this.edgeCountLabelPrefix, 'edgeCountModule', 'edgeCountLabel');
+        this.edgeCountModule.element.className = 'hide';
         this.selectionCountInfoCard.element.appendChild(this.edgeCountModule.element);
 
         // faces
         this.faceCountLabelPrefix = "Faces: ";
         this.faceCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nFaceType, this.faceCountLabelPrefix, 'faceCountModule', 'faceCountLabel');
+        this.faceCountModule.element.className = 'hide';
         this.selectionCountInfoCard.element.appendChild(this.faceCountModule.element);
 
         // bodies
         this.bodyCountLabelPrefix = "Bodies: ";
         this.bodyCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nBodyType, this.bodyCountLabelPrefix, 'bodyCountModule', 'bodyCountLabel');
+        this.bodyCountModule.element.className = 'hide';
         this.selectionCountInfoCard.element.appendChild(this.bodyCountModule.element);
 
         // meshes
         this.meshCountLabelPrefix = "Meshes: ";
         this.meshCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nMeshType, this.meshCountLabelPrefix, 'meshCountModule', 'meshCountLabel');
+        this.meshCountModule.element.className = 'hide';
         this.selectionCountInfoCard.element.appendChild(this.meshCountModule.element);
 
         // linemeshes
         this.lineMeshCountLabelPrefix = "LineMeshes: ";
         this.lineMeshCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nLineMeshType, this.lineMeshCountLabelPrefix, 'lineMeshCountModule', 'lineMeshCountLabel');
+        this.lineMeshCountModule.element.className = 'hide';
         this.selectionCountInfoCard.element.appendChild(this.lineMeshCountModule.element);
 
         // pointmeshes
         this.pointMeshCountLabelPrefix = "PointMeshes: ";
         this.pointMeshCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nPointMeshType, this.pointMeshCountLabelPrefix, 'pointMeshCountModule', 'pointMeshCountLabel');
+        this.pointMeshCountModule.element.className = 'hide';
         this.selectionCountInfoCard.element.appendChild(this.pointMeshCountModule.element);
 
         // group instances
         this.groupInstanceCountLabelPrefix = "Groups: ";
         this.groupInstanceCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nInstanceType, this.groupInstanceCountLabelPrefix, 'groupInstanceCountModule', 'groupInstanceCountLabel');
+        this.groupInstanceCountModule.element.className = 'hide';
         this.selectionCountInfoCard.element.appendChild(this.groupInstanceCountModule.element);
     
         return this.selectionCountInfoCard.element;
