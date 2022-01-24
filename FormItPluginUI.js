@@ -90,7 +90,7 @@ FormIt.PluginUI.SubheaderModule = class SubheaderModule {
     }
 }
 
-// info card - static - used in Properties Plus
+// info card - static - used in Properties Plus and Manage Attributes
 FormIt.PluginUI.InfoCardStatic = class InfoCardStatic {
     constructor(infoCardTitle) {
 
@@ -120,7 +120,7 @@ FormIt.PluginUI.InfoCardStatic = class InfoCardStatic {
     }
 }
 
-// info card - static - used in Properties Plus
+// info card - expandable - used in Properties Plus and Manage Attributes
 FormIt.PluginUI.InfoCardExpandable = class InfoCardExpandable {
     constructor(infoCardTitle, bStartExpanded) {
 
@@ -177,17 +177,27 @@ FormIt.PluginUI.InfoCardExpandable = class InfoCardExpandable {
             
             if (this.infoCardExpandableContent.className == 'hide')
             {
-                this.infoCardHeaderExpandCollapseIcon.className = 'infoHeaderExpandedIcon';
-                this.infoCardHeader.className = 'infoHeaderExpandable';
-                this.infoCardExpandableContent.className = 'show';
+                this.expand();
             }
             else 
             {
-                this.infoCardHeaderExpandCollapseIcon.className = 'infoHeaderCollapsedIcon';
-                this.infoCardHeader.className = 'infoHeaderExpandableCollapsed';
-                this.infoCardExpandableContent.className = 'hide';
+                this.collapse();
             }
         });
+    }
+
+    expand()
+    {
+        this.infoCardHeaderExpandCollapseIcon.className = 'infoHeaderExpandedIcon';
+        this.infoCardHeader.className = 'infoHeaderExpandable';
+        this.infoCardExpandableContent.className = 'show';
+    }
+
+    collapse()
+    {
+        this.infoCardHeaderExpandCollapseIcon.className = 'infoHeaderCollapsedIcon';
+        this.infoCardHeader.className = 'infoHeaderExpandableCollapsed';
+        this.infoCardExpandableContent.className = 'hide';
     }
 }
 
