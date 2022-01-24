@@ -882,12 +882,22 @@ FormIt.PluginUI.SelectionCountInfoCard = class SelectionCountInfoCard {
         this.objectCountDiv.className = 'infoList';
         this.objectCountLabel = "Total objects: ";
         this.objectCountDiv.innerHTML = this.objectCountLabel + '';
+        this.selectionCountInfoCard.element.appendChild(this.objectCountDiv);
     
         // horizontal line - only shows when 1 or more objects are selected
         this.objectCountHorizontalRule = document.createElement('hr'); 
-    
-        this.selectionCountInfoCard.element.appendChild(this.objectCountDiv);
         this.selectionCountInfoCard.element.appendChild(this.objectCountHorizontalRule);
+
+        // too many objects in selection - only shows when the selection contains
+        // more than nMaxObjectCount
+        this.tooManyItemsContainerDiv = document.createElement('div');
+        this.tooManyItemsContainerDiv.id = 'tooManyItemsContainer';
+        this.tooManyItemsContainerDiv.className = 'hide';
+    
+        this.tooManyItemsDiv = document.createElement('div');
+        this.tooManyItemsDiv.className = 'infoList';
+        this.tooManyItemsDiv.innerHTML = "Select fewer than " + this.nMaxObjectCount + " objects to see more information."
+        // note: this gets appended later, since there's no parent yet
 
         // vertices
         this.vertexCountLabelPrefix = "Vertices: ";
@@ -932,6 +942,13 @@ FormIt.PluginUI.SelectionCountInfoCard = class SelectionCountInfoCard {
         return this.selectionCountInfoCard.element;
     }
 
+    // needs to be called after the module is appended as a child to the DOM
+    appendTooManyObjectsMessage()
+    {
+        this.selectionCountInfoCard.element.parentElement.appendChild(this.tooManyItemsContainerDiv);
+        this.tooManyItemsContainerDiv.appendChild(this.tooManyItemsDiv); 
+    }
+
     update(currentSelectionInfo)
     {
         // update the general object count div
@@ -940,6 +957,18 @@ FormIt.PluginUI.SelectionCountInfoCard = class SelectionCountInfoCard {
         // show the horizontal rule if 
         // more than 1 and less than the given max objects are selected
         currentSelectionInfo.nSelectedTotalCount > 0 && currentSelectionInfo.nSelectedTotalCount < this.nMaxObjectCount ? this.objectCountHorizontalRule.className = 'show' : this.objectCountHorizontalRule.className = 'hide';
+
+        // show the too many object selected message if
+        // more than nMaxObjectCount is selected
+        if (currentSelectionInfo.nSelectedTotalCount > this.nMaxObjectCount)
+        {
+            // show the container for the message that too many items are selected
+            this.tooManyItemsContainerDiv.className = 'infoContainer';
+        }
+        else
+        {
+            this.tooManyItemsContainerDiv.className = 'hide';
+        }
 
         // for each of the individual object counts, show and update if necessary
         currentSelectionInfo.nSelectedVertexCount != 0 ? this.showAndUpdateObjectCountModule(this.vertexCountModule, this.vertexCountLabelPrefix, currentSelectionInfo.nSelectedVertexCount, currentSelectionInfo) : this.hideObjectCountModule(this.vertexCountModule);
