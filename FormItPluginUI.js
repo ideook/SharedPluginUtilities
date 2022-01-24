@@ -202,12 +202,12 @@ FormIt.PluginUI.InfoCardExpandable = class InfoCardExpandable {
 
     show()
     {
-        this.messageContainerDiv.className = 'infoContainer';
+        this.infoCardContainer.className = 'infoContainer';
     }
 
     hide()
     {
-        this.messageContainerDiv.className = 'hide';
+        this.infoCardContainer.className = 'hide';
     }
 }
 
