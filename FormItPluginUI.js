@@ -816,6 +816,43 @@ FormIt.PluginUI.CheckboxModule = class CheckboxModule {
     }
 }
 
+// info card message
+// used when the selection doesn't meet the specified criteria
+FormIt.PluginUI.MessageInfoCard = class MessageInfoCard {
+    constructor(sMessageText) {
+       
+        // initialize the arguments
+        this.sMessageText = sMessageText;
+
+        // build
+        this.element = this.build();
+    }
+
+    build()
+    {
+        this.messageContainerDiv = document.createElement('div');
+        this.messageContainerDiv.id = 'messageContainer';
+        this.messageContainerDiv.className = 'infoContainer';
+    
+        this.messageContentDiv = document.createElement('div');
+        this.messageContentDiv.className = 'infoList';
+        this.messageContentDiv.innerHTML = this.sMessageText;
+        this.messageContainerDiv.appendChild(this.messageContentDiv);
+    
+        return this.messageContainerDiv;
+    }
+
+    hide()
+    {
+        this.messageContainerDiv.className = 'hide';
+    }
+
+    show()
+    {
+        this.messageContainerDiv.className = 'infoContainer';
+    }
+}
+
 // context-aware and selection-aware info cards
 // need to be built and updated as selection and context changes
 // shared between Properties Plus and Manage Attributes
@@ -890,13 +927,8 @@ FormIt.PluginUI.SelectionCountInfoCard = class SelectionCountInfoCard {
 
         // too many objects in selection - only shows when the selection contains
         // more than nMaxObjectCount
-        this.tooManyItemsContainerDiv = document.createElement('div');
-        this.tooManyItemsContainerDiv.id = 'tooManyItemsContainer';
-        this.tooManyItemsContainerDiv.className = 'hide';
-    
-        this.tooManyItemsDiv = document.createElement('div');
-        this.tooManyItemsDiv.className = 'infoList';
-        this.tooManyItemsDiv.innerHTML = "Select fewer than " + this.nMaxObjectCount + " objects to see more information."
+        this.tooManyItemsContainerDiv = new FormIt.PluginUI.MessageInfoCard("Select fewer than " + this.nMaxObjectCount + " objects to see more information.");
+        this.tooManyItemsContainerDiv.hide();
         // note: this gets appended later, since there's no parent yet
 
         // vertices
@@ -953,8 +985,7 @@ FormIt.PluginUI.SelectionCountInfoCard = class SelectionCountInfoCard {
     // needs to be called after the module is appended as a child to the DOM
     appendTooManyObjectsMessage()
     {
-        this.selectionCountInfoCard.element.parentElement.appendChild(this.tooManyItemsContainerDiv);
-        this.tooManyItemsContainerDiv.appendChild(this.tooManyItemsDiv); 
+        this.selectionCountInfoCard.element.parentElement.appendChild(this.tooManyItemsContainerDiv.element);
     }
 
     update(currentSelectionInfo)
@@ -971,11 +1002,11 @@ FormIt.PluginUI.SelectionCountInfoCard = class SelectionCountInfoCard {
         if (currentSelectionInfo.nSelectedTotalCount > this.nMaxObjectCount)
         {
             // show the container for the message that too many items are selected
-            this.tooManyItemsContainerDiv.className = 'infoContainer';
+            this.tooManyItemsContainerDiv.show();
         }
         else
         {
-            this.tooManyItemsContainerDiv.className = 'hide';
+            this.tooManyItemsContainerDiv.hide();
         }
 
         // for each of the individual object counts, show and update if necessary
