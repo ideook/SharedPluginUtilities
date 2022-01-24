@@ -311,12 +311,12 @@ FormIt.PluginUtils.Application.getGroupInstancesByStringAttributeKeyAndValue = f
 // then replace them with a new one, returning the group ID
 FormIt.PluginUtils.Application.createOrReplaceGroupInstanceByStringAttributeKey = function(nHistoryID, stringAttributeKey, stringAttributeValue)
 {
-    // get and delete any existing camera container objects
+    // get and delete any existing objects with the given attribute key
     var aInstanceIDs = FormIt.PluginUtils.Application.getGroupInstancesByStringAttributeKey(nHistoryID, stringAttributeKey);
 
     for (var i = 0; i < aInstanceIDs.length; i++)
     {
-        WSM.APIDeleteObject(nHistoryID, objectID);
+        WSM.APIDeleteObject(nHistoryID, aInstanceIDs[i]);
     }
 
     // now that any existing instances have been deleted, make a new one
@@ -326,7 +326,7 @@ FormIt.PluginUtils.Application.createOrReplaceGroupInstanceByStringAttributeKey 
 
     // add the attribute to the instance
     WSM.Utils.SetOrCreateStringAttributeForObject(nHistoryID,
-        newGroupInstanceID, ManageCameras.cameraStringAttributeKey, stringAttributeValue);
+        newGroupInstanceID, stringAttributeKey, stringAttributeValue);
 
     return newGroupID;
 }
