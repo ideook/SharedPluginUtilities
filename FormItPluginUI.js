@@ -819,6 +819,7 @@ FormIt.PluginUI.CheckboxModule = class CheckboxModule {
 // context-aware and selection-aware info cards
 // need to be built and updated as selection and context changes
 // shared between Properties Plus and Manage Attributes
+
 FormIt.PluginUI.EditingContextInfoCard = class EditingContextInfoCard {
     constructor() {
        
@@ -860,6 +861,135 @@ FormIt.PluginUI.EditingContextInfoCard = class EditingContextInfoCard {
         {
             this.editingHistoryInstancesDiv.innerHTML = "(" + currentSelectionInfo.nEditingHistoryInstances + " in model)";
         }
+    }
+}
+
+FormIt.PluginUI.SelectionCountInfoCard = class SelectionCountInfoCard {
+    constructor() {
+       
+        // initialize the arguments
+
+        // build
+        this.element = this.build();
+    }
+
+    build()
+    {
+        this.selectionCountInfoCard = new FormIt.PluginUI.InfoCardStatic('Selection Count');
+    
+        this.objectCountDiv = document.createElement('div');
+        this.objectCountDiv.className = 'infoList';
+        this.objectCountLabel = "Total objects: ";
+        this.objectCountDiv.innerHTML = this.objectCountLabel + '';
+    
+        // horizontal line - only shows when 1 or more objects are selected
+        this.objectCountHorizontalRule = document.createElement('hr'); 
+    
+        this.selectionCountInfoCard.element.appendChild(this.objectCountDiv);
+        this.selectionCountInfoCard.element.appendChild(this.objectCountHorizontalRule);
+
+        // vertices
+        this.vertexCountLabelPrefix = "Vertices: ";
+        this.vertexCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nVertexType, this.vertexCountLabelPrefix, 'vertexCountModule', 'vertexCountLabel');
+        this.selectionCountInfoCard.element.appendChild(this.vertexCountModule.element);
+
+        // edges
+        this.edgeCountLabelPrefix = "Edges: ";
+        this.edgeCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nEdgeType, this.edgeCountLabelPrefix, 'edgeCountModule', 'edgeCountLabel');
+        this.selectionCountInfoCard.element.appendChild(this.edgeCountModule.element);
+
+        // faces
+        this.faceCountLabelPrefix = "Faces: ";
+        this.faceCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nFaceType, this.faceCountLabelPrefix, 'faceCountModule', 'faceCountLabel');
+        this.selectionCountInfoCard.element.appendChild(this.faceCountModule.element);
+
+        // bodies
+        this.bodyCountLabelPrefix = "Bodies: ";
+        this.bodyCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nBodyType, this.bodyCountLabelPrefix, 'bodyCountModule', 'bodyCountLabel');
+        this.selectionCountInfoCard.element.appendChild(this.bodyCountModule.element);
+
+        // meshes
+        this.meshCountLabelPrefix = "Meshes: ";
+        this.meshCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nMeshType, this.meshCountLabelPrefix, 'meshCountModule', 'meshCountLabel');
+        this.selectionCountInfoCard.element.appendChild(this.meshCountModule.element);
+
+        // linemeshes
+        this.lineMeshCountLabelPrefix = "LineMeshes: ";
+        this.lineMeshCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nLineMeshType, this.lineMeshCountLabelPrefix, 'lineMeshCountModule', 'lineMeshCountLabel');
+        this.selectionCountInfoCard.element.appendChild(this.lineMeshCountModule.element);
+
+        // pointmeshes
+        this.pointMeshCountLabelPrefix = "PointMeshes: ";
+        this.pointMeshCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nPointMeshType, this.pointMeshCountLabelPrefix, 'pointMeshCountModule', 'pointMeshCountLabel');
+        this.selectionCountInfoCard.element.appendChild(this.pointMeshCountModule.element);
+
+        // group instances
+        this.groupInstanceCountLabelPrefix = "Groups: ";
+        this.groupInstanceCountModule = new FormIt.PluginUI.DeselectButtonModule(PropertiesPlus.submitDeselectObjectsByType, WSM.nObjectType.nInstanceType, this.groupInstanceCountLabelPrefix, 'groupInstanceCountModule', 'groupInstanceCountLabel');
+        this.selectionCountInfoCard.element.appendChild(this.groupInstanceCountModule.element);
+    
+        return this.selectionCountInfoCard.element;
+    }
+
+    update(currentSelectionInfo)
+    {
+        // update the general object count div
+        this.objectCountDiv.innerHTML = this.objectCountLabel + currentSelectionInfo.nSelectedTotalCount;
+
+        // show the horizontal rule if 1 or more objects are selected
+        currentSelectionInfo.nSelectedTotalCount > 0 ? this.objectCountHorizontalRule.className = 'show' : this.objectCountHorizontalRule.className = 'hide';
+
+        // for each of the individual object counts, show and update if necessary
+        currentSelectionInfo.nSelectedVertexCount != 0 ? this.showAndUpdateObjectCountModule(this.vertexCountModule, this.vertexCountLabelPrefix, currentSelectionInfo.nSelectedVertexCount, currentSelectionInfo) : this.hideObjectCountModule(this.vertexCountModule);
+
+        currentSelectionInfo.nSelectedEdgeCount != 0 ? this.showAndUpdateObjectCountModule(this.edgeCountModule, this.edgeCountLabelPrefix, currentSelectionInfo.nSelectedEdgeCount, currentSelectionInfo) : this.hideObjectCountModule(this.edgeCountModule);
+
+        currentSelectionInfo.nSelectedFaceCount != 0 ? this.showAndUpdateObjectCountModule(this.faceCountModule, this.faceCountLabelPrefix, currentSelectionInfo.nSelectedFaceCount, currentSelectionInfo) : this.hideObjectCountModule(this.faceCountModule);
+
+        currentSelectionInfo.nSelectedBodyCount != 0 ? this.showAndUpdateObjectCountModule(this.bodyCountModule, this.bodyCountLabelPrefix, currentSelectionInfo.nSelectedBodyCount, currentSelectionInfo) : this.hideObjectCountModule(this.bodyCountModule);
+
+        currentSelectionInfo.nSelectedMeshCount != 0 ? this.showAndUpdateObjectCountModule(this.meshCountModule, this.meshCountLabelPrefix, currentSelectionInfo.nSelectedMeshCount, currentSelectionInfo) : this.hideObjectCountModule(this.meshCountModule);
+
+        currentSelectionInfo.nSelectedPointMeshCount != 0 ? this.showAndUpdateObjectCountModule(this.pointMeshCountModule, this.pointMeshCountLabelPrefix, currentSelectionInfo.nSelectedPointMeshCount, currentSelectionInfo) : this.hideObjectCountModule(this.pointMeshCountModule);
+
+        currentSelectionInfo.nSelectedLineMeshCount != 0 ? this.showAndUpdateObjectCountModule(this.lineMeshCountModule, this.lineMeshCountLabelPrefix, currentSelectionInfo.nSelectedLineMeshCount, currentSelectionInfo) : this.hideObjectCountModule(this.lineMeshCountModule);
+
+        currentSelectionInfo.nSelectedGroupInstanceCount != 0 ? this.showAndUpdateObjectCountModule(this.groupInstanceCountModule, this.groupInstanceCountLabelPrefix, currentSelectionInfo.nSelectedGroupInstanceCount, currentSelectionInfo) : this.hideObjectCountModule(this.groupInstanceCountModule);
+    }
+
+    showAndUpdateObjectCountModule(objectCountModule, labelPrefix, objectCount, currentSelectionInfo)
+    {
+        objectCountModule.deselectButtonLabel.innerHTML = labelPrefix + objectCount;
+        objectCountModule.element.className = 'show';
+
+        // special rules for groups - show instances and histories
+        if (labelPrefix.includes("Group") && currentSelectionInfo.nSelectedGroupInstanceCount == 1)
+        {
+            objectCountModule.deselectButtonLabel.innerHTML = labelPrefix + objectCount + " Instance (" + currentSelectionInfo.nSelectedIdenticalGroupInstanceCount + " in model)";
+        }
+        else if (labelPrefix.includes("Group") && currentSelectionInfo.nSelectedGroupInstanceCount > 1)
+        {
+            // update the group instance count to also show how many unique group histories the instances belong to
+            let uniqueHistoryCount = currentSelectionInfo.nSelectedUniqueGroupHistoryCount;
+
+            // change the wording slightly if there is more than one family
+            let historyString = '';
+            if (uniqueHistoryCount == 1)
+            {
+                historyString = " History)";
+            }
+            else
+            {
+                historyString = " Histories)";
+            }
+            
+            objectCountModule.deselectButtonLabel.innerHTML = labelPrefix + objectCount + " Instances (" + uniqueHistoryCount + historyString;
+        }
+    }
+
+    hideObjectCountModule(objectCountModule)
+    {
+        objectCountModule.element.className = 'hide';
     }
 }
 
