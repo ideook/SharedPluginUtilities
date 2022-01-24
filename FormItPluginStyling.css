@@ -131,22 +131,23 @@ h1:first-of-type {
     margin-top: 10px;
 }
 
+/* horizontal rule */
+hr {
+    border-top: 1px solid #cfcfcf;
+}
+
 /* sub-header, for describing the plugin or sub-plugin */
 
-#pluginSubheaderContainer {
+.pluginSubheaderContainer {
     margin-top: 1.75em;
     margin-bottom: 0em;
 }
 
-#pluginSubheaderContainer p {
+.pluginSubheader {
     margin: 0px;
+    font-size: 1.1em;
     font-weight: bold;
     color: dimgrey;
-}
-
-#pluginSubheaderDescription {
-    margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 /* forms + inputs */

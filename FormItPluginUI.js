@@ -65,11 +65,10 @@ FormIt.PluginUI.HeaderModule = class HeaderModule {
 
 // typical subheader - can be used to define a sub-section of a multi-plugin
 FormIt.PluginUI.SubheaderModule = class SubheaderModule {
-    constructor(subheaderTitle, moduleClassName) {
+    constructor(subheaderTitle) {
 
         // initialize the arguments
         this.subheaderTitle = subheaderTitle;
-        this.moduleClassName = moduleClassName;
         
         // build
         this.element = this.build();
@@ -80,10 +79,10 @@ FormIt.PluginUI.SubheaderModule = class SubheaderModule {
         
         // create a container for the header
         let subheaderContainer = document.createElement('div');
-        subheaderContainer.id = 'pluginSubheaderContainer';
-        subheaderContainer.className = this.moduleClassName;
+        subheaderContainer.className = 'pluginSubheaderContainer';
 
         let subtitleDiv = document.createElement('p');
+        subtitleDiv.className = 'pluginSubheader';
         subtitleDiv.innerHTML =  this.subheaderTitle;
         subheaderContainer.appendChild(subtitleDiv);
 
