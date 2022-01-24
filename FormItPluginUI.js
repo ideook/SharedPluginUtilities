@@ -971,21 +971,21 @@ FormIt.PluginUI.SelectionCountInfoCard = class SelectionCountInfoCard {
         }
 
         // for each of the individual object counts, show and update if necessary
-        currentSelectionInfo.nSelectedVertexCount != 0 ? this.showAndUpdateObjectCountModule(this.vertexCountModule, this.vertexCountLabelPrefix, currentSelectionInfo.nSelectedVertexCount, currentSelectionInfo) : this.hideObjectCountModule(this.vertexCountModule);
+        currentSelectionInfo.nSelectedVertexCount != 0 && currentSelectionInfo.nSelectedTotalCount < this.nMaxObjectCount ? this.showAndUpdateObjectCountModule(this.vertexCountModule, this.vertexCountLabelPrefix, currentSelectionInfo.nSelectedVertexCount, currentSelectionInfo) : this.hideObjectCountModule(this.vertexCountModule);
 
-        currentSelectionInfo.nSelectedEdgeCount != 0 ? this.showAndUpdateObjectCountModule(this.edgeCountModule, this.edgeCountLabelPrefix, currentSelectionInfo.nSelectedEdgeCount, currentSelectionInfo) : this.hideObjectCountModule(this.edgeCountModule);
+        currentSelectionInfo.nSelectedEdgeCount != 0 && currentSelectionInfo.nSelectedTotalCount < this.nMaxObjectCount ? this.showAndUpdateObjectCountModule(this.edgeCountModule, this.edgeCountLabelPrefix, currentSelectionInfo.nSelectedEdgeCount, currentSelectionInfo) : this.hideObjectCountModule(this.edgeCountModule);
 
-        currentSelectionInfo.nSelectedFaceCount != 0 ? this.showAndUpdateObjectCountModule(this.faceCountModule, this.faceCountLabelPrefix, currentSelectionInfo.nSelectedFaceCount, currentSelectionInfo) : this.hideObjectCountModule(this.faceCountModule);
+        currentSelectionInfo.nSelectedFaceCount != 0 && currentSelectionInfo.nSelectedTotalCount < this.nMaxObjectCount ? this.showAndUpdateObjectCountModule(this.faceCountModule, this.faceCountLabelPrefix, currentSelectionInfo.nSelectedFaceCount, currentSelectionInfo) : this.hideObjectCountModule(this.faceCountModule);
 
-        currentSelectionInfo.nSelectedBodyCount != 0 ? this.showAndUpdateObjectCountModule(this.bodyCountModule, this.bodyCountLabelPrefix, currentSelectionInfo.nSelectedBodyCount, currentSelectionInfo) : this.hideObjectCountModule(this.bodyCountModule);
+        currentSelectionInfo.nSelectedBodyCount != 0 && currentSelectionInfo.nSelectedTotalCount < this.nMaxObjectCount ? this.showAndUpdateObjectCountModule(this.bodyCountModule, this.bodyCountLabelPrefix, currentSelectionInfo.nSelectedBodyCount, currentSelectionInfo) : this.hideObjectCountModule(this.bodyCountModule);
 
-        currentSelectionInfo.nSelectedMeshCount != 0 ? this.showAndUpdateObjectCountModule(this.meshCountModule, this.meshCountLabelPrefix, currentSelectionInfo.nSelectedMeshCount, currentSelectionInfo) : this.hideObjectCountModule(this.meshCountModule);
+        currentSelectionInfo.nSelectedMeshCount != 0 && currentSelectionInfo.nSelectedTotalCount < this.nMaxObjectCount ? this.showAndUpdateObjectCountModule(this.meshCountModule, this.meshCountLabelPrefix, currentSelectionInfo.nSelectedMeshCount, currentSelectionInfo) : this.hideObjectCountModule(this.meshCountModule);
 
-        currentSelectionInfo.nSelectedPointMeshCount != 0 ? this.showAndUpdateObjectCountModule(this.pointMeshCountModule, this.pointMeshCountLabelPrefix, currentSelectionInfo.nSelectedPointMeshCount, currentSelectionInfo) : this.hideObjectCountModule(this.pointMeshCountModule);
+        currentSelectionInfo.nSelectedPointMeshCount != 0 && currentSelectionInfo.nSelectedTotalCount < this.nMaxObjectCount ? this.showAndUpdateObjectCountModule(this.pointMeshCountModule, this.pointMeshCountLabelPrefix, currentSelectionInfo.nSelectedPointMeshCount, currentSelectionInfo) : this.hideObjectCountModule(this.pointMeshCountModule);
 
-        currentSelectionInfo.nSelectedLineMeshCount != 0 ? this.showAndUpdateObjectCountModule(this.lineMeshCountModule, this.lineMeshCountLabelPrefix, currentSelectionInfo.nSelectedLineMeshCount, currentSelectionInfo) : this.hideObjectCountModule(this.lineMeshCountModule);
+        currentSelectionInfo.nSelectedLineMeshCount != 0 && currentSelectionInfo.nSelectedTotalCount < this.nMaxObjectCount ? this.showAndUpdateObjectCountModule(this.lineMeshCountModule, this.lineMeshCountLabelPrefix, currentSelectionInfo.nSelectedLineMeshCount, currentSelectionInfo) : this.hideObjectCountModule(this.lineMeshCountModule);
 
-        currentSelectionInfo.nSelectedGroupInstanceCount != 0 ? this.showAndUpdateObjectCountModule(this.groupInstanceCountModule, this.groupInstanceCountLabelPrefix, currentSelectionInfo.nSelectedGroupInstanceCount, currentSelectionInfo) : this.hideObjectCountModule(this.groupInstanceCountModule);
+        currentSelectionInfo.nSelectedGroupInstanceCount != 0 && currentSelectionInfo.nSelectedTotalCount < this.nMaxObjectCount ? this.showAndUpdateObjectCountModule(this.groupInstanceCountModule, this.groupInstanceCountLabelPrefix, currentSelectionInfo.nSelectedGroupInstanceCount, currentSelectionInfo) : this.hideObjectCountModule(this.groupInstanceCountModule);
     }
 
     showAndUpdateObjectCountModule(objectCountModule, labelPrefix, objectCount, currentSelectionInfo)
