@@ -199,6 +199,16 @@ FormIt.PluginUI.InfoCardExpandable = class InfoCardExpandable {
         this.infoCardHeader.className = 'infoHeaderExpandableCollapsed';
         this.infoCardExpandableContent.className = 'hide';
     }
+
+    show()
+    {
+        this.messageContainerDiv.className = 'infoContainer';
+    }
+
+    hide()
+    {
+        this.messageContainerDiv.className = 'hide';
+    }
 }
 
 // list container - scrollable and with automatic zero-state
