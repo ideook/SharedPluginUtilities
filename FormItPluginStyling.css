@@ -406,7 +406,8 @@ option:hover {
     float: right;
 }
 
-.infoHeaderCollapsedIcon:hover {
+.infoHeaderExpandableCollapsed:hover .infoHeaderCollapsedIcon,
+.infoHeaderExpandable:hover .infoHeaderCollapsedIcon {
     content: url('https://formit3d.github.io/SharedPluginUtilities/img/arrow-collapsed_hover.png');
     width: 15px;
     height: 15px;
@@ -420,7 +421,7 @@ option:hover {
     float: right;
 }
 
-.infoHeaderExpandedIcon:hover {
+.infoHeaderExpandable:hover .infoHeaderExpandedIcon {
     content: url('https://formit3d.github.io/SharedPluginUtilities/img/arrow-expanded_hover.png');
     width: 15px;
     height: 15px;
