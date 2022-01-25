@@ -1084,6 +1084,95 @@ FormIt.PluginUI.SelectionCountInfoCard = class SelectionCountInfoCard {
     }
 }
 
+// displays the given list of string attributes - view only
+// used in Properties Plus and Manage Attributes
+FormIt.PluginUI.StringAttributeListViewOnly = class StringAttributeListViewOnly {
+    constructor(sInfoCardLabel, bStartExpanded, nListHeight) {
+
+            // initialize the arguments
+            this.sInfoCardLabel = sInfoCardLabel;
+            this.bStartExpanded = bStartExpanded;
+            this.nListHeight = nListHeight;
+    
+            // build
+            this.element = this.build();
+    }
+
+    build()
+    {
+        this.stringAttributeListInfoCard = new FormIt.PluginUI.InfoCardExpandable(this.sInfoCardLabel, this.bStartExpanded);
+
+        // list of attributes
+        this.stringAttributeList = new FormIt.PluginUI.ListContainer('No string attributes found.');
+
+        this.stringAttributeList.element.className = 'scrollableListContainer';
+        this.stringAttributeList.setListHeight(this.nListHeight);
+        this.stringAttributeList.toggleZeroStateMessage();
+        this.stringAttributeListInfoCard.infoCardExpandableContent.appendChild(this.stringAttributeList.element);
+
+        return this.stringAttributeListInfoCard.element;
+    }
+
+    update(aStringAttributes)
+    {
+        this.stringAttributeList.clearList();
+
+        for (var i = 0; i < aStringAttributes.length; i++)
+        {
+            let attributeItem = new FormIt.PluginUI.StringAttributeListItemViewOnly(i, aStringAttributes[i].sKey, aStringAttributes[i].sValue);
+            this.stringAttributeList.element.appendChild(attributeItem.element);       
+        }
+        this.stringAttributeList.toggleZeroStateMessage();
+    }
+}
+
+// create a string attribute list item, showing the key and value in a container
+FormIt.PluginUI.StringAttributeListItemViewOnly = class StringAttributeListItemViewOnly {
+    constructor(nStringAttributeCount, stringAttributeKeyContent, stringAttributeValueContent) {
+
+        // initialize the arguments
+        this.nStringAttributeCount = nStringAttributeCount;
+        this.stringAttributeKeyContent = stringAttributeKeyContent;
+        this.stringAttributeValueContent = stringAttributeValueContent;
+
+        // build
+        this.element = this.build();
+
+    }
+
+    build()
+    {
+        // create a list item
+        this.stringAttributeContainerItem = new FormIt.PluginUI.SimpleListItemStatic();
+        
+        // attribute key
+        let attributeKeyLabelDiv = document.createElement('div');
+        attributeKeyLabelDiv.textContent = 'Key ' + this.nStringAttributeCount + ':';
+        attributeKeyLabelDiv.style.fontWeight = 'bold';
+        attributeKeyLabelDiv.style.paddingBottom = 5;
+        this.stringAttributeContainerItem.element.appendChild(attributeKeyLabelDiv);
+
+        this.attributeKeyContentDiv = document.createElement('div');
+        this.attributeKeyContentDiv.style.paddingBottom = 10;
+        this.attributeKeyContentDiv.textContent = this.stringAttributeKeyContent;
+        this.stringAttributeContainerItem.element.appendChild(this.attributeKeyContentDiv);
+
+        // attribute value
+        let attributeValueLabel = document.createElement('div');
+        attributeValueLabel.textContent = 'Value:';
+        attributeValueLabel.style.fontWeight = 'bold';
+        attributeValueLabel.style.paddingBottom = 5;
+        this.stringAttributeContainerItem.element.appendChild(attributeValueLabel);
+
+        this.attributeValueContentDiv = document.createElement('div');
+        this.attributeValueContentDiv.style.paddingBottom = 10;
+        this.attributeValueContentDiv.textContent = this.stringAttributeValueContent;
+        this.stringAttributeContainerItem.element.appendChild(this.attributeValueContentDiv);
+
+        return this.stringAttributeContainerItem.element;
+    }
+}
+
 // message module for unsupported version
 // if a specific version is specified, the message will tell the user they need at least that version
 FormIt.PluginUI.UnsupportedVersionModule = class UnsupportedVersionModule {
