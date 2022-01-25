@@ -1183,6 +1183,49 @@ FormIt.PluginUI.StringAttributeListItemViewOnly = class StringAttributeListItemV
     }
 }
 
+// an info card that presents inputs to add a new string attribute by key/value pair
+FormIt.PluginUI.NewStringAttributeInfoCard = class NewStringAttributeInfoCard {
+    constructor(sInfoCardLabel, bStartExpanded, nListHeight) {
+
+        // initialize the arguments
+        this.sInfoCardLabel = sInfoCardLabel;
+        this.bStartExpanded = bStartExpanded;
+        this.nListHeight = nListHeight;
+
+        // build
+        this.element = this.build();
+    }
+
+    build()
+    {
+        this.newStringAttributeInfoCard = new FormIt.PluginUI.InfoCardExpandable(this.sInfoCardLabel, this.bStartExpanded);
+
+        // text input for the string attribute key
+        this.newStringAttributeKeyInput = new FormIt.PluginUI.TextInputModule('String Attribute Key', 'newStringAttributeKeyInputModule', 'inputModuleContainer', 'newStringAttributeKeyInput');
+        this.newStringAttributeInfoCard.infoCardExpandableContent.appendChild(this.newStringAttributeKeyInput.element);
+
+        // text input for the string attribute value
+        this.newStringAttributeValueInput = new FormIt.PluginUI.TextInputModule('String Attribute Value', 'newStringAttributeValueInputModule', 'inputModuleContainer', 'newStringAttributeValueInput');
+        this.newStringAttributeInfoCard.infoCardExpandableContent.appendChild(this.newStringAttributeValueInput.element);
+
+        // submit button
+        this.submitNewStringAttribute = new FormIt.PluginUI.Button('Create New Attribute');
+        this.newStringAttributeInfoCard.infoCardExpandableContent.appendChild(this.submitNewStringAttribute.element);
+
+        return this.newStringAttributeInfoCard.element;
+    }
+
+    show()
+    {
+        this.newStringAttributeInfoCard.show();
+    }
+
+    hide()
+    {
+        this.newStringAttributeInfoCard.hide();
+    }
+}
+
 // message module for unsupported version
 // if a specific version is specified, the message will tell the user they need at least that version
 FormIt.PluginUI.UnsupportedVersionModule = class UnsupportedVersionModule {
