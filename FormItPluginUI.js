@@ -1124,6 +1124,16 @@ FormIt.PluginUI.StringAttributeListViewOnly = class StringAttributeListViewOnly 
         }
         this.stringAttributeList.toggleZeroStateMessage();
     }
+
+    show()
+    {
+        this.stringAttributeListInfoCard.show();
+    }
+
+    hide()
+    {
+        this.stringAttributeListInfoCard.hide();
+    }
 }
 
 // create a string attribute list item, showing the key and value in a container
