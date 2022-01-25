@@ -693,10 +693,53 @@ FormIt.PluginUI.TextInputModule = class TextInputModule extends FormIt.PluginUI.
     getInput() {
         return this.input;
     }
+}
+
+// typical multi-line text input - no button
+FormIt.PluginUI.TextAreaInputModule = class TextAreaInputModule extends FormIt.PluginUI.AlphaNumericInput {
+    constructor(moduleLabelText, submitTextFunction) {
+
+        // call the super function
+        super();
+
+        // initialize the arguments
+        this.moduleLabelText = moduleLabelText;
+        this.submitTextFunction = submitTextFunction;
+
+        // build and attach events
+        this.element = this.build();
+        this.attachEvents();
+    }
+
+    // construct and append the UI elements
+    build() {
+        
+        // create the container
+        this.moduleContainer = document.createElement('form');
+        this.moduleContainer.className = 'inputModuleContainer';
+
+        // create the label
+        this.moduleLabel = document.createElement('div');
+        this.moduleLabel.className = 'inputLabel';
+        this.moduleLabel.innerHTML = this.moduleLabelText;
+        this.moduleContainer.appendChild(this.moduleLabel);
+
+        // create the input
+        this.input = document.createElement('textarea');
+        this.moduleContainer.appendChild(this.input);
+
+        return this.moduleContainer;
+    }
+
+    // get the input for get/set value operations
+    getInput() {
+        return this.input;
+    }
 
     // override the default input height for text that might be long
-    setInputHeight(nHeight) {
-        this.input.style.height = nHeight;
+    setTextAreaRows(nNumberOfRows) {
+        this.input.setAttribute("rows", String(nNumberOfRows));
+        //this.input.rows = String(nNumberOfRows);
     }
 }
 
@@ -1217,9 +1260,11 @@ FormIt.PluginUI.NewStringAttributeInfoCard = class NewStringAttributeInfoCard {
         this.newStringAttributeInfoCard.infoCardExpandableContent.appendChild(this.newStringAttributeKeyInput.element);
 
         // text input for the string attribute value
-        this.newStringAttributeValueInput = new FormIt.PluginUI.TextInputModule('String Attribute Value', 'newStringAttributeValueInputModule', 'inputModuleContainer', 'newStringAttributeValueInput');
+        this.newStringAttributeValueInput = new FormIt.PluginUI.TextAreaInputModule('String Attribute Value');
+        this.newStringAttributeValueInput.element.id = 'newStringAttributeValueInputModule';
         this.newStringAttributeValueInput.getInput().setAttribute('title', 'Enter text for the string attribute value.');
-        this.newStringAttributeValueInput.setInputHeight(100);
+        this.newStringAttributeValueInput.setTextAreaRows(5);
+        //this.newStringAttributeValueInput.setInputHeight(100);
         this.newStringAttributeInfoCard.infoCardExpandableContent.appendChild(this.newStringAttributeValueInput.element);
 
         // submit button

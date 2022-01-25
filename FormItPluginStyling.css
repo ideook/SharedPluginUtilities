@@ -47,7 +47,6 @@ body {
 
 .scrollableListContainer #scrollableListContainerZeroStateLabel {
     color: rgb(59, 59, 59);
-    margin-left: 10px;
     text-align: center;
 }
 
@@ -159,7 +158,9 @@ hr {
     align-self: center;
 }
 
-.contentContainer input {
+.contentContainer input, 
+.contentContainer textarea {
+    font-family: Arial;
     color: #4676a9;
     border: 1px solid #4676a9;
     padding: 4px;
@@ -168,7 +169,8 @@ hr {
     width: 100%;
 }
 
-.contentContainer input:hover, .contentContainer input:focus {
+.contentContainer input:hover, .contentContainer input:focus,
+.contentContainer textarea:hover, .contentContainer textarea:focus {
     border: 2px solid #c3e8f4;
     padding: 3px;
     margin-top: 5px;
@@ -176,7 +178,8 @@ hr {
     outline: none;
 }
 
-.contentContainer input:disabled {
+.contentContainer input:disabled,
+.contentContainer textarea:disabled {
     color: #616161;
     border: 2px solid #cfcfcf;
     background-color: #f2f2f2;
@@ -186,7 +189,8 @@ hr {
     outline: none;
 }
 
-.contentContainer input:disabled:hover {
+.contentContainer input:disabled:hover,
+.contentContainer textarea:disabled:hover {
     border: 2px solid #cfcfcf;
     background-color: #f2f2f2;
     padding: 3px;
