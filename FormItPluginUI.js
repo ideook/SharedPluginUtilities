@@ -687,6 +687,11 @@ FormIt.PluginUI.TextInputModule = class TextInputModule extends FormIt.PluginUI.
     getInput() {
         return this.input;
     }
+
+    // override the default input height for text that might be long
+    setInputHeight(nHeight) {
+        this.input.style.height = nHeight;
+    }
 }
 
 // typical numeric input and a label
@@ -1202,10 +1207,13 @@ FormIt.PluginUI.NewStringAttributeInfoCard = class NewStringAttributeInfoCard {
 
         // text input for the string attribute key
         this.newStringAttributeKeyInput = new FormIt.PluginUI.TextInputModule('String Attribute Key', 'newStringAttributeKeyInputModule', 'inputModuleContainer', 'newStringAttributeKeyInput');
+        this.newStringAttributeKeyInput.getInput().setAttribute('title', 'Enter text for the string attribute key.');
         this.newStringAttributeInfoCard.infoCardExpandableContent.appendChild(this.newStringAttributeKeyInput.element);
 
         // text input for the string attribute value
         this.newStringAttributeValueInput = new FormIt.PluginUI.TextInputModule('String Attribute Value', 'newStringAttributeValueInputModule', 'inputModuleContainer', 'newStringAttributeValueInput');
+        this.newStringAttributeValueInput.getInput().setAttribute('title', 'Enter text for the string attribute value.');
+        this.newStringAttributeValueInput.setInputHeight(100);
         this.newStringAttributeInfoCard.infoCardExpandableContent.appendChild(this.newStringAttributeValueInput.element);
 
         // submit button
@@ -1223,6 +1231,40 @@ FormIt.PluginUI.NewStringAttributeInfoCard = class NewStringAttributeInfoCard {
     hide()
     {
         this.newStringAttributeInfoCard.hide();
+    }
+
+    submitStringAttributeOnObject(existingAttributesListToUpdate)
+    {
+        // UI args
+        let interfaceArgs = { 
+            "sAttributeKey" : this.newStringAttributeKeyInput.getInput().value, "sAttributeValue" : this.newStringAttributeValueInput.getInput().value }
+
+        // get the selection info object from Properties Plus
+        FormItInterface.CallMethod("PropertiesPlus.getSelectionInfo", interfaceArgs, function(result)
+        {
+            let currentSelectionInfo = JSON.parse(result);
+
+            let args = { 
+                "sAttributeKey" : interfaceArgs.sAttributeKey, 
+                "sAttributeValue" : interfaceArgs.sAttributeValue,
+                "currentSelectionInfo" : currentSelectionInfo 
+            };
+
+            // set the attribute on the FormIt side
+            window.FormItInterface.CallMethod("ManageAttributes.setStringAttributeOnObjectFromInput", args);
+
+            // get the updated selection data from Properties Plus
+            FormItInterface.CallMethod("PropertiesPlus.getSelectionInfo", interfaceArgs, function(result)
+            {
+                // refresh the list of existing attributes
+                existingAttributesListToUpdate.update(JSON.parse(result).aSelectedObjectStringAttributes);
+            });
+
+        });
+
+        // clear the text input values
+        this.newStringAttributeKeyInput.getInput().value = '';
+        this.newStringAttributeValueInput.getInput().value = '';
     }
 }
 
