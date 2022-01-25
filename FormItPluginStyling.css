@@ -45,10 +45,9 @@ body {
     padding: 10px;
 }
 
-.scrollableListContainerZeroStateLabel {
+.scrollableListContainer #scrollableListContainerZeroStateLabel {
     color: rgb(59, 59, 59);
     margin-left: 10px;
-    margin-right: 10px;
     text-align: center;
 }
 

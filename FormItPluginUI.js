@@ -213,10 +213,12 @@ FormIt.PluginUI.InfoCardExpandable = class InfoCardExpandable {
 
 // list container - scrollable and with automatic zero-state
 FormIt.PluginUI.ListContainer = class ListContainer {
-    constructor(zeroStateMessageText) {
+    constructor(zeroStateMessageText, nListHeight) {
 
         // initialize the arguments
         this.zeroStateMessageText = zeroStateMessageText;
+        this.nEmptyListHeight = 60;
+        this.nPopulatedListHeight = nListHeight ? nListHeight : 200;
 
         // build and attach events
         this.element = this.build();
@@ -231,7 +233,7 @@ FormIt.PluginUI.ListContainer = class ListContainer {
 
         // the zero-state message will always be the first child
         this.zeroStateMessageLabel = document.createElement('p');
-        this.zeroStateMessageLabel.className = 'scrollableListContainerZeroStateLabel';
+        this.zeroStateMessageLabel.id = 'scrollableListContainerZeroStateLabel';
         this.zeroStateMessageLabel.innerHTML =  this.zeroStateMessageText;
         this.listContainerDiv.appendChild(this.zeroStateMessageLabel);
         
@@ -246,11 +248,15 @@ FormIt.PluginUI.ListContainer = class ListContainer {
         if (this.listContainerDiv.childElementCount > 1)
         {
             this.zeroStateMessageLabel.className = "hide";
+            // set the list to the specified height if provided
+            this.setListHeight(this.nPopulatedListHeight);
         }
         // otherwise, show it
         else 
         {
-            this.zeroStateMessageLabel.className = "show";;
+            this.zeroStateMessageLabel.className = "show";
+            // reset the list to a height more appropriate for its empty state
+            this.setListHeight(this.nEmptyListHeight);
         }
     }
 
