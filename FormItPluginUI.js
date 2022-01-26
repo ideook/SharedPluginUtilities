@@ -1290,22 +1290,22 @@ FormIt.PluginUI.NewStringAttributeInfoCard = class NewStringAttributeInfoCard {
         let interfaceArgs = { 
             "sAttributeKey" : this.newStringAttributeKeyInput.getInput().value, "sAttributeValue" : this.newStringAttributeValueInput.getInput().value }
 
-        // get the selection info object from Properties Plus
-        FormItInterface.CallMethod("PropertiesPlus.getSelectionInfo", interfaceArgs, function(result)
+        // get the attribute info object from Properties Plus
+        FormItInterface.CallMethod("PropertiesPlus.getAttributeInfo", interfaceArgs, function(result)
         {
-            let currentSelectionInfo = JSON.parse(result);
+            let attributeInfo = JSON.parse(result);
 
             let args = { 
                 "sAttributeKey" : interfaceArgs.sAttributeKey, 
                 "sAttributeValue" : interfaceArgs.sAttributeValue,
-                "currentSelectionInfo" : currentSelectionInfo 
+                "attributeInfo" : attributeInfo 
             };
 
             // set the attribute on the FormIt side
             window.FormItInterface.CallMethod("ManageAttributes.setStringAttributeOnObjectFromInput", args);
 
             // get the updated selection data from Properties Plus
-            FormItInterface.CallMethod("PropertiesPlus.getSelectionInfo", interfaceArgs, function(result)
+            FormItInterface.CallMethod("PropertiesPlus.getAttributeInfo", interfaceArgs, function(result)
             {
                 // refresh the list of existing attributes
                 existingAttributesListToUpdate.update(JSON.parse(result).aSelectedObjectStringAttributes);
