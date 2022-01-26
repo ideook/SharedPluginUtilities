@@ -1284,6 +1284,7 @@ FormIt.PluginUI.NewStringAttributeInfoCard = class NewStringAttributeInfoCard {
         this.newStringAttributeInfoCard.hide();
     }
 
+    // submit new string attributes on the selected object
     submitStringAttributeOnObject(existingAttributesListToUpdate)
     {
         // UI args
@@ -1310,7 +1311,39 @@ FormIt.PluginUI.NewStringAttributeInfoCard = class NewStringAttributeInfoCard {
                 // refresh the list of existing attributes
                 existingAttributesListToUpdate.update(JSON.parse(result).aSelectedObjectStringAttributes);
             });
+        });
 
+        // clear the text input values
+        this.newStringAttributeKeyInput.getInput().value = '';
+        this.newStringAttributeValueInput.getInput().value = '';
+    }
+
+    submitStringAttributeOnHistory(existingAttributesListToUpdate)
+    {
+        // UI args
+        let interfaceArgs = { 
+            "sAttributeKey" : this.newStringAttributeKeyInput.getInput().value, "sAttributeValue" : this.newStringAttributeValueInput.getInput().value }
+
+        // get the attribute info object from Properties Plus
+        FormItInterface.CallMethod("PropertiesPlus.getAttributeInfo", interfaceArgs, function(result)
+        {
+            let attributeInfo = JSON.parse(result);
+
+            let args = { 
+                "sAttributeKey" : interfaceArgs.sAttributeKey, 
+                "sAttributeValue" : interfaceArgs.sAttributeValue,
+                "attributeInfo" : attributeInfo 
+            };
+
+            // set the attribute on the FormIt side
+            window.FormItInterface.CallMethod("ManageAttributes.setStringAttributeOnHistoryFromInput", args);
+
+            // get the updated selection data from Properties Plus
+            FormItInterface.CallMethod("PropertiesPlus.getAttributeInfo", interfaceArgs, function(result)
+            {
+                // refresh the list of existing attributes
+                existingAttributesListToUpdate.update(JSON.parse(result).aEditingHistoryStringAttributes);
+            });
         });
 
         // clear the text input values
