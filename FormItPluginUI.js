@@ -788,14 +788,16 @@ FormIt.PluginUI.NumberInputModule = class NumberInputModule extends FormIt.Plugi
 
 // select input / drop-down
 FormIt.PluginUI.SelectInputModule = class SelectInputModule {
-    constructor(labelText, defaultOption) {
+    constructor(labelText, defaultOption, onChangeFunction) {
        
         // initialize the arguments
         this.labelText = labelText;
         this.defaultOption = defaultOption;
+        this.onChangeFunction = onChangeFunction;
 
         // build
         this.element = this.build();
+        this.attachEvents();
     }
 
     // construct and append the UI elements
@@ -817,6 +819,57 @@ FormIt.PluginUI.SelectInputModule = class SelectInputModule {
         container.appendChild(this.input);
 
         return container;
+    }
+
+    attachEvents() {
+        this.input.addEventListener("focus", (event) => {
+            // keep track of the existing input value - used to prevent submission if nothing changed
+            this.existingInputValue = event.currentTarget.value;
+        });
+
+        this.input.addEventListener("change", (event) => {
+
+            if (this.onChangeFunction)
+            {
+                // ensure that only if the value is different than it was when we started, do we submit the function
+                if (event.currentTarget.value !== this.existingInputValue)
+                {
+                    const resultCallback = (returnVal) => {
+
+                        returnVal = JSON.parse(returnVal);
+
+                        if (returnVal){
+                            this.input.value = returnVal;
+                        }
+                    }
+
+                    this.onChangeFunction(event.currentTarget.value, resultCallback);
+                }
+            }
+        });
+
+        this.input.addEventListener("keydown", (event) => {
+            if (event.keyCode === 13)
+            {
+                event.preventDefault();
+            }
+        });
+
+        this.input.addEventListener("keyup", (event) => {
+            if (event.keyCode === 13)
+            {
+                const resultCallback = (returnVal) => {
+
+                    returnVal = JSON.parse(returnVal);
+
+                    if (returnVal){
+                        this.input.value = returnVal;
+                    }
+                }
+                this.submitTextFunction(event.currentTarget.value, resultCallback);
+                event.preventDefault();
+            }
+        });
     }
 
     getInput() {
