@@ -1320,12 +1320,12 @@ FormIt.PluginUI.NewStringAttributeInfoCard = class NewStringAttributeInfoCard {
         this.newStringAttributeInfoCard = new FormIt.PluginUI.InfoCardExpandable(this.sInfoCardLabel, this.bStartExpanded);
 
         // text input for the string attribute key
-        this.newStringAttributeKeyInput = new FormIt.PluginUI.TextInputModule('String Attribute Key', 'newStringAttributeKeyInputModule', 'inputModuleContainer', 'newStringAttributeKeyInput');
+        this.newStringAttributeKeyInput = new FormIt.PluginUI.TextInputModule('String Attribute Key', 'newStringAttributeKeyInputModule', 'inputModuleContainer', 'newStringAttributeKeyInput', function() { });
         this.newStringAttributeKeyInput.getInput().setAttribute('title', 'Enter text for the string attribute key.');
         this.newStringAttributeInfoCard.infoCardExpandableContent.appendChild(this.newStringAttributeKeyInput.element);
 
         // text input for the string attribute value
-        this.newStringAttributeValueInput = new FormIt.PluginUI.TextAreaInputModule('String Attribute Value');
+        this.newStringAttributeValueInput = new FormIt.PluginUI.TextAreaInputModule('String Attribute Value', function() { });
         this.newStringAttributeValueInput.element.id = 'newStringAttributeValueInputModule';
         this.newStringAttributeValueInput.getInput().setAttribute('title', 'Enter text for the string attribute value.');
         this.newStringAttributeValueInput.setTextAreaRows(5);
@@ -1373,8 +1373,9 @@ FormIt.PluginUI.NewStringAttributeInfoCard = class NewStringAttributeInfoCard {
             // get the updated selection data from Properties Plus
             FormItInterface.CallMethod("PropertiesPlus.getAttributeInfo", interfaceArgs, function(result)
             {
+                var attributeInfo = JSON.parse(result);
                 // refresh the list of existing attributes
-                existingAttributesListToUpdate.update(JSON.parse(result).aSelectedObjectStringAttributes);
+                existingAttributesListToUpdate.update(attributeInfo.aSelectedObjectStringAttributeIDs, attributeInfo.aSelectedObjectStringAttributes);
             });
         });
 
@@ -1406,8 +1407,10 @@ FormIt.PluginUI.NewStringAttributeInfoCard = class NewStringAttributeInfoCard {
             // get the updated selection data from Properties Plus
             FormItInterface.CallMethod("PropertiesPlus.getAttributeInfo", interfaceArgs, function(result)
             {
+                var attributeInfo = JSON.parse(result);
+
                 // refresh the list of existing attributes
-                existingAttributesListToUpdate.update(JSON.parse(result).aEditingHistoryStringAttributes);
+                existingAttributesListToUpdate.update(attributeInfo.aEditingHistoryStringAttributeIDs, attributeInfo.aEditingHistoryStringAttributes);
             });
         });
 
