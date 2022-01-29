@@ -1288,7 +1288,7 @@ FormIt.PluginUI.StringAttributeListItemViewOnly = class StringAttributeListItemV
 
         // attribute ID
         let attributeIDLabel = document.createElement('div');
-        attributeIDLabel.textContent = 'Attribute ID:';
+        attributeIDLabel.textContent = 'ID:';
         attributeIDLabel.style.fontWeight = 'bold';
         attributeIDLabel.style.paddingBottom = 5;
         this.stringAttributeContainerItem.element.appendChild(attributeIDLabel);
