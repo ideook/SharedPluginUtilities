@@ -1211,7 +1211,6 @@ FormIt.PluginUI.StringAttributeListViewOnly = class StringAttributeListViewOnly 
 
         // list of attributes
         this.stringAttributeList = new FormIt.PluginUI.ListContainer('No string attributes found.');
-
         this.stringAttributeList.element.className = 'scrollableListContainer';
         this.stringAttributeList.setListHeight(this.nListHeight);
         this.stringAttributeList.toggleZeroStateMessage();
@@ -1220,13 +1219,13 @@ FormIt.PluginUI.StringAttributeListViewOnly = class StringAttributeListViewOnly 
         return this.stringAttributeListInfoCard.element;
     }
 
-    update(aStringAttributes)
+    update(aStringAttributeIDs, aStringAttributes)
     {
         this.stringAttributeList.clearList();
 
         for (var i = 0; i < aStringAttributes.length; i++)
         {
-            let attributeItem = new FormIt.PluginUI.StringAttributeListItemViewOnly(i, aStringAttributes[i].sKey, aStringAttributes[i].sValue);
+            let attributeItem = new FormIt.PluginUI.StringAttributeListItemViewOnly(i, aStringAttributeIDs[i], aStringAttributes[i].sKey, aStringAttributes[i].sValue);
             this.stringAttributeList.element.appendChild(attributeItem.element);       
         }
         this.stringAttributeList.toggleZeroStateMessage();
@@ -1245,9 +1244,10 @@ FormIt.PluginUI.StringAttributeListViewOnly = class StringAttributeListViewOnly 
 
 // create a string attribute list item, showing the key and value in a container
 FormIt.PluginUI.StringAttributeListItemViewOnly = class StringAttributeListItemViewOnly {
-    constructor(nStringAttributeCount, stringAttributeKeyContent, stringAttributeValueContent) {
+    constructor(nStringAttributeCount, nStringAttributeID, stringAttributeKeyContent, stringAttributeValueContent) {
 
         // initialize the arguments
+        this.nStringAttributeID = nStringAttributeID;
         this.nStringAttributeCount = nStringAttributeCount;
         this.stringAttributeKeyContent = stringAttributeKeyContent;
         this.stringAttributeValueContent = stringAttributeValueContent;
@@ -1285,6 +1285,18 @@ FormIt.PluginUI.StringAttributeListItemViewOnly = class StringAttributeListItemV
         this.attributeValueContentDiv.style.paddingBottom = 10;
         this.attributeValueContentDiv.textContent = this.stringAttributeValueContent;
         this.stringAttributeContainerItem.element.appendChild(this.attributeValueContentDiv);
+
+        // attribute ID
+        let attributeIDLabel = document.createElement('div');
+        attributeIDLabel.textContent = 'Attribute ID:';
+        attributeIDLabel.style.fontWeight = 'bold';
+        attributeIDLabel.style.paddingBottom = 5;
+        this.stringAttributeContainerItem.element.appendChild(attributeIDLabel);
+
+        this.attributeIDContentDiv = document.createElement('div');
+        this.attributeIDContentDiv.style.paddingBottom = 10;
+        this.attributeIDContentDiv.textContent = this.nStringAttributeID;
+        this.stringAttributeContainerItem.element.appendChild(this.attributeIDContentDiv);
 
         return this.stringAttributeContainerItem.element;
     }
