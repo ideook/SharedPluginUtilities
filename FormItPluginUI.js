@@ -1264,7 +1264,7 @@ FormIt.PluginUI.StringAttributeListItemViewOnly = class StringAttributeListItemV
         
         // attribute key
         let attributeKeyLabelDiv = document.createElement('div');
-        attributeKeyLabelDiv.textContent = 'Key ' + this.nStringAttributeCount + ':';
+        attributeKeyLabelDiv.textContent = 'Attribute Key ' + this.nStringAttributeCount + ':';
         attributeKeyLabelDiv.style.fontWeight = 'bold';
         attributeKeyLabelDiv.style.paddingBottom = 5;
         this.stringAttributeContainerItem.element.appendChild(attributeKeyLabelDiv);
@@ -1276,7 +1276,7 @@ FormIt.PluginUI.StringAttributeListItemViewOnly = class StringAttributeListItemV
 
         // attribute value
         let attributeValueLabel = document.createElement('div');
-        attributeValueLabel.textContent = 'Value:';
+        attributeValueLabel.textContent = 'Attribute Value:';
         attributeValueLabel.style.fontWeight = 'bold';
         attributeValueLabel.style.paddingBottom = 5;
         this.stringAttributeContainerItem.element.appendChild(attributeValueLabel);
@@ -1288,7 +1288,7 @@ FormIt.PluginUI.StringAttributeListItemViewOnly = class StringAttributeListItemV
 
         // attribute ID
         let attributeIDLabel = document.createElement('div');
-        attributeIDLabel.textContent = 'ID:';
+        attributeIDLabel.textContent = 'Attribute ID:';
         attributeIDLabel.style.fontWeight = 'bold';
         attributeIDLabel.style.paddingBottom = 5;
         this.stringAttributeContainerItem.element.appendChild(attributeIDLabel);
@@ -1299,6 +1299,123 @@ FormIt.PluginUI.StringAttributeListItemViewOnly = class StringAttributeListItemV
         this.stringAttributeContainerItem.element.appendChild(this.attributeIDContentDiv);
 
         return this.stringAttributeContainerItem.element;
+    }
+}
+
+// displays the given list of string attributes - with delete button
+// used in Properties Plus and Manage Attributes
+FormIt.PluginUI.StringAttributeListWithDelete = class StringAttributeListViewWithDelete {
+    constructor(sInfoCardLabel, bStartExpanded, nListHeight) {
+
+            // initialize the arguments
+            this.sInfoCardLabel = sInfoCardLabel;
+            this.bStartExpanded = bStartExpanded;
+            this.nListHeight = nListHeight;
+    
+            // build
+            this.element = this.build();
+    }
+
+    build()
+    {
+        this.stringAttributeListInfoCard = new FormIt.PluginUI.InfoCardExpandable(this.sInfoCardLabel, this.bStartExpanded);
+
+        // list of attributes
+        this.stringAttributeList = new FormIt.PluginUI.ListContainer('No string attributes found.');
+        this.stringAttributeList.element.className = 'scrollableListContainer';
+        this.stringAttributeList.setListHeight(this.nListHeight);
+        this.stringAttributeList.toggleZeroStateMessage();
+        this.stringAttributeListInfoCard.infoCardExpandableContent.appendChild(this.stringAttributeList.element);
+
+        return this.stringAttributeListInfoCard.element;
+    }
+
+    update(aStringAttributeIDs, aStringAttributes)
+    {
+        this.stringAttributeList.clearList();
+
+        for (var i = 0; i < aStringAttributes.length; i++)
+        {
+            let attributeItem = new FormIt.PluginUI.StringAttributeListItemWithDelete(i, aStringAttributeIDs[i], aStringAttributes[i].sKey, aStringAttributes[i].sValue, this);
+            this.stringAttributeList.element.appendChild(attributeItem.element);       
+        }
+        this.stringAttributeList.toggleZeroStateMessage();
+    }
+
+    show()
+    {
+        this.stringAttributeListInfoCard.show();
+    }
+
+    hide()
+    {
+        this.stringAttributeListInfoCard.hide();
+    }
+}
+
+// a string attribute list item with a delete button
+FormIt.PluginUI.StringAttributeListItemWithDelete = class StringAttributeListItemWithDelete {
+    constructor(nStringAttributeCount, nStringAttributeID, stringAttributeKeyContent, stringAttributeValueContent, stringAttributeListToUpdate) {
+
+        // initialize the arguments
+        this.nStringAttributeID = nStringAttributeID;
+        this.nStringAttributeCount = nStringAttributeCount;
+        this.stringAttributeKeyContent = stringAttributeKeyContent;
+        this.stringAttributeValueContent = stringAttributeValueContent;
+        this.stringAttributeListToUpdate = stringAttributeListToUpdate;
+
+        // build
+        this.element = this.build();
+        this.attachEvents();
+    }
+
+    build()
+    {
+        // overall container
+        this.itemAndDeleteContainer = document.createElement('div');
+        this.itemAndDeleteContainer.id = 'deselectButtonRow';
+
+        // create the delete button
+        this.deleteButton = document.createElement("img");
+        this.deleteButton.src = "https://formit3d.github.io/FormItExamplePlugins/SharedPluginFiles/img/remove_blue.png";
+        this.deleteButton.id = "stringAttributeDeleteButton";
+        this.deleteButton.title = "Click to delete this string attribute."
+        this.itemAndDeleteContainer.appendChild(this.deleteButton);
+
+        // create the string attribute list item
+        let readOnlyListItem = new FormIt.PluginUI.StringAttributeListItemViewOnly(this.nStringAttributeCount, this.nStringAttributeID, this.stringAttributeKeyContent, this.stringAttributeValueContent);
+        this.itemAndDeleteContainer.appendChild(readOnlyListItem.element);
+
+        return this.itemAndDeleteContainer;
+    }
+
+    attachEvents() {
+
+        this.deleteButton.addEventListener("click", () => {
+
+            var doDelete = confirm("Are you sure you want to delete this string attribute? \n\nDeleting string attributes could cause features to stop working or introduce instability. You should only delete string attributes if you made them or understand their impact.");
+
+            if (doDelete)
+            {
+                // record this as a variable that can be passed into the callmethod
+                var self = this;
+                let args = { 
+                    "nStringAttributeID" : this.nStringAttributeID
+                };
+    
+                // delete the string attribute
+                window.FormItInterface.CallMethod("ManageAttributes.deleteStringAttribute", args);
+    
+                // get the updated selection data from Properties Plus
+                FormItInterface.CallMethod("PropertiesPlus.getAttributeInfo", self, function(result)
+                {
+                    var attributeInfo = JSON.parse(result);
+                    // refresh the list of existing attributes
+                    self.stringAttributeListToUpdate.update(attributeInfo.aSelectedObjectStringAttributeIDs, attributeInfo.aSelectedObjectStringAttributes);
+                });
+            }
+        });
+
     }
 }
 
