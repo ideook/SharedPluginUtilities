@@ -675,10 +675,10 @@ FormIt.PluginUI.TextInputModule = class TextInputModule extends FormIt.PluginUI.
         container.className = this.moduleClassName;
 
         // create the label
-        let textInputLabel = document.createElement('div');
-        textInputLabel.className = 'inputLabel';
-        textInputLabel.innerHTML = this.moduleLabelText;
-        container.appendChild(textInputLabel);
+        this.textInputLabel = document.createElement('div');
+        this.textInputLabel.className = 'inputLabel';
+        this.textInputLabel.innerHTML = this.moduleLabelText;
+        container.appendChild(this.textInputLabel);
 
         // create the input
         this.input = document.createElement('input');
@@ -692,6 +692,16 @@ FormIt.PluginUI.TextInputModule = class TextInputModule extends FormIt.PluginUI.
     // get the input for get/set value operations
     getInput() {
         return this.input;
+    }
+
+    // get the label 
+    getLabel() {
+        return this.textInputLabel;
+    }
+
+    // set the label
+    setLabel(newLabelText) {
+        this.textInputLabel.innerHTML = newLabelText;
     }
 }
 
