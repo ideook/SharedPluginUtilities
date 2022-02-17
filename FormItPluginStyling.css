@@ -254,6 +254,7 @@ option:hover {
     background-color: #4676a9;
     border: 2px solid #c3e8f4;
     padding: 6px;
+    margin-bottom: 20px;
 }
 
 .contentContainer input[type=button]:focus, input[type=submit]:focus {
@@ -270,6 +271,10 @@ option:hover {
     border: 1px solid darkgrey;
     outline: none;
     width: auto;
+}
+
+.contentContainer input[type=button]:hover:disabled {
+    border: 2px solid darkgrey;
 }
 
 /* typical button with info toggle */
