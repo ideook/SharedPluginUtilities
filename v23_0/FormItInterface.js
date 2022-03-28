@@ -103,13 +103,14 @@ FormItInterface.Initialize = function(callbackMethod)
                     channel.objects.FormItInterface.SubscribeMessage(msg);
                     if (handler)
                     {
-                        channel.objects.FormItInterface.FormItMessage[msg] = handler;
+                        channel.objects.FormItInterface.FormItMessage[msg] = channel.objects.FormItInterface.FormItMessage[msg] || []
+                        channel.objects.FormItInterface.FormItMessage[msg].push(handler);
                         if (!channel.objects.FormItInterface.FormItMessage.connected)
                         {
                             var msgFunc = function(arg)
                             {
                                 var jsonArg = JSON.parse(arg);
-                                channel.objects.FormItInterface.FormItMessage[jsonArg.msg](jsonArg.payload)
+                                channel.objects.FormItInterface.FormItMessage[jsonArg.msg].forEach((handler) => handler(jsonArg.payload));
                             };
                             channel.objects.FormItInterface.FormItMessage.connect(msgFunc);
                             channel.objects.FormItInterface.FormItMessage.connected = true;
@@ -160,9 +161,10 @@ FormItInterface.Initialize = function(callbackMethod)
             {
                 if (!FormItInterface.MessageHandlers)
                 {
-                    FormItInterface.MessageHandlers = [];
+                    FormItInterface.MessageHandlers = {};
                 }
-                FormItInterface.MessageHandlers[msg] = handler;
+                FormItInterface.MessageHandlers[msg] = FormItInterface.MessageHandlers[msg] || []
+                FormItInterface.MessageHandlers[msg].push(handler);
                 //console.log("Subscribing to:" + msg + "\n");
                 postRobot.send(parent, 'FormIt.PubSub', msg).then(function(event) {
                     //console.log('Event Data: ', JSON.stringify(event.data));
@@ -180,10 +182,10 @@ FormItInterface.Initialize = function(callbackMethod)
                     function(event) {
                         //console.log('(Web side) msg: ', event.data);
                         var jsonMessage = JSON.parse(event.data);
-                        var msgHandler = FormItInterface.MessageHandlers[jsonMessage.msg];
-                        if (!!msgHandler)
+                        var msgHandlers = FormItInterface.MessageHandlers[jsonMessage.msg];
+                        if (!!msgHandlers)
                         {
-                            msgHandler(event.data);
+                            msgHandlers.forEach((handler) => handler(event.data));
                         }
                     });
                     postRobot.FormItPluginMsgEventInitialized = true;
