@@ -364,3 +364,15 @@ FormIt.PluginUtils.Application.getOrCreateLayerByName = function(nHistoryID, lay
     
     return layerID;
 }
+
+// Function to conver the given length into the current FormIt units.
+FormIt.PluginUtils.currentUnits = async length =>
+{
+    var kMetricFactor = 100.0 / (2.54 * 12.0);
+    if ((await FormIt.Model.GetUnitType()) === FormIt.UnitType.kMetric)
+    {
+        return length * kMetricFactor;
+    }
+
+    return length;
+};
